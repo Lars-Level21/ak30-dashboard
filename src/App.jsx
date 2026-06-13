@@ -3,6 +3,57 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const C1 = "#60a5fa", C2 = "#34d399", C3 = "#a78bfa", RED = "#f87171", AMB = "#fbbf24";
 
+const AUTH_PASS = import.meta.env.VITE_AUTH_PASS || null;
+const STORAGE_KEY = "ak30_auth";
+
+function LoginGate({ onAuth }) {
+  const [pw, setPw] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (pw === AUTH_PASS) {
+      localStorage.setItem(STORAGE_KEY, "1");
+      onAuth();
+    } else {
+      setError(true);
+      setPw("");
+    }
+  };
+
+  return (
+    <div style={{ minHeight: "100vh", background: "#0f1117", display: "flex", alignItems: "center", justifyContent: "center", padding: 20, fontFamily: "system-ui,sans-serif" }}>
+      <div style={{ width: "100%", maxWidth: 340 }}>
+        <div style={{ textAlign: "center", marginBottom: 32 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 4, textTransform: "uppercase", color: "#4a5568", marginBottom: 8 }}>AK30 · Bostalsee · 2026</div>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "#e2e8f0" }}>Dashboard</div>
+        </div>
+        <form onSubmit={handleSubmit} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 10, padding: 24 }}>
+          <label style={{ display: "block", fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a5568", marginBottom: 8 }}>
+            Passwort
+          </label>
+          <input
+            type="password"
+            value={pw}
+            onChange={e => { setPw(e.target.value); setError(false); }}
+            autoFocus
+            style={{ width: "100%", boxSizing: "border-box", background: "#111827", border: `1px solid ${error ? RED : "#252d3d"}`, borderRadius: 6, padding: "10px 12px", fontSize: 14, color: "#e2e8f0", outline: "none", marginBottom: error ? 8 : 16 }}
+          />
+          {error && (
+            <div style={{ fontSize: 11, color: RED, marginBottom: 16 }}>Falsches Passwort</div>
+          )}
+          <button
+            type="submit"
+            style={{ width: "100%", background: C1, border: "none", borderRadius: 6, padding: "10px 0", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#0f1117", cursor: "pointer" }}
+          >
+            Einloggen
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 const hcpiTeams = [
   { name: "Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8 },
   { name: "Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8 },
@@ -155,6 +206,10 @@ function TeamTable({ data, title, subnote }) {
 }
 
 export default function App() {
+  const [authed, setAuthed] = useState(() => !AUTH_PASS || localStorage.getItem(STORAGE_KEY) === "1");
+
+  if (!authed) return <LoginGate onAuth={() => setAuthed(true)} />;
+
   const [page, setPage] = useState("hcpi");
   const [sub, setSub] = useState("ms");
   const [stTab, setStTab] = useState("st3");
