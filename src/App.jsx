@@ -207,9 +207,6 @@ function TeamTable({ data, title, subnote }) {
 
 export default function App() {
   const [authed, setAuthed] = useState(() => !AUTH_PASS || localStorage.getItem(STORAGE_KEY) === "1");
-
-  if (!authed) return <LoginGate onAuth={() => setAuthed(true)} />;
-
   const [page, setPage] = useState("hcpi");
   const [sub, setSub] = useState("ms");
   const [stTab, setStTab] = useState("st3");
@@ -220,6 +217,8 @@ export default function App() {
     window.addEventListener("resize", handler);
     return () => window.removeEventListener("resize", handler);
   }, []);
+
+  if (!authed) return <LoginGate onAuth={() => setAuthed(true)} />;
 
   // Points calculation with tie-splitting
   const calcPoints = (results) => {
