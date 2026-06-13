@@ -229,37 +229,51 @@ export default function App() {
           </div>
 
           <div style={css.card}>
-            <div style={{ background: "#111827", display: "grid", gridTemplateColumns: "150px repeat(3,76px) repeat(3,76px) repeat(3,76px) 65px" }}>
-              <div style={{ padding: "9px 10px 3px", borderBottom: "2px solid transparent" }} />
-              {[["1. Spieltag (09.05.)", C1], ["2. Spieltag (23.05.)", C2], ["3. Spieltag (06.06.)", C3]].map(([l, c]) => (
-                <div key={l} style={{ gridColumn: "span 3", textAlign: "center", fontSize: 9, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", padding: "9px 6px 3px", borderBottom: `2px solid ${c}`, color: c }}>{l}</div>
-              ))}
-              <div style={{ padding: "9px 10px 3px", borderBottom: "2px solid transparent" }} />
+            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 280 : 760 }}>
+                <thead>
+                  <tr style={{ background: "#111827" }}>
+                    <th rowSpan={2} style={{ ...css.th, textAlign: "left", position: "sticky", left: 0, background: "#111827", zIndex: 2, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>Mannschaft</th>
+                    {[["1. Spieltag (09.05.)", "1.ST", C1], ["2. Spieltag (23.05.)", "2.ST", C2], ["3. Spieltag (06.06.)", "3.ST", C3]].map(([l, s, c]) => (
+                      <th key={l} colSpan={isMobile ? 1 : 3} style={{ ...css.th, textAlign: "center", color: c, borderBottom: `2px solid ${c}`, padding: "9px 6px 4px" }}>{isMobile ? s : l}</th>
+                    ))}
+                    <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>ΔØ 1→3</th>
+                  </tr>
+                  <tr style={{ background: "#111827", borderBottom: "2px solid #1e2a3a" }}>
+                    <th style={{ ...css.th, color: C1 }}>Ø HCPI</th>
+                    {!isMobile && <th style={css.th}>Med</th>}
+                    {!isMobile && <th style={css.th}>N</th>}
+                    <th style={{ ...css.th, color: C2 }}>Ø HCPI</th>
+                    {!isMobile && <th style={css.th}>Med</th>}
+                    {!isMobile && <th style={css.th}>N</th>}
+                    <th style={{ ...css.th, color: C3 }}>Ø HCPI</th>
+                    {!isMobile && <th style={css.th}>Med</th>}
+                    {!isMobile && <th style={css.th}>N</th>}
+                  </tr>
+                </thead>
+                <tbody>
+                  {hcpiTeams.map(t => {
+                    const d = t.s3avg - t.s1avg;
+                    const dc = d > 0.1 ? RED : d < -0.1 ? C2 : "#64748b";
+                    return (
+                      <tr key={t.name} style={{ borderBottom: "1px solid #1e2a3a" }}>
+                        <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: "#e2e8f0", position: "sticky", left: 0, background: "#1a1f2e", zIndex: 1 }}>{t.name}</td>
+                        <td style={{ ...css.td, color: C1, fontWeight: 600 }}>{t.s1avg.toFixed(2)}</td>
+                        {!isMobile && <td style={css.td}>{t.s1med.toFixed(2)}</td>}
+                        {!isMobile && <td style={css.td}>{t.s1n}</td>}
+                        <td style={{ ...css.td, color: C2, fontWeight: 600 }}>{t.s2avg.toFixed(2)}</td>
+                        {!isMobile && <td style={css.td}>{t.s2med.toFixed(2)}</td>}
+                        {!isMobile && <td style={css.td}>{t.s2n}</td>}
+                        <td style={{ ...css.td, color: C3, fontWeight: 600 }}>{t.s3avg.toFixed(2)}</td>
+                        {!isMobile && <td style={css.td}>{t.s3med.toFixed(2)}</td>}
+                        {!isMobile && <td style={css.td}>{t.s3n}</td>}
+                        <td style={{ ...css.td, fontWeight: 700, color: dc }}>{(d >= 0 ? "+" : "") + d.toFixed(2)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
-            <div style={{ background: "#111827", display: "grid", gridTemplateColumns: "150px repeat(3,76px) repeat(3,76px) repeat(3,76px) 65px", borderBottom: "2px solid #1e2a3a" }}>
-              {["Mannschaft", "Ø HCPI", "Med", "N", "Ø HCPI", "Med", "N", "Ø HCPI", "Med", "N", "ΔØ 1→3"].map((h, i) => (
-                <div key={i} style={{ ...css.th, textAlign: i === 0 ? "left" : "right" }}>{h}</div>
-              ))}
-            </div>
-            {hcpiTeams.map(t => {
-              const d = t.s3avg - t.s1avg;
-              const dc2 = d > 0.1 ? RED : d < -0.1 ? C2 : "#64748b";
-              return (
-                <div key={t.name} style={{ display: "grid", gridTemplateColumns: "150px repeat(3,76px) repeat(3,76px) repeat(3,76px) 65px", borderBottom: "1px solid #1e2a3a" }}>
-                  <div style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: "#e2e8f0" }}>{t.name}</div>
-                  <div style={{ ...css.td, color: C1, fontWeight: 600 }}>{t.s1avg.toFixed(2)}</div>
-                  <div style={css.td}>{t.s1med.toFixed(2)}</div>
-                  <div style={css.td}>{t.s1n}</div>
-                  <div style={{ ...css.td, color: C2, fontWeight: 600 }}>{t.s2avg.toFixed(2)}</div>
-                  <div style={css.td}>{t.s2med.toFixed(2)}</div>
-                  <div style={css.td}>{t.s2n}</div>
-                  <div style={{ ...css.td, color: C3, fontWeight: 600 }}>{t.s3avg.toFixed(2)}</div>
-                  <div style={css.td}>{t.s3med.toFixed(2)}</div>
-                  <div style={css.td}>{t.s3n}</div>
-                  <div style={{ ...css.td, fontWeight: 700, color: dc2 }}>{(d >= 0 ? "+" : "") + d.toFixed(2)}</div>
-                </div>
-              );
-            })}
           </div>
 
           <div style={css.card}>
