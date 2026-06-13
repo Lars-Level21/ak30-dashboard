@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const C1 = "#60a5fa", C2 = "#34d399", C3 = "#a78bfa", RED = "#f87171", AMB = "#fbbf24";
@@ -41,21 +41,22 @@ const st3 = [
 ];
 
 const players = [
-  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false },
-  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false },
-  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false },
-  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false },
-  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false },
-  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false },
-  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false },
-  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false },
-  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true  },
-  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true  },
-  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false },
-  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false },
+  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, pf: 6,    sf: 99   },
+  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, pf: 7,    sf: 81   },
+  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, pf: null, sf: null },
+  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, pf: null, sf: null },
+  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, pf: 8,    sf: 84   },
+  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, pf: 7,    sf: 89   },
+  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, pf: null, sf: null },
+  { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, pf: 4,    sf: 78   },
+  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, pf: 10,   sf: 92   },
+  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  pf: null, sf: null },
+  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  pf: null, sf: null },
+  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, pf: 12,   sf: 87   },
+  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, pf: 5,    sf: 82   },
 ];
 
-const PAR1 = 71, PAR2 = 72, PAR3 = 74;
+const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR_FS = 72;
 
 const css = {
   body:  { background: "#0f1117", minHeight: "100vh", padding: 20, fontFamily: "system-ui,sans-serif", color: "#e2e8f0", fontSize: 13 },
@@ -157,6 +158,13 @@ export default function App() {
   const [page, setPage] = useState("hcpi");
   const [sub, setSub] = useState("ms");
   const [stTab, setStTab] = useState("st3");
+  const [inclFS, setInclFS] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
 
   // Points calculation with tie-splitting
   const calcPoints = (results) => {
@@ -184,17 +192,19 @@ export default function App() {
 
   // Compute per-player averages
   const playersWithAvg = players.map(p => {
-    const scores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3]]
+    const leagueScores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3]]
       .filter(([s]) => s != null);
-    const deltas = scores.map(([s, ph, par]) => s - (par + ph));
-    const avgScore = scores.length > 0 ? (scores.reduce((a, [s]) => a + s, 0) / scores.length) : null;
+    const fsScores = (inclFS && p.sf != null) ? [[p.sf, p.pf, PAR_FS]] : [];
+    const allScores = [...leagueScores, ...fsScores];
+    const deltas = allScores.map(([s, ph, par]) => s - (par + ph));
+    const avgScore = allScores.length > 0 ? (allScores.reduce((a, [s]) => a + s, 0) / allScores.length) : null;
     const avgDelta = deltas.length > 0 ? (deltas.reduce((a, d) => a + d, 0) / deltas.length) : null;
-    return { ...p, avgScore, avgDelta, played: scores.length };
+    return { ...p, avgScore, avgDelta, played: allScores.length };
   });
 
   return (
-    <div style={css.body}>
-      <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 20, borderBottom: "1px solid #1e2a3a", paddingBottom: 0 }}>
+    <div style={{ ...css.body, padding: isMobile ? "12px 8px" : 20 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 20, borderBottom: "1px solid #1e2a3a", paddingBottom: 0, flexWrap: "wrap" }}>
         <span style={{ fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#4a5568", marginRight: 20, whiteSpace: "nowrap" }}>
           AK30 · Bostalsee · 2026
         </span>
@@ -204,7 +214,7 @@ export default function App() {
 
       {page === "hcpi" && (
         <div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 10, marginBottom: 16 }}>
             {[
               ["Feld Ø 1. Spieltag", "8.18", C1],
               ["Feld Ø 2. Spieltag", "7.60", C2],
@@ -274,7 +284,7 @@ export default function App() {
 
       {page === "ergebnis" && (
         <div>
-          <div style={{ display: "flex", gap: 4, marginBottom: 0 }}>
+          <div style={{ display: "flex", gap: 4, marginBottom: 0, flexWrap: "wrap" }}>
             <SubTab label="Mannschaftsvergleich" active={sub === "ms"} onClick={() => setSub("ms")} />
             <SubTab label="Bostalsee Einzel" active={sub === "ei"} onClick={() => setSub("ei")} />
             <SubTab label="Gesamttabelle" active={sub === "gesamt"} onClick={() => setSub("gesamt")} />
@@ -344,14 +354,42 @@ export default function App() {
 
           {sub === "ei" && (
             <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
-              <div style={css.sec}>Bostalsee – Spieler Δ (Score minus Par+PHCP) · Ausgegraut = Streicher</div>
-              <div style={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 800 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #252d3d", flexWrap: "wrap", gap: 4 }}>
+                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4a5568", padding: "12px 14px 10px" }}>
+                  Bostalsee – Spieler Δ (Score minus Par+PHCP)
+                </div>
+                <div style={{ padding: "10px 14px" }}>
+                  <button
+                    onClick={() => setInclFS(!inclFS)}
+                    style={{ background: inclFS ? AMB : "#252d3d", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: inclFS ? "#0f1117" : "#4a5568", cursor: "pointer" }}
+                  >
+                    {inclFS ? "✓ " : ""}Freundschaftsspiele
+                  </button>
+                </div>
+              </div>
+              <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1060 }}>
                   <thead>
                     <tr>
-                      {["Spieler", "ST1 PHCP", "ST1 Soll", "ST1 Sc", "ST1 Δ", "ST2 PHCP", "ST2 Soll", "ST2 Sc", "ST2 Δ", "ST3 PHCP", "ST3 Soll", "ST3 Sc", "ST3 Δ", "Ø Score", "Ø Δ"].map((h, i) =>
-                        <th key={i} style={{ ...css.th, textAlign: i === 0 ? "left" : "right", background: i >= 13 ? "#161d2c" : "transparent" }}>{h}</th>
-                      )}
+                      <th style={{ ...css.th, textAlign: "left", position: "sticky", left: 0, background: "#111827", zIndex: 2 }}>Spieler</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB, display: isMobile ? "none" : undefined }}>FS PHCP</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB, display: isMobile ? "none" : undefined }}>FS Soll</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB }}>FS Sc</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB }}>FS Δ</th>
+                      <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST1 PHCP</th>
+                      <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST1 Soll</th>
+                      <th style={css.th}>ST1 Sc</th>
+                      <th style={css.th}>ST1 Δ</th>
+                      <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST2 PHCP</th>
+                      <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST2 Soll</th>
+                      <th style={css.th}>ST2 Sc</th>
+                      <th style={css.th}>ST2 Δ</th>
+                      <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST3 PHCP</th>
+                      <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST3 Soll</th>
+                      <th style={css.th}>ST3 Sc</th>
+                      <th style={css.th}>ST3 Δ</th>
+                      <th style={{ ...css.th, background: "#161d2c" }}>Ø Score</th>
+                      <th style={{ ...css.th, background: "#161d2c" }}>Ø Δ</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -359,6 +397,7 @@ export default function App() {
                       const d1 = p.p1 != null ? p.s1 - (PAR1 + p.p1) : null;
                       const d2 = p.p2 != null ? p.s2 - (PAR2 + p.p2) : null;
                       const d3 = p.p3 != null ? p.s3 - (PAR3 + p.p3) : null;
+                      const df = p.pf != null ? p.sf - (PAR_FS + p.pf) : null;
                       const fV = (v, str) => v == null
                         ? <span style={{ color: "#2d3748" }}>—</span>
                         : <span style={{ opacity: str ? 0.4 : 1 }}>{v}</span>;
@@ -370,19 +409,24 @@ export default function App() {
                         : <span style={{ opacity: str ? 0.4 : 1, color: "#4a5568" }}>{par + ph}</span>;
                       const avgScoreColor = p.avgScore != null ? (p.avgScore < 85 ? C2 : p.avgScore < 92 ? AMB : RED) : "#2d3748";
                       const avgDeltaColor = p.avgDelta != null ? dColor(Math.round(p.avgDelta)) : "#2d3748";
+                      const mob = isMobile ? "none" : undefined;
                       return (
                         <tr key={p.name} style={{ borderBottom: "1px solid #1e2a3a" }}>
-                          <td style={{ ...css.td, textAlign: "left", color: "#cbd5e1", fontWeight: 500 }}>{p.name}</td>
-                          <td style={css.td}>{fV(p.p1, p.str1)}</td>
-                          <td style={css.td}>{fS(p.p1, PAR1, p.str1)}</td>
+                          <td style={{ ...css.td, textAlign: "left", color: "#cbd5e1", fontWeight: 500, position: "sticky", left: 0, background: "#1a1f2e", zIndex: 1 }}>{p.name}</td>
+                          <td style={{ ...css.td, background: "#19160a", display: mob }}>{fV(p.pf, false)}</td>
+                          <td style={{ ...css.td, background: "#19160a", display: mob }}>{fS(p.pf, PAR_FS, false)}</td>
+                          <td style={{ ...css.td, background: "#19160a" }}>{fV(p.sf, false)}</td>
+                          <td style={{ ...css.td, background: "#19160a" }}>{fD(df, false)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p1, p.str1)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p1, PAR1, p.str1)}</td>
                           <td style={css.td}>{fV(p.s1, p.str1)}</td>
                           <td style={css.td}>{fD(d1, p.str1)}</td>
-                          <td style={css.td}>{fV(p.p2, p.str2)}</td>
-                          <td style={css.td}>{fS(p.p2, PAR2, p.str2)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p2, p.str2)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p2, PAR2, p.str2)}</td>
                           <td style={css.td}>{fV(p.s2, p.str2)}</td>
                           <td style={css.td}>{fD(d2, p.str2)}</td>
-                          <td style={css.td}>{fV(p.p3, p.str3)}</td>
-                          <td style={css.td}>{fS(p.p3, PAR3, p.str3)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p3, p.str3)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p3, PAR3, p.str3)}</td>
                           <td style={css.td}>{fV(p.s3, p.str3)}</td>
                           <td style={css.td}>{fD(d3, p.str3)}</td>
                           <td style={{ ...css.td, background: "#161d2c", color: avgScoreColor, fontWeight: 700 }}>
@@ -397,7 +441,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · Ausgegraut = Streicher · Ø Score / Ø Δ über alle gespielten Runden</div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS = Freundschaftsspiel Mommenheim 21.03. · Ø {inclFS ? "inkl. Freundschaftsspiel" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
             </div>
           )}
         </div>
