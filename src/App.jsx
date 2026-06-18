@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const C1 = "#60a5fa", C2 = "#34d399", C3 = "#a78bfa", RED = "#f87171", AMB = "#fbbf24";
+const C1 = "#60a5fa", C2 = "#34d399", C3 = "#a78bfa", C4 = "#fb923c", RED = "#f87171", AMB = "#fbbf24";
 
 const AUTH_PASS = import.meta.env.VITE_AUTH_PASS || null;
 const STORAGE_KEY = "ak30_auth";
@@ -55,11 +55,11 @@ function LoginGate({ onAuth }) {
 }
 
 const hcpiTeams = [
-  { name: "Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8 },
-  { name: "Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8 },
-  { name: "Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8 },
-  { name: "Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8 },
-  { name: "Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8 },
+  { name: "Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8, s4avg: 5.68, s4med: 6.25, s4n: 8 },
+  { name: "Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.45, s4med: 7.25, s4n: 8 },
+  { name: "Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 7.50, s4med: 6.70, s4n: 8 },
+  { name: "Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 10.49, s4med: 10.10, s4n: 7 },
+  { name: "Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 7.59, s4med: 7.25, s4n: 8 },
 ];
 
 const chartData = hcpiTeams.map(t => ({
@@ -67,6 +67,7 @@ const chartData = hcpiTeams.map(t => ({
   "1.ST": +t.s1avg.toFixed(2),
   "2.ST": +t.s2avg.toFixed(2),
   "3.ST": +t.s3avg.toFixed(2),
+  "4.ST": +t.s4avg.toFixed(2),
 }));
 
 const st1 = [
@@ -92,22 +93,22 @@ const st3 = [
 ];
 
 const players = [
-  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, pf: 6,    sf: 99   },
-  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, pf: 7,    sf: 81   },
-  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, pf: null, sf: null },
-  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, pf: null, sf: null },
-  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, pf: 8,    sf: 84   },
-  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, pf: 7,    sf: 89   },
-  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, pf: null, sf: null },
-  { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, pf: 4,    sf: 78   },
-  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, pf: 10,   sf: 92   },
-  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  pf: null, sf: null },
-  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  pf: null, sf: null },
-  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, pf: 12,   sf: 87   },
-  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, pf: 5,    sf: 82   },
+  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: null, str4: false, pf: 6,    sf: 99   },
+  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: null, str4: false, pf: 7,    sf: 81   },
+  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: null, str4: false, pf: null, sf: null },
+  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, pf: null, sf: null },
+  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false, pf: 8,    sf: 84   },
+  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: null, str4: false, pf: 7,    sf: 89   },
+  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: null, str4: false, pf: null, sf: null },
+  { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 4,    sf: 78   },
+  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, pf: 10,   sf: 92   },
+  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false, pf: null, sf: null },
+  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: null, s4: null, str4: false, pf: null, sf: null },
+  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 12,   sf: 87   },
+  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: null, str4: false, pf: 5,    sf: 82   },
 ];
 
-const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR_FS = 72;
+const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR_FS = 72;
 
 const css = {
   body:  { background: "#0f1117", minHeight: "100vh", padding: 20, fontFamily: "system-ui,sans-serif", color: "#e2e8f0", fontSize: 13 },
@@ -246,7 +247,7 @@ export default function App() {
 
   // Compute per-player averages
   const playersWithAvg = players.map(p => {
-    const leagueScores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3]]
+    const leagueScores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3], [p.s4, p.p4, PAR4]]
       .filter(([s]) => s != null);
     const fsScores = (inclFS && p.sf != null) ? [[p.sf, p.pf, PAR_FS]] : [];
     const allScores = [...leagueScores, ...fsScores];
@@ -268,11 +269,12 @@ export default function App() {
 
       {page === "hcpi" && (
         <div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 10, marginBottom: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(5,1fr)", gap: 10, marginBottom: 16 }}>
             {[
               ["Feld Ø 1. Spieltag", "8.18", C1],
               ["Feld Ø 2. Spieltag", "7.60", C2],
               ["Feld Ø 3. Spieltag", "7.84", C3],
+              ["Feld Ø 4. Spieltag", "7.46", C4],
               ["Stärkster Gegner", "Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
@@ -288,10 +290,10 @@ export default function App() {
                 <thead>
                   <tr style={{ background: "#111827" }}>
                     <th rowSpan={2} style={{ ...css.th, textAlign: "left", position: "sticky", left: 0, background: "#111827", zIndex: 2, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>Mannschaft</th>
-                    {[["1. Spieltag (09.05.)", "1.ST", C1], ["2. Spieltag (23.05.)", "2.ST", C2], ["3. Spieltag (06.06.)", "3.ST", C3]].map(([l, s, c]) => (
+                    {[["1. Spieltag (09.05.)", "1.ST", C1], ["2. Spieltag (23.05.)", "2.ST", C2], ["3. Spieltag (06.06.)", "3.ST", C3], ["4. Spieltag (20.06.)", "4.ST", C4]].map(([l, s, c]) => (
                       <th key={l} colSpan={isMobile ? 1 : 3} style={{ ...css.th, textAlign: "center", color: c, borderBottom: `2px solid ${c}`, padding: "9px 6px 4px" }}>{isMobile ? s : l}</th>
                     ))}
-                    <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>ΔØ 1→3</th>
+                    <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>ΔØ 1→4</th>
                   </tr>
                   <tr style={{ background: "#111827", borderBottom: "2px solid #1e2a3a" }}>
                     <th style={{ ...css.th, color: C1 }}>Ø HCPI</th>
@@ -303,11 +305,14 @@ export default function App() {
                     <th style={{ ...css.th, color: C3 }}>Ø HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
+                    <th style={{ ...css.th, color: C4 }}>Ø HCPI</th>
+                    {!isMobile && <th style={css.th}>Med</th>}
+                    {!isMobile && <th style={css.th}>N</th>}
                   </tr>
                 </thead>
                 <tbody>
                   {hcpiTeams.map(t => {
-                    const d = t.s3avg - t.s1avg;
+                    const d = t.s4avg - t.s1avg;
                     const dc = d > 0.1 ? RED : d < -0.1 ? C2 : "#64748b";
                     return (
                       <tr key={t.name} style={{ borderBottom: "1px solid #1e2a3a" }}>
@@ -321,6 +326,9 @@ export default function App() {
                         <td style={{ ...css.td, color: C3, fontWeight: 600 }}>{t.s3avg.toFixed(2)}</td>
                         {!isMobile && <td style={css.td}>{t.s3med.toFixed(2)}</td>}
                         {!isMobile && <td style={css.td}>{t.s3n}</td>}
+                        <td style={{ ...css.td, color: C4, fontWeight: 600 }}>{t.s4avg.toFixed(2)}</td>
+                        {!isMobile && <td style={css.td}>{t.s4med.toFixed(2)}</td>}
+                        {!isMobile && <td style={css.td}>{t.s4n}</td>}
                         <td style={{ ...css.td, fontWeight: 700, color: dc }}>{(d >= 0 ? "+" : "") + d.toFixed(2)}</td>
                       </tr>
                     );
@@ -343,6 +351,7 @@ export default function App() {
                   <Bar dataKey="1.ST" fill={C1} radius={[3, 3, 0, 0]} />
                   <Bar dataKey="2.ST" fill={C2} radius={[3, 3, 0, 0]} />
                   <Bar dataKey="3.ST" fill={C3} radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="4.ST" fill={C4} radius={[3, 3, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -436,7 +445,7 @@ export default function App() {
                 </div>
               </div>
               <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1060 }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1260 }}>
                   <thead>
                     <tr>
                       <th style={{ ...css.th, textAlign: "left", position: "sticky", left: 0, background: "#111827", zIndex: 2 }}>Spieler</th>
@@ -456,16 +465,21 @@ export default function App() {
                       <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST3 Soll</th>
                       <th style={css.th}>ST3 Sc</th>
                       <th style={css.th}>ST3 Δ</th>
+                      <th style={{ ...css.th, color: C4, display: isMobile ? "none" : undefined }}>ST4 PHCP</th>
+                      <th style={{ ...css.th, color: C4, display: isMobile ? "none" : undefined }}>ST4 Soll</th>
+                      <th style={{ ...css.th, color: C4 }}>ST4 Sc</th>
+                      <th style={{ ...css.th, color: C4 }}>ST4 Δ</th>
                       <th style={{ ...css.th, background: "#161d2c" }}>Ø Score</th>
                       <th style={{ ...css.th, background: "#161d2c" }}>Ø Δ</th>
                     </tr>
                   </thead>
                   <tbody>
                     {playersWithAvg.map(p => {
-                      const d1 = p.p1 != null ? p.s1 - (PAR1 + p.p1) : null;
-                      const d2 = p.p2 != null ? p.s2 - (PAR2 + p.p2) : null;
-                      const d3 = p.p3 != null ? p.s3 - (PAR3 + p.p3) : null;
-                      const df = p.pf != null ? p.sf - (PAR_FS + p.pf) : null;
+                      const d1 = p.p1 != null && p.s1 != null ? p.s1 - (PAR1 + p.p1) : null;
+                      const d2 = p.p2 != null && p.s2 != null ? p.s2 - (PAR2 + p.p2) : null;
+                      const d3 = p.p3 != null && p.s3 != null ? p.s3 - (PAR3 + p.p3) : null;
+                      const d4 = p.p4 != null && p.s4 != null ? p.s4 - (PAR4 + p.p4) : null;
+                      const df = p.pf != null && p.sf != null ? p.sf - (PAR_FS + p.pf) : null;
                       const fV = (v, str) => v == null
                         ? <span style={{ color: "#2d3748" }}>—</span>
                         : <span style={{ opacity: str ? 0.4 : 1 }}>{v}</span>;
@@ -497,6 +511,10 @@ export default function App() {
                           <td style={{ ...css.td, display: mob }}>{fS(p.p3, PAR3, p.str3)}</td>
                           <td style={css.td}>{fV(p.s3, p.str3)}</td>
                           <td style={css.td}>{fD(d3, p.str3)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p4, p.str4)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p4, PAR4, p.str4)}</td>
+                          <td style={css.td}>{fV(p.s4, p.str4)}</td>
+                          <td style={css.td}>{fD(d4, p.str4)}</td>
                           <td style={{ ...css.td, background: "#161d2c", color: avgScoreColor, fontWeight: 700 }}>
                             {p.avgScore != null ? p.avgScore.toFixed(1) : <span style={{ color: "#2d3748" }}>—</span>}
                           </td>
@@ -509,7 +527,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS = Freundschaftsspiel Mommenheim 21.03. · Ø {inclFS ? "inkl. Freundschaftsspiel" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS = Freundschaftsspiel Mommenheim 21.03. · ST4 = 20.06. Westpfalz (Ergebnisse ausstehend) · Ø {inclFS ? "inkl. Freundschaftsspiel" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
             </div>
           )}
         </div>
