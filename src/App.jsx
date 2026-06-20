@@ -55,11 +55,11 @@ function LoginGate({ onAuth }) {
 }
 
 const hcpiTeams = [
-  { name: "Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8, s4avg: 5.68, s4med: 6.25, s4n: 8 },
-  { name: "Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.45, s4med: 7.25, s4n: 8 },
-  { name: "Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 7.50, s4med: 6.70, s4n: 8 },
-  { name: "Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 10.49, s4med: 10.10, s4n: 7 },
-  { name: "Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 7.59, s4med: 7.25, s4n: 8 },
+  { name: "Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8, s4avg: 7.50, s4med: 6.80, s4n: 8 },
+  { name: "Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.44, s4med: 7.25, s4n: 8 },
+  { name: "Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 8.86, s4med: 8.35, s4n: 8 },
+  { name: "Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 9.66, s4med: 9.60, s4n: 8 },
+  { name: "Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 7.20, s4med: 6.35, s4n: 8 },
 ];
 
 const chartData = hcpiTeams.map(t => ({
@@ -91,21 +91,28 @@ const st3 = [
   { name: "Kurpfalz",      rank: 4, ts: 525, soll: 497, streicher: "Okon (97), Mühl (99)" },
   { name: "Westpfalz",     rank: 5, ts: 550, soll: 501, streicher: "Hammerschmidt (102), Hauck (109)" },
 ];
+const st4 = [
+  { name: "Kurpfalz",      rank: 1, ts: 475, soll: 463, streicher: "Borrmann (85), Weißkopf (89)" },
+  { name: "Bostalsee",     rank: 2, ts: 483, soll: 475, streicher: "Georg (89), Ludwig (93)" },
+  { name: "Westpfalz",     rank: 3, ts: 485, soll: 484, streicher: "Mühe (92), Klingel (95)" },
+  { name: "Barbarossa",    rank: 4, ts: 494, soll: 480, streicher: "Blauth (97), Metzmann (NRO)" },
+  { name: "Katharinenhof", rank: 5, ts: 504, soll: 468, streicher: "Fries (98), Fischer (NRO)" },
+];
 
 const players = [
-  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: null, str4: false, pf: 6,    sf: 99   },
-  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: null, str4: false, pf: 7,    sf: 81   },
-  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: null, str4: false, pf: null, sf: null },
-  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, pf: null, sf: null },
+  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false, pf: 6,    sf: 99   },
+  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true,  pf: 7,    sf: 81   },
+  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false, pf: null, sf: null },
+  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true,  pf: null, sf: null },
   { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false, pf: 8,    sf: 84   },
-  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: null, str4: false, pf: 7,    sf: 89   },
-  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: null, str4: false, pf: null, sf: null },
+  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false, pf: 7,    sf: 89   },
+  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false, pf: null, sf: null },
   { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 4,    sf: 78   },
   { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, pf: 10,   sf: 92   },
   { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false, pf: null, sf: null },
-  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: null, s4: null, str4: false, pf: null, sf: null },
+  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false, pf: null, sf: null },
   { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 12,   sf: 87   },
-  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: null, str4: false, pf: 5,    sf: 82   },
+  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, pf: 5,    sf: 82   },
 ];
 
 const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR_FS = 72;
@@ -210,7 +217,7 @@ export default function App() {
   const [authed, setAuthed] = useState(() => !AUTH_PASS || localStorage.getItem(STORAGE_KEY) === "1");
   const [page, setPage] = useState("hcpi");
   const [sub, setSub] = useState("ms");
-  const [stTab, setStTab] = useState("st3");
+  const [stTab, setStTab] = useState("st4");
   const [inclFS, setInclFS] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
   useEffect(() => {
@@ -238,11 +245,12 @@ export default function App() {
   const p1 = calcPoints(st1);
   const p2 = calcPoints(st2);
   const p3 = calcPoints(st3);
+  const p4 = calcPoints(st4);
   const allTeams = ["Barbarossa", "Katharinenhof", "Bostalsee", "Kurpfalz", "Westpfalz"];
   const standings = allTeams.map(name => ({
     name,
-    p1: p1[name], p2: p2[name], p3: p3[name],
-    total: p1[name] + p2[name] + p3[name],
+    p1: p1[name], p2: p2[name], p3: p3[name], p4: p4[name],
+    total: p1[name] + p2[name] + p3[name] + p4[name],
   })).sort((a, b) => b.total - a.total);
 
   // Compute per-player averages
@@ -274,7 +282,7 @@ export default function App() {
               ["Feld Ø 1. Spieltag", "8.18", C1],
               ["Feld Ø 2. Spieltag", "7.60", C2],
               ["Feld Ø 3. Spieltag", "7.84", C3],
-              ["Feld Ø 4. Spieltag", "7.46", C4],
+              ["Feld Ø 4. Spieltag", "7.93", C4],
               ["Stärkster Gegner", "Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
@@ -373,22 +381,24 @@ export default function App() {
                 <StTab label="1. Spieltag" active={stTab === "st1"} onClick={() => setStTab("st1")} />
                 <StTab label="2. Spieltag" active={stTab === "st2"} onClick={() => setStTab("st2")} />
                 <StTab label="3. Spieltag" active={stTab === "st3"} onClick={() => setStTab("st3")} />
+                <StTab label="4. Spieltag" active={stTab === "st4"} onClick={() => setStTab("st4")} />
               </div>
               {stTab === "st1" && <TeamTable data={st1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127 · Top-6" subnote="Soll = Σ(Par+PHCP) der 6 gewerteten Spieler. Δ positiv = über Erwartung." />}
               {stTab === "st2" && <TeamTable data={st2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134 · Top-6" subnote="Katharinenhof: 2× No Return. Westpfalz: 1× NR." />}
               {stTab === "st3" && <TeamTable data={st3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135 · Top-6" subnote="Bostalsee gewinnt den Spieltag. Katharinenhof Rang 3 trotz gleicher Score wegen CR-Ausgleich (*)." />}
+              {stTab === "st4" && <TeamTable data={st4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72 · Top-6" subnote="Kurpfalz gewinnt den Spieltag. Bostalsee stark auf Rang 2. Je ein NRO bei Barbarossa und Katharinenhof." />}
             </div>
           )}
 
           {sub === "gesamt" && (
             <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
-              <div style={css.sec}>Gesamttabelle nach 3 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
+              <div style={css.sec}>Gesamttabelle nach 4 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
               <div style={{ overflowX: "auto" }}>
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr>
-                      {["Pos.", "Mannschaft", "ST1 Score", "ST1 Pkt", "ST2 Score", "ST2 Pkt", "ST3 Score", "ST3 Pkt", "Gesamt"].map((h, i) =>
-                        <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: i === 8 ? "#161d2c" : "transparent" }}>{h}</th>
+                      {["Pos.", "Mannschaft", "ST1 Score", "ST1 Pkt", "ST2 Score", "ST2 Pkt", "ST3 Score", "ST3 Pkt", "ST4 Score", "ST4 Pkt", "Gesamt"].map((h, i) =>
+                        <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: i === 10 ? "#161d2c" : "transparent" }}>{h}</th>
                       )}
                     </tr>
                   </thead>
@@ -416,6 +426,8 @@ export default function App() {
                           <td style={css.td}>{fPts(t.p2)}</td>
                           <td style={css.td}>{fScore(st3, t.name)}</td>
                           <td style={css.td}>{fPts(t.p3)}</td>
+                          <td style={css.td}>{fScore(st4, t.name)}</td>
+                          <td style={css.td}>{fPts(t.p4)}</td>
                           <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: idx === 0 ? C2 : "#e2e8f0" }}>
                             {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
                           </td>
@@ -425,7 +437,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>ST3: Barbarossa und Katharinenhof schlaggleich (508) → teilen Platz 2+3 → je 3,5 Punkte</div>
+              <div style={css.note}>ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475</div>
             </div>
           )}
 
@@ -527,7 +539,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS = Freundschaftsspiel Mommenheim 21.03. · ST4 = 20.06. Westpfalz (Ergebnisse ausstehend) · Ø {inclFS ? "inkl. Freundschaftsspiel" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS = Freundschaftsspiel Mommenheim 21.03. · Ø {inclFS ? "inkl. Freundschaftsspiel" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
             </div>
           )}
         </div>
