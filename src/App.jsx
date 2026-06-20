@@ -404,8 +404,11 @@ export default function App() {
                   </thead>
                   <tbody>
                     {standings.map((t, idx) => {
+                      const isTop = idx === 0;
+                      const isRelegation = idx === standings.length - 1;
                       const isBos = t.name === "Bostalsee";
-                      const posColor = idx === 0 ? "#fbbf24" : idx === 1 ? "#94a3b8" : "#64748b";
+                      const posColor = isTop ? C2 : isRelegation ? RED : idx === 1 ? "#94a3b8" : "#64748b";
+                      const posBg = isTop ? "#064e3b" : isRelegation ? "#7f1d1d" : idx === 1 ? "#1e2a3a" : "#1e2a3a";
                       const fPts = (pts) => {
                         const c = pts === 5 ? C2 : pts >= 3.5 ? AMB : pts >= 2 ? "#94a3b8" : RED;
                         return <span style={{ color: c, fontWeight: 700 }}>{pts % 1 === 0 ? pts.toFixed(0) : pts.toFixed(1)}</span>;
@@ -417,9 +420,9 @@ export default function App() {
                       return (
                         <tr key={t.name} style={{ background: isBos ? "#12192a" : "transparent", borderBottom: "1px solid #1e2a3a" }}>
                           <td style={{ ...css.td, textAlign: "left", width: 40 }}>
-                            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: idx === 0 ? "#78350f" : "#1e2a3a", color: posColor, fontWeight: 700, fontSize: 12 }}>{idx + 1}</span>
+                            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: posBg, color: posColor, fontWeight: 700, fontSize: 12 }}>{idx + 1}</span>
                           </td>
-                          <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}</td>
+                          <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isRelegation ? RED : isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}{isRelegation ? " ↓" : ""}</td>
                           <td style={css.td}>{fScore(st1, t.name)}</td>
                           <td style={css.td}>{fPts(t.p1)}</td>
                           <td style={css.td}>{fScore(st2, t.name)}</td>
@@ -428,7 +431,7 @@ export default function App() {
                           <td style={css.td}>{fPts(t.p3)}</td>
                           <td style={css.td}>{fScore(st4, t.name)}</td>
                           <td style={css.td}>{fPts(t.p4)}</td>
-                          <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: idx === 0 ? C2 : "#e2e8f0" }}>
+                          <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: isTop ? C2 : isRelegation ? RED : "#e2e8f0" }}>
                             {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
                           </td>
                         </tr>
@@ -437,7 +440,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475</div>
+              <div style={css.note}>ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
             </div>
           )}
 
