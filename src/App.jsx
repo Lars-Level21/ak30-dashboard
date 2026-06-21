@@ -254,13 +254,16 @@ export default function App() {
     { results: st3, par: PAR3 },
     { results: st4, par: PAR4 },
   ];
-  const getRoundStandard = (par) => (par * COUNTED_SCORES) + COUNTED_SCORES;
+  const getRoundStandard = (par) => par * COUNTED_SCORES;
   const sumOverPar = (name) => {
     return roundData.reduce((sum, round) => {
       const entry = round.results.find(x => x.name === name);
       return sum + (entry ? (entry.ts - getRoundStandard(round.par)) : 0);
     }, 0);
   };
+  const standardSummary = roundData
+    .map((round, idx) => `ST${idx + 1}: ${getRoundStandard(round.par)}`)
+    .join(" · ");
   const standings = allTeams.map(name => ({
     name,
     p1: p1[name], p2: p2[name], p3: p3[name], p4: p4[name],
@@ -461,7 +464,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>Bei Punktgleichheit entscheidet die geringere Summe Schläge über Par (Platzstandard je Spieltag: Par×6 + 6). ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
+              <div style={css.note}>Bei Punktgleichheit entscheidet die geringere Summe Schläge über Par (Platzstandard je Spieltag: Par×6). Platzstandards: {standardSummary}. ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
             </div>
           )}
 
