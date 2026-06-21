@@ -247,11 +247,22 @@ export default function App() {
   const p3 = calcPoints(st3);
   const p4 = calcPoints(st4);
   const allTeams = ["Barbarossa", "Katharinenhof", "Bostalsee", "Kurpfalz", "Westpfalz"];
+  const sumOverPar = (name) => {
+    const rounds = [st1, st2, st3, st4];
+    return rounds.reduce((sum, round) => {
+      const entry = round.find(x => x.name === name);
+      return sum + (entry ? (entry.ts - entry.soll) : 0);
+    }, 0);
+  };
   const standings = allTeams.map(name => ({
     name,
     p1: p1[name], p2: p2[name], p3: p3[name], p4: p4[name],
     total: p1[name] + p2[name] + p3[name] + p4[name],
-  })).sort((a, b) => b.total - a.total);
+    overPar: sumOverPar(name),
+  })).sort((a, b) => {
+    if (b.total !== a.total) return b.total - a.total;
+    return a.overPar - b.overPar;
+  });
 
   // Compute per-player averages
   const playersWithAvg = players.map(p => {
@@ -397,7 +408,7 @@ export default function App() {
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr>
-                      {["Pos.", "Mannschaft", "ST1 Score", "ST1 Pkt", "ST2 Score", "ST2 Pkt", "ST3 Score", "ST3 Pkt", "ST4 Score", "ST4 Pkt", "Gesamt"].map((h, i) =>
+                      {["Pos.", "Mannschaft", "ST1 Score", "ST1 Pkt", "ST2 Score", "ST2 Pkt", "ST3 Score", "ST3 Pkt", "ST4 Score", "ST4 Pkt", "Gesamt", "Schläge über Par"].map((h, i) =>
                         <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: i === 10 ? "#161d2c" : "transparent" }}>{h}</th>
                       )}
                     </tr>
@@ -434,13 +445,16 @@ export default function App() {
                           <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: isTop ? C2 : isRelegation ? RED : "#e2e8f0" }}>
                             {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
                           </td>
+                          <td style={{ ...css.td, fontWeight: 700, color: t.overPar <= 40 ? C2 : t.overPar <= 100 ? AMB : RED }}>
+                            +{t.overPar}
+                          </td>
                         </tr>
                       );
                     })}
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
+              <div style={css.note}>Bei Punktgleichheit entscheidet die geringere Summe Schläge über Par. ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
             </div>
           )}
 
