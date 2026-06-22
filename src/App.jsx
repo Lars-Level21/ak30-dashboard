@@ -542,8 +542,8 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
                   <td style={{ ...css.td, color: dColor(overParAfter4[t.team]), fontWeight: 700 }}>+{overParAfter4[t.team]}</td>
                   <td style={{ ...css.td, color: t.day5OverPar == null ? "#4a5568" : dColor(t.day5OverPar), fontWeight: 700 }}>{formatSigned(t.day5OverPar)}</td>
                   <td style={{ ...css.td, color: dColor(t.totalOverParLive), fontWeight: 700 }}>{formatSigned(t.totalOverParLive)}</td>
-                  <td style={{ ...css.td, color: t.inWertung ? C2 : AMB, fontWeight: 700 }}>
-                    {t.inWertung ? "vollständig" : `vorläufig ${t.counted}/6`}
+                  <td style={{ ...css.td, color: t.enteredCount === 8 || t.inWertung ? C2 : AMB, fontWeight: 700 }}>
+                    {t.enteredCount === 8 ? "vollständig" : t.inWertung ? `in Wertung ${t.enteredCount}/8` : `vorläufig ${t.counted}/6`}
                   </td>
                 </tr>
               ))}
