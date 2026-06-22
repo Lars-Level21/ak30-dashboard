@@ -566,29 +566,29 @@ export default function App() {
 
               <div style={{ ...css.card, borderRadius: 8 }}>
                 <div style={css.sec}>Meisterschafts-Konstellationen für Bostalsee (für Team-Besprechung)</div>
-                <div style={{ padding: 14, display: "grid", gap: 12 }}>
+                <div style={{ padding: isMobile ? 10 : 14, display: "grid", gap: isMobile ? 10 : 12 }}>
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10 }}>
                   <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#7dd3a8", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Muss passieren</div>
-                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: 13, lineHeight: 1.35 }}>Bostalsee muss am 5. Spieltag mindestens Platz 2 erreichen.</div>
+                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bostalsee muss am 5. Spieltag mindestens Platz 2 erreichen.</div>
                   </div>
                   <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#fbbf24", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Kritischer Hebel</div>
-                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: 13, lineHeight: 1.35 }}>Bei Punktgleichheit mit Kurpfalz muss Bostalsee am 5. Spieltag mindestens 18 Schläge besser sein.</div>
+                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bei Punktgleichheit mit Kurpfalz muss Bostalsee am 5. Spieltag mindestens 18 Schläge besser sein.</div>
                   </div>
                   <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Nicht ausreichend</div>
-                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: 13, lineHeight: 1.35 }}>Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
+                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
                   </div>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
                   <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
                     <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg A: Bostalsee wird 1.</div>
-                    <div style={{ color: "#94a3b8", fontSize: 12, lineHeight: 1.45 }}>
+                    <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
                     </div>
-                    <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "#cbd5e1", fontSize: 12, lineHeight: 1.5 }}>
+                    <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       <li>Wenn Barbarossa 2. wird, reicht Platz 1 für Bostalsee nicht (Barbarossa hat dann 18,5 Punkte).</li>
                       <li>Wenn Kurpfalz 2. wird, entscheidet die Schlagdifferenz: Bostalsee muss 18 besser sein als Kurpfalz.</li>
                       <li>Wenn Katharinenhof oder Westpfalz 2. wird, ist Bostalsee mit Platz 1 sicher Meister.</li>
@@ -597,10 +597,10 @@ export default function App() {
 
                   <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
                     <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg B: Bostalsee wird 2.</div>
-                    <div style={{ color: "#94a3b8", fontSize: 12, lineHeight: 1.45 }}>
+                    <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
                     </div>
-                    <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "#cbd5e1", fontSize: 12, lineHeight: 1.5 }}>
+                    <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       <li>Dieser Weg funktioniert nur, wenn Westpfalz den Spieltag gewinnt.</li>
                       <li>Wenn Kurpfalz dabei 3. wird (17 Punkte), braucht Bostalsee wieder 18 Schläge Vorteil auf Kurpfalz.</li>
                       <li>Platz 2 hinter einem anderen Sieger als Westpfalz reicht nicht aus.</li>
@@ -610,32 +610,52 @@ export default function App() {
 
                 <div style={{ background: "#101826", border: "1px solid #23314a", borderRadius: 8, padding: 12 }}>
                   <div style={{ color: "#93c5fd", fontWeight: 700, fontSize: 12, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>Benötigter Schlagvorteil bei Punktgleichheit</div>
-                  <div style={{ overflowX: "auto" }}>
-                    <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
-                      <thead>
-                        <tr>
-                          <th style={{ ...css.th, textAlign: "left" }}>Gegner</th>
-                          <th style={{ ...css.th, textAlign: "right" }}>Rückstand Bostalsee nach ST1–ST4</th>
-                          <th style={{ ...css.th, textAlign: "right" }}>Bedingung am 5. Spieltag</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {allTeams.filter(t => t !== "Bostalsee").map(team => {
-                          const gap = overParAfter4.Bostalsee - overParAfter4[team];
-                          const need = bostalseeGapNeeded[team];
-                          return (
-                            <tr key={team} style={{ borderBottom: "1px solid #1e2a3a" }}>
-                              <td style={{ ...css.td, textAlign: "left", color: "#e2e8f0", fontWeight: 600 }}>{team}</td>
-                              <td style={{ ...css.td, color: gap > 0 ? RED : C2, fontWeight: 700 }}>{gap > 0 ? `+${gap}` : `${gap}`}</td>
-                              <td style={{ ...css.td, color: need === 0 ? C2 : AMB, fontWeight: 700 }}>
-                                {need === 0 ? "Kein Vorteil nötig" : `Bostalsee mind. ${need} besser`}
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
+                  {isMobile ? (
+                    <div style={{ display: "grid", gap: 8 }}>
+                      {allTeams.filter(t => t !== "Bostalsee").map(team => {
+                        const gap = overParAfter4.Bostalsee - overParAfter4[team];
+                        const need = bostalseeGapNeeded[team];
+                        return (
+                          <div key={team} style={{ border: "1px solid #1e2a3a", borderRadius: 8, padding: "8px 10px", background: "#0f172a" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
+                              <div style={{ color: "#e2e8f0", fontWeight: 700, fontSize: 12 }}>{team}</div>
+                              <div style={{ color: gap > 0 ? RED : C2, fontWeight: 700, fontSize: 12 }}>{gap > 0 ? `+${gap}` : `${gap}`}</div>
+                            </div>
+                            <div style={{ color: need === 0 ? C2 : AMB, fontWeight: 700, fontSize: 11, lineHeight: 1.4 }}>
+                              {need === 0 ? "Kein Vorteil nötig" : `Bostalsee mind. ${need} besser am 5. Spieltag`}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div style={{ overflowX: "auto" }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+                        <thead>
+                          <tr>
+                            <th style={{ ...css.th, textAlign: "left" }}>Gegner</th>
+                            <th style={{ ...css.th, textAlign: "right" }}>Rückstand Bostalsee nach ST1–ST4</th>
+                            <th style={{ ...css.th, textAlign: "right" }}>Bedingung am 5. Spieltag</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {allTeams.filter(t => t !== "Bostalsee").map(team => {
+                            const gap = overParAfter4.Bostalsee - overParAfter4[team];
+                            const need = bostalseeGapNeeded[team];
+                            return (
+                              <tr key={team} style={{ borderBottom: "1px solid #1e2a3a" }}>
+                                <td style={{ ...css.td, textAlign: "left", color: "#e2e8f0", fontWeight: 600 }}>{team}</td>
+                                <td style={{ ...css.td, color: gap > 0 ? RED : C2, fontWeight: 700 }}>{gap > 0 ? `+${gap}` : `${gap}`}</td>
+                                <td style={{ ...css.td, color: need === 0 ? C2 : AMB, fontWeight: 700 }}>
+                                  {need === 0 ? "Kein Vorteil nötig" : `Bostalsee mind. ${need} besser`}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </div>
                 </div>
                 <div style={css.note}>Legende für Besprechung: "mind. X besser" bedeutet: Bostalsee braucht am 5. Spieltag mindestens X Schläge weniger als der genannte Gegner. Tie-Breaker basiert auf der Gesamtsumme Schläge über Par über alle Spieltage.</div>
