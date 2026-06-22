@@ -59,7 +59,7 @@ const hcpiTeams = [
   { name: "Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.44, s4med: 7.25, s4n: 8 },
   { name: "Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 8.86, s4med: 8.35, s4n: 8 },
   { name: "Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 9.66, s4med: 9.60, s4n: 8 },
-  { name: "Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 7.20, s4med: 6.35, s4n: 8 },
+  { name: "Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 6.81, s4med: 6.35, s4n: 8 },
 ];
 
 const chartData = hcpiTeams.map(t => ({
@@ -399,7 +399,7 @@ export default function App() {
               ["Feld Ø 1. Spieltag", "8.18", C1],
               ["Feld Ø 2. Spieltag", "7.60", C2],
               ["Feld Ø 3. Spieltag", "7.84", C3],
-              ["Feld Ø 4. Spieltag", "7.93", C4],
+              ["Feld Ø 4. Spieltag", "7.85", C4],
               ["Stärkster Gegner", "Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
@@ -565,7 +565,7 @@ export default function App() {
               </div>
 
               <div style={{ ...css.card, borderRadius: 8 }}>
-                <div style={css.sec}>Meisterschafts-Konstellationen für Bostalsee (für Team-Besprechung)</div>
+                <div style={css.sec}>Unsere Meisterschafts-Konstellationen</div>
                 <div style={{ padding: isMobile ? 10 : 14, display: "grid", gap: isMobile ? 10 : 12 }}>
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10 }}>
                   <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
