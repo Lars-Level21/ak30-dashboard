@@ -618,6 +618,11 @@ export default function App() {
   const [stTab, setStTab] = useState("st4");
   const [inclFS, setInclFS] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
+  const [tvScaleMode, setTvScaleMode] = useState(() => {
+    if (window.innerWidth >= 2560) return "l";
+    if (window.innerWidth >= 1920) return "m";
+    return "off";
+  });
   const [day5Results, setDay5Results] = useState(() => {
     const stored = localStorage.getItem(DAY5_STORAGE_KEY);
     return stored ? JSON.parse(stored) : {};
@@ -672,7 +677,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth < 640);
+    const handler = () => {
+      const mobile = window.innerWidth < 640;
+      setIsMobile(mobile);
+    };
     window.addEventListener("resize", handler);
     return () => window.removeEventListener("resize", handler);
   }, []);
@@ -848,8 +856,22 @@ export default function App() {
     return { ...p, avgScore, avgDelta, played: allScores.length };
   });
 
+  const displayScale = isMobile ? 1 : tvScaleMode === "l" ? 1.7 : tvScaleMode === "m" ? 1.45 : 1;
+  const cycleTvScaleMode = () => {
+    setTvScaleMode((prev) => (prev === "off" ? "m" : prev === "m" ? "l" : "off"));
+  };
+  const tvModeLabel = tvScaleMode === "off" ? "TV Modus: Aus" : tvScaleMode === "m" ? "TV Modus: M" : "TV Modus: L";
+
   return (
-    <div style={{ ...css.body, padding: isMobile ? "12px 8px" : 20 }}>
+    <div
+      style={{
+        ...css.body,
+        padding: isMobile ? "12px 8px" : 20,
+        zoom: displayScale,
+        width: "100%",
+        overflowX: displayScale > 1 ? "auto" : "visible",
+      }}
+    >
       <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 20, borderBottom: "1px solid #1e2a3a", paddingBottom: 0, flexWrap: "wrap" }}>
         <span style={{ fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#4a5568", marginRight: 20, whiteSpace: "nowrap" }}>
           AK30 - GC Bostalsee - 2026
@@ -857,6 +879,28 @@ export default function App() {
         <NavTab label="HCPI-Uebersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
         <NavTab label="Spieltag 5 LIVE" active={page === "day5"} onClick={() => setPage("day5")} />
         <NavTab label="Ergebnis-Analyse" active={page === "ergebnis"} onClick={() => setPage("ergebnis")} />
+        <button
+          onClick={cycleTvScaleMode}
+          style={{
+            marginLeft: "auto",
+            marginBottom: 6,
+            background: tvScaleMode === "off" ? "#252d3d" : tvScaleMode === "m" ? C2 : C1,
+            border: "1px solid " + (tvScaleMode === "off" ? "#374151" : tvScaleMode === "m" ? "#0f5132" : "#1e40af"),
+            borderRadius: 6,
+            padding: "6px 12px",
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: 1,
+            textTransform: "uppercase",
+            color: tvScaleMode === "off" ? "#cbd5e1" : "#0f1117",
+            cursor: "pointer",
+            position: "relative",
+            zIndex: 5,
+            flexShrink: 0,
+          }}
+        >
+          {tvModeLabel}
+        </button>
       </div>
 
       {page === "hcpi" && (
