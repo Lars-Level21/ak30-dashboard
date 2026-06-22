@@ -115,7 +115,55 @@ const players = [
   { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, pf: 5,    sf: 82   },
 ];
 
-const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR_FS = 72;
+const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR5 = 71, PAR_FS = 72;
+const DAY5_STORAGE_KEY = "ak30_day5_results";
+
+const day5StartList = [
+  { name: "Newsome, Robert", team: "Barbarossa" },
+  { name: "Schertz, Patric", team: "Barbarossa" },
+  { name: "Metzmann, Florian", team: "Barbarossa" },
+  { name: "Kroehnert, Jonas", team: "Barbarossa" },
+  { name: "Häusler, Gerold", team: "Barbarossa" },
+  { name: "Recktenwald, Tobias", team: "Barbarossa" },
+  { name: "Mühlberger, Felix", team: "Barbarossa" },
+  { name: "Karol, Kamil", team: "Barbarossa" },
+
+  { name: "Werny, Erik", team: "Katharinenhof" },
+  { name: "Klampfer, Erwin", team: "Katharinenhof" },
+  { name: "Fischer, Maximilian", team: "Katharinenhof" },
+  { name: "Holzer, Sebastian", team: "Katharinenhof" },
+  { name: "Becker, Michael", team: "Katharinenhof" },
+  { name: "Kirchner, Eric", team: "Katharinenhof" },
+  { name: "Schley, Michael", team: "Katharinenhof" },
+  { name: "Marullo, Giuseppe", team: "Katharinenhof" },
+
+  { name: "Ley, Karsten", team: "Bostalsee" },
+  { name: "Georg, Heiko", team: "Bostalsee" },
+  { name: "Martin, Lars", team: "Bostalsee" },
+  { name: "Wilhelm, Michael", team: "Bostalsee" },
+  { name: "Reiter, Marco", team: "Bostalsee" },
+  { name: "Schade, Marc André", team: "Bostalsee" },
+  { name: "Ludwig, Tobias", team: "Bostalsee" },
+  { name: "Decker, Yannick", team: "Bostalsee" },
+
+  { name: "Leopold, Jens", team: "Kurpfalz" },
+  { name: "Kretz, Sascha", team: "Kurpfalz" },
+  { name: "Baronello, Roberto", team: "Kurpfalz" },
+  { name: "Rischbode, Tjark-Lajos", team: "Kurpfalz" },
+  { name: "Bieker, Niels", team: "Kurpfalz" },
+  { name: "Weisskopf, Luis", team: "Kurpfalz" },
+  { name: "Borrmann, Mirko", team: "Kurpfalz" },
+  { name: "Tuerk, Sabri", team: "Kurpfalz" },
+
+  { name: "Wadle, Volker", team: "Westpfalz" },
+  { name: "Riedinger, Jan", team: "Westpfalz" },
+  { name: "Fusenig, Christian", team: "Westpfalz" },
+  { name: "Wiese, Felix", team: "Westpfalz" },
+  { name: "Flierl, Jan-Benjamin", team: "Westpfalz" },
+  { name: "Hammerschmidt, Thorsten", team: "Westpfalz" },
+  { name: "Klingel, Steffen", team: "Westpfalz" },
+  { name: "Muehe, Bennet", team: "Westpfalz" },
+];
 
 const css = {
   body:  { background: "#0f1117", minHeight: "100vh", padding: 20, fontFamily: "system-ui,sans-serif", color: "#e2e8f0", fontSize: 13 },
@@ -213,6 +261,349 @@ function TeamTable({ data, title, subnote }) {
   );
 }
 
+function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateResult, resetResults }) {
+  const [selectedPlayer, setSelectedPlayer] = useState("");
+  const [scoreInput, setScoreInput] = useState("");
+  const [isNR, setIsNR] = useState(false);
+
+  const hasEntry = (name) => Object.prototype.hasOwnProperty.call(results, name);
+
+  useEffect(() => {
+    if (!selectedPlayer) {
+      setScoreInput("");
+      setIsNR(false);
+      return;
+    }
+    if (!hasEntry(selectedPlayer)) {
+      setScoreInput("");
+      setIsNR(false);
+      return;
+    }
+    if (results[selectedPlayer] === null) {
+      setScoreInput("");
+      setIsNR(true);
+      return;
+    }
+    setScoreInput(String(results[selectedPlayer]));
+    setIsNR(false);
+  }, [selectedPlayer, results]);
+
+  const sortedPlayers = [...day5StartList].sort((a, b) => a.name.localeCompare(b.name, "de"));
+
+  const teamLive = allTeams.map((team) => {
+    const entries = day5StartList
+      .filter((p) => p.team === team)
+      .map((p) => ({
+        name: p.name,
+        value: hasEntry(p.name) ? results[p.name] : undefined,
+      }));
+
+    const enteredCount = entries.filter((e) => e.value !== undefined).length;
+    const nrCount = entries.filter((e) => e.value === null).length;
+    const numericScores = entries
+      .filter((e) => typeof e.value === "number")
+      .map((e) => e.value)
+      .sort((a, b) => a - b);
+
+    const countedScores = numericScores.slice(0, 6);
+    const counted = countedScores.length;
+    const top6 = counted > 0 ? countedScores.reduce((sum, s) => sum + s, 0) : null;
+    const day5OverPar = counted > 0 ? top6 - PAR5 * counted : null;
+    const totalOverParLive = overParAfter4[team] + (day5OverPar ?? 0);
+
+    return {
+      team,
+      entries,
+      enteredCount,
+      nrCount,
+      counted,
+      top6,
+      day5OverPar,
+      totalOverParLive,
+      inWertung: counted >= 6,
+    };
+  });
+
+  const rankedDay = [...teamLive].sort((a, b) => {
+    if (a.day5OverPar == null && b.day5OverPar == null) return a.team.localeCompare(b.team, "de");
+    if (a.day5OverPar == null) return 1;
+    if (b.day5OverPar == null) return -1;
+    if (a.day5OverPar !== b.day5OverPar) return a.day5OverPar - b.day5OverPar;
+    if (a.counted !== b.counted) return b.counted - a.counted;
+    return a.team.localeCompare(b.team, "de");
+  });
+
+  // Live-Punkte fuer ST5 (5-4-3-2-1) mit Punktteilung bei Gleichstand.
+  const calcDay5LivePoints = (rows) => {
+    const base = [5, 4, 3, 2, 1];
+    const points = Object.fromEntries(rows.map((r) => [r.team, 0]));
+    const hasAnyResult = rows.some((r) => r.day5OverPar != null);
+    if (!hasAnyResult) return points;
+
+    let i = 0;
+    while (i < rows.length) {
+      let j = i;
+      while (
+        j < rows.length - 1 &&
+        rows[j].day5OverPar === rows[j + 1].day5OverPar &&
+        rows[j].counted === rows[j + 1].counted
+      ) {
+        j++;
+      }
+
+      const share = base.slice(i, j + 1).reduce((a, b) => a + b, 0) / (j - i + 1);
+      for (let k = i; k <= j; k++) points[rows[k].team] = share;
+      i = j + 1;
+    }
+
+    return points;
+  };
+
+  const day5LivePoints = calcDay5LivePoints(rankedDay);
+
+  const rankedOverallLive = [...teamLive]
+    .map((row) => ({
+      ...row,
+      day5LivePoints: day5LivePoints[row.team] || 0,
+      totalPointsLive: (pointsAfter4[row.team] || 0) + (day5LivePoints[row.team] || 0),
+    }))
+    .sort((a, b) => {
+    const pDiff = b.totalPointsLive - a.totalPointsLive;
+    if (pDiff !== 0) return pDiff;
+    if (a.totalOverParLive !== b.totalOverParLive) return a.totalOverParLive - b.totalOverParLive;
+    return a.team.localeCompare(b.team, "de");
+  });
+
+  const formatSigned = (value) => {
+    if (value == null) return "-";
+    return `${value >= 0 ? "+" : ""}${value}`;
+  };
+
+  const saveSelected = () => {
+    if (!selectedPlayer || (!scoreInput && !isNR)) return;
+    const score = isNR ? null : parseInt(scoreInput, 10);
+    if (!isNR && (isNaN(score) || score < 60 || score > 120)) {
+      alert("Score muss zwischen 60 und 120 liegen");
+      return;
+    }
+    updateResult(selectedPlayer, score);
+  };
+
+  const deleteSelected = () => {
+    if (!selectedPlayer || !hasEntry(selectedPlayer)) return;
+    updateResult(selectedPlayer, undefined);
+  };
+
+  const confirmReset = () => {
+    if (window.confirm("Alle Live-Scores wirklich komplett loeschen?")) resetResults();
+  };
+
+  const enteredPlayers = day5StartList.filter((p) => hasEntry(p.name));
+  const openPlayers = day5StartList.filter((p) => !hasEntry(p.name));
+
+  return (
+    <div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+        <div style={css.card}>
+          <div style={css.sec}>Live Eingabe / Korrektur</div>
+          <div style={{ padding: "14px" }}>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#4a5568", marginBottom: 6 }}>Spieler waehlen</label>
+            <select
+              value={selectedPlayer}
+              onChange={(e) => setSelectedPlayer(e.target.value)}
+              style={{ width: "100%", boxSizing: "border-box", background: "#111827", border: "1px solid #252d3d", borderRadius: 6, padding: "8px 10px", fontSize: 13, color: "#e2e8f0", marginBottom: 12, outline: "none" }}
+            >
+              <option value="">- Spieler -</option>
+              {sortedPlayers.map((p) => (
+                <option key={p.name} value={p.name}>
+                  {p.name} ({p.team}){hasEntry(p.name) ? " - erfasst" : ""}
+                </option>
+              ))}
+            </select>
+
+            {selectedPlayer && (
+              <>
+                <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#4a5568", marginBottom: 6 }}>Score oder NR</label>
+                <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+                  <input
+                    type="number"
+                    value={scoreInput}
+                    onChange={(e) => { setScoreInput(e.target.value); setIsNR(false); }}
+                    placeholder="z.B. 76"
+                    disabled={isNR}
+                    style={{ flex: 1, background: "#111827", border: "1px solid #252d3d", borderRadius: 6, padding: "8px 10px", fontSize: 13, color: isNR ? "#374151" : "#e2e8f0", outline: "none", opacity: isNR ? 0.5 : 1 }}
+                  />
+                  <button
+                    onClick={() => { setIsNR(!isNR); setScoreInput(""); }}
+                    style={{ padding: "8px 12px", background: isNR ? RED : "#252d3d", border: "1px solid " + (isNR ? RED : "#374151"), borderRadius: 6, fontSize: 11, fontWeight: 600, color: isNR ? "#fff" : "#94a3b8", cursor: "pointer", whiteSpace: "nowrap" }}
+                  >
+                    {isNR ? "NR" : "NR?"}
+                  </button>
+                </div>
+
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button
+                    onClick={saveSelected}
+                    style={{ flex: 1, padding: "10px", background: C1, border: "none", borderRadius: 6, fontSize: 12, fontWeight: 700, color: "#0f1117", cursor: "pointer", textTransform: "uppercase", letterSpacing: 1 }}
+                  >
+                    {hasEntry(selectedPlayer) ? "Aktualisieren" : "Speichern"}
+                  </button>
+                  <button
+                    onClick={deleteSelected}
+                    disabled={!hasEntry(selectedPlayer)}
+                    style={{ padding: "10px 12px", background: "#252d3d", border: "1px solid #374151", borderRadius: 6, fontSize: 11, fontWeight: 700, color: hasEntry(selectedPlayer) ? "#cbd5e1" : "#4a5568", cursor: hasEntry(selectedPlayer) ? "pointer" : "not-allowed", textTransform: "uppercase" }}
+                  >
+                    Loeschen
+                  </button>
+                </div>
+              </>
+            )}
+
+            <div style={{ fontSize: 11, color: "#4a5568", marginTop: 14, paddingTop: 14, borderTop: "1px solid #252d3d", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <div>
+                <div>Erfasst: {enteredPlayers.length}/40</div>
+                <div>Offen: {openPlayers.length}</div>
+              </div>
+              <button
+                onClick={confirmReset}
+                style={{ padding: "8px 10px", background: "#3a1616", border: "1px solid #7f1d1d", borderRadius: 6, fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#fecaca", cursor: "pointer" }}
+              >
+                Live Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style={css.card}>
+          <div style={css.sec}>Live Tagesscore</div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 460 }}>
+              <thead>
+                <tr>
+                  <th style={{ ...css.th, textAlign: "left" }}>Mannschaft</th>
+                  <th style={css.th}>Top 6 (live)</th>
+                  <th style={css.th}>Schlaege ueber Par</th>
+                  <th style={css.th}>Ergebnisse</th>
+                  <th style={css.th}>Wertung</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rankedDay.map((t, idx) => (
+                  <tr key={t.team} style={{ borderBottom: "1px solid #1e2a3a" }}>
+                    <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 13, color: "#e2e8f0" }}>{idx + 1}. {t.team}</td>
+                    <td style={{ ...css.td, color: t.top6 == null ? "#4a5568" : C1, fontWeight: 700 }}>{t.top6 == null ? "-" : t.top6}</td>
+                    <td style={{ ...css.td, color: t.day5OverPar == null ? "#4a5568" : dColor(t.day5OverPar), fontWeight: 700 }}>{formatSigned(t.day5OverPar)}</td>
+                    <td style={css.td}>{t.enteredCount}/8</td>
+                    <td style={{ ...css.td, color: t.inWertung ? C2 : AMB, fontWeight: 700 }}>{t.inWertung ? "ja" : `${t.counted}/6`}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div style={css.card}>
+        <div style={css.sec}>Live Gesamttabelle (mit ST5 Effekt)</div>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 680 }}>
+            <thead>
+              <tr>
+                <th style={{ ...css.th, textAlign: "left" }}>Pos.</th>
+                <th style={{ ...css.th, textAlign: "left" }}>Mannschaft</th>
+                <th style={css.th}>Punkte nach ST1-4</th>
+                <th style={css.th}>ST5 Live-Punkte</th>
+                <th style={css.th}>Punkte gesamt live</th>
+                <th style={css.th}>Ueber Par nach ST1-4</th>
+                <th style={css.th}>ST5 live ueber Par</th>
+                <th style={css.th}>Ueber Par gesamt live</th>
+                <th style={css.th}>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rankedOverallLive.map((t, idx) => (
+                <tr key={t.team} style={{ borderBottom: "1px solid #1e2a3a", background: t.team === "Bostalsee" ? "#12192a" : "transparent" }}>
+                  <td style={{ ...css.td, textAlign: "left", color: "#94a3b8", fontWeight: 700 }}>{idx + 1}</td>
+                  <td style={{ ...css.td, textAlign: "left", color: t.team === "Bostalsee" ? C1 : "#e2e8f0", fontWeight: 700 }}>{t.team}</td>
+                  <td style={{ ...css.td, fontWeight: 700, color: "#cbd5e1" }}>{pointsAfter4[t.team] % 1 === 0 ? pointsAfter4[t.team].toFixed(0) : pointsAfter4[t.team].toFixed(1)}</td>
+                  <td style={{ ...css.td, fontWeight: 700, color: t.day5LivePoints >= 3.5 ? C2 : t.day5LivePoints >= 2 ? AMB : "#94a3b8" }}>
+                    {t.day5LivePoints % 1 === 0 ? t.day5LivePoints.toFixed(0) : t.day5LivePoints.toFixed(1)}
+                  </td>
+                  <td style={{ ...css.td, fontWeight: 700, color: C1 }}>
+                    {t.totalPointsLive % 1 === 0 ? t.totalPointsLive.toFixed(0) : t.totalPointsLive.toFixed(1)}
+                  </td>
+                  <td style={{ ...css.td, color: dColor(overParAfter4[t.team]), fontWeight: 700 }}>+{overParAfter4[t.team]}</td>
+                  <td style={{ ...css.td, color: t.day5OverPar == null ? "#4a5568" : dColor(t.day5OverPar), fontWeight: 700 }}>{formatSigned(t.day5OverPar)}</td>
+                  <td style={{ ...css.td, color: dColor(t.totalOverParLive), fontWeight: 700 }}>{formatSigned(t.totalOverParLive)}</td>
+                  <td style={{ ...css.td, color: t.inWertung ? C2 : AMB, fontWeight: 700 }}>
+                    {t.inWertung ? "vollständig" : `vorläufig ${t.counted}/6`}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div style={css.note}>Diese Tabelle reagiert ab dem ersten Ergebnis. Endgültig korrekt für den Spieltag ist sie bei mindestens 6 gewerteten Scores je Mannschaft.</div>
+      </div>
+
+      <div style={css.card}>
+        <div style={css.sec}>Live Spielerübersicht je Mannschaft</div>
+        <div style={{ overflowX: "auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 12, minWidth: 1040 }}>
+            {allTeams.map((team) => {
+              const teamData = teamLive.find((t) => t.team === team);
+              if (!teamData) return null;
+              const open = teamData.entries.filter((e) => e.value === undefined).length;
+
+              return (
+                <div key={team} style={{ border: "1px solid #1f2937", borderRadius: 8, background: team === "Bostalsee" ? "#12192a" : "#0f141e", overflow: "hidden" }}>
+                  <div style={{ padding: "10px 10px 8px", borderBottom: "1px solid #1f2937" }}>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: team === "Bostalsee" ? C1 : "#e2e8f0" }}>{team}</div>
+                    <div style={{ marginTop: 4, fontSize: 11, color: "#94a3b8" }}>
+                      Erfasst {teamData.enteredCount}/8 | Offen {open} | NR {teamData.nrCount}
+                    </div>
+                  </div>
+
+                  <div>
+                    {teamData.entries.map((entry) => {
+                      const isOpen = entry.value === undefined;
+                      const isNR = entry.value === null;
+                      const label = isOpen ? "offen" : isNR ? "NR" : String(entry.value);
+
+                      return (
+                        <div
+                          key={entry.name}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            gap: 8,
+                            padding: "7px 10px",
+                            borderBottom: "1px solid #1a2332",
+                            background: isOpen ? "#0d1420" : "transparent",
+                          }}
+                        >
+                          <div style={{ fontSize: 12, color: isOpen ? "#64748b" : "#d1d5db", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                            {entry.name}
+                          </div>
+                          <div style={{ fontSize: 12, fontWeight: 700, color: isOpen ? "#64748b" : isNR ? RED : C2, minWidth: 38, textAlign: "right" }}>
+                            {label}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div style={css.note}>Alle 40 Spieler mit aktuellem Stand: Score, NR oder offen.</div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [authed, setAuthed] = useState(() => !AUTH_PASS || localStorage.getItem(STORAGE_KEY) === "1");
   const [page, setPage] = useState("hcpi");
@@ -220,6 +611,10 @@ export default function App() {
   const [stTab, setStTab] = useState("st4");
   const [inclFS, setInclFS] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
+  const [day5Results, setDay5Results] = useState(() => {
+    const stored = localStorage.getItem(DAY5_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : {};
+  });
   useEffect(() => {
     const handler = () => setIsMobile(window.innerWidth < 640);
     window.addEventListener("resize", handler);
@@ -227,6 +622,21 @@ export default function App() {
   }, []);
 
   if (!authed) return <LoginGate onAuth={() => setAuthed(true)} />;
+
+  const updateDay5Result = (playerName, value) => {
+    setDay5Results((prev) => {
+      const next = { ...prev };
+      if (value === undefined) delete next[playerName];
+      else next[playerName] = value;
+      localStorage.setItem(DAY5_STORAGE_KEY, JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const resetDay5Results = () => {
+    setDay5Results({});
+    localStorage.removeItem(DAY5_STORAGE_KEY);
+  };
 
   // Points calculation with tie-splitting
   const calcPoints = (results) => {
@@ -283,7 +693,7 @@ export default function App() {
   const compareByOfficialRule = (a, b) => {
     if (b.total !== a.total) return b.total - a.total;
 
-    // Laut Regel: Bei unterschiedlicher Anzahl verfügbarer Spieltagsergebnisse
+    // Laut Regel: Bei unterschiedlicher Anzahl verf├╝gbarer Spieltagsergebnisse
     // belegt die Mannschaft mit weniger Ergebnissen den schlechteren Platz.
     if (a.tie.resultCount !== b.tie.resultCount) return b.tie.resultCount - a.tie.resultCount;
 
@@ -293,13 +703,13 @@ export default function App() {
       if (diff !== 0) return diff;
     }
 
-    // Offiziell wäre danach Los; hier stabile Anzeige-Sortierung.
+    // Offiziell w├ñre danach Los; hier stabile Anzeige-Sortierung.
     return a.name.localeCompare(b.name, "de");
   };
 
   const standardSummary = roundData
     .map((round, idx) => `ST${idx + 1}: ${getRoundStandard(round.par)}`)
-    .join(" · ");
+    .join(" ┬À ");
   const standings = allTeams.map(name => {
     const tie = buildTieBreakProfile(name);
     return {
@@ -386,9 +796,10 @@ export default function App() {
     <div style={{ ...css.body, padding: isMobile ? "12px 8px" : 20 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 20, borderBottom: "1px solid #1e2a3a", paddingBottom: 0, flexWrap: "wrap" }}>
         <span style={{ fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#4a5568", marginRight: 20, whiteSpace: "nowrap" }}>
-          AK30 · Bostalsee · 2026
+          AK30 ┬À Bostalsee ┬À 2026
         </span>
-        <NavTab label="HCPI-Übersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
+        <NavTab label="HCPI-├£bersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
+        <NavTab label="Spieltag 5 LIVE" active={page === "day5"} onClick={() => setPage("day5")} />
         <NavTab label="Ergebnis-Analyse" active={page === "ergebnis"} onClick={() => setPage("ergebnis")} />
       </div>
 
@@ -396,11 +807,11 @@ export default function App() {
         <div>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(5,1fr)", gap: 10, marginBottom: 16 }}>
             {[
-              ["Feld Ø 1. Spieltag", "8.18", C1],
-              ["Feld Ø 2. Spieltag", "7.60", C2],
-              ["Feld Ø 3. Spieltag", "7.84", C3],
-              ["Feld Ø 4. Spieltag", "7.85", C4],
-              ["Stärkster Gegner", "Katharinenhof", C2],
+              ["Feld ├ÿ 1. Spieltag", "8.18", C1],
+              ["Feld ├ÿ 2. Spieltag", "7.60", C2],
+              ["Feld ├ÿ 3. Spieltag", "7.84", C3],
+              ["Feld ├ÿ 4. Spieltag", "7.85", C4],
+              ["St├ñrkster Gegner", "Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
                 <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a5568", marginBottom: 7 }}>{l}</div>
@@ -418,19 +829,19 @@ export default function App() {
                     {[["1. Spieltag (09.05.)", "1.ST", C1], ["2. Spieltag (23.05.)", "2.ST", C2], ["3. Spieltag (06.06.)", "3.ST", C3], ["4. Spieltag (20.06.)", "4.ST", C4]].map(([l, s, c]) => (
                       <th key={l} colSpan={isMobile ? 1 : 3} style={{ ...css.th, textAlign: "center", color: c, borderBottom: `2px solid ${c}`, padding: "9px 6px 4px" }}>{isMobile ? s : l}</th>
                     ))}
-                    <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>ΔØ 1→4</th>
+                    <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>╬ö├ÿ 1ÔåÆ4</th>
                   </tr>
                   <tr style={{ background: "#111827", borderBottom: "2px solid #1e2a3a" }}>
-                    <th style={{ ...css.th, color: C1 }}>Ø HCPI</th>
+                    <th style={{ ...css.th, color: C1 }}>├ÿ HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
-                    <th style={{ ...css.th, color: C2 }}>Ø HCPI</th>
+                    <th style={{ ...css.th, color: C2 }}>├ÿ HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
-                    <th style={{ ...css.th, color: C3 }}>Ø HCPI</th>
+                    <th style={{ ...css.th, color: C3 }}>├ÿ HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
-                    <th style={{ ...css.th, color: C4 }}>Ø HCPI</th>
+                    <th style={{ ...css.th, color: C4 }}>├ÿ HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
                   </tr>
@@ -464,7 +875,7 @@ export default function App() {
           </div>
 
           <div style={css.card}>
-            <div style={css.sec}>Ø HCPI pro Spieltag — alle Mannschaften</div>
+            <div style={css.sec}>├ÿ HCPI pro Spieltag ÔÇö alle Mannschaften</div>
             <div style={{ padding: "14px 14px 4px" }}>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={chartData} barGap={3} barCategoryGap="25%">
@@ -481,6 +892,22 @@ export default function App() {
               </ResponsiveContainer>
             </div>
           </div>
+        </div>
+      )}
+
+      {page === "day5" && (
+        <div>
+          <div style={{ ...css.card, marginBottom: 0, borderRadius: "8px 8px 0 0" }}>
+            <div style={css.sec}>Spieltag 5 - GC Bostalsee - Par 71 - Live</div>
+          </div>
+          <Day5LiveScore
+            allTeams={allTeams}
+            pointsAfter4={pointsAfter4}
+            overParAfter4={overParAfter4}
+            results={day5Results}
+            updateResult={updateDay5Result}
+            resetResults={resetDay5Results}
+          />
         </div>
       )}
 
@@ -561,7 +988,7 @@ export default function App() {
                   </tbody>
                   </table>
                 </div>
-                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
+                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl ├╝ber/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollst├ñndiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: Barbarossa und Katharinenhof schlaggleich (508) ÔåÆ je 3,5 Punkte ┬À ST4: Kurpfalz gewinnt mit 475 ┬À Platz 5 = Absteiger</div>
               </div>
 
               <div style={{ ...css.card, borderRadius: 8 }}>
@@ -591,14 +1018,14 @@ export default function App() {
                     <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       <li>Wenn Barbarossa 2. wird, reicht Platz 1 für Bostalsee nicht (Barbarossa hat dann 18,5 Punkte).</li>
                       <li>Wenn Kurpfalz 2. wird, entscheidet die Schlagdifferenz: Bostalsee muss 18 besser sein als Kurpfalz.</li>
-                      <li>Wenn Katharinenhof oder Westpfalz 2. wird, ist Bostalsee mit Platz 1 sicher Meister.</li>
+                      <li>Wenn Katharinenhof oder Westpfalz 2. wird, ist Bostalsee mit Platz 1 sicher Meister.</li>            
                     </ul>
                   </div>
 
                   <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
                     <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg B: Bostalsee wird 2.</div>
                     <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
+                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt ├über Punkte, {b2.tiebreak} ├╝ber Tie-Breaker).
                     </div>
                     <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       <li>Dieser Weg funktioniert nur, wenn Westpfalz den Spieltag gewinnt.</li>
@@ -634,7 +1061,7 @@ export default function App() {
                         <thead>
                           <tr>
                             <th style={{ ...css.th, textAlign: "left" }}>Gegner</th>
-                            <th style={{ ...css.th, textAlign: "right" }}>Rückstand Bostalsee nach ST1–ST4</th>
+                            <th style={{ ...css.th, textAlign: "right" }}>Rückstand Bostalsee nach ST1-ST4</th>
                             <th style={{ ...css.th, textAlign: "right" }}>Bedingung am 5. Spieltag</th>
                           </tr>
                         </thead>
@@ -666,8 +1093,8 @@ export default function App() {
           {sub === "ei" && (
             <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #252d3d", flexWrap: "wrap", gap: 4 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4a5568", padding: "12px 14px 10px" }}>
-                  Bostalsee – Spieler Δ (Score minus Par+PHCP)
+                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4a5568",üadding: "12px 14px 10px" }}>
+                  Bostalsee – Spieler Δ (Score minus Par+PHCP) pro Spieltag
                 </div>
                 <div style={{ padding: "10px 14px" }}>
                   <button
