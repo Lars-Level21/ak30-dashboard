@@ -255,24 +255,120 @@ export default function App() {
     { results: st4, par: PAR4 },
   ];
   const getRoundStandard = (par) => par * COUNTED_SCORES;
-  const sumOverPar = (name) => {
-    return roundData.reduce((sum, round) => {
+
+  const getOverParValues = (name) => {
+    const values = [];
+    for (const round of roundData) {
       const entry = round.results.find(x => x.name === name);
-      return sum + (entry ? (entry.ts - getRoundStandard(round.par)) : 0);
-    }, 0);
+      if (entry) values.push(entry.ts - getRoundStandard(round.par));
+    }
+    return values;
   };
+
+  const buildTieBreakProfile = (name) => {
+    const values = getOverParValues(name);
+    const sorted = [...values].sort((a, b) => a - b);
+    const bestSums = {};
+    for (let n = 1; n <= sorted.length; n++) {
+      bestSums[n] = sorted.slice(0, n).reduce((sum, v) => sum + v, 0);
+    }
+    return {
+      values,
+      resultCount: values.length,
+      bestSums,
+      totalOverPar: sorted.length > 0 ? bestSums[sorted.length] : 0,
+    };
+  };
+
+  const compareByOfficialRule = (a, b) => {
+    if (b.total !== a.total) return b.total - a.total;
+
+    // Laut Regel: Bei unterschiedlicher Anzahl verfügbarer Spieltagsergebnisse
+    // belegt die Mannschaft mit weniger Ergebnissen den schlechteren Platz.
+    if (a.tie.resultCount !== b.tie.resultCount) return b.tie.resultCount - a.tie.resultCount;
+
+    // Danach Kaskade: alle Spieltage, beste 4, beste 3, ... beste 1
+    for (let n = a.tie.resultCount; n >= 1; n--) {
+      const diff = a.tie.bestSums[n] - b.tie.bestSums[n];
+      if (diff !== 0) return diff;
+    }
+
+    // Offiziell wäre danach Los; hier stabile Anzeige-Sortierung.
+    return a.name.localeCompare(b.name, "de");
+  };
+
   const standardSummary = roundData
     .map((round, idx) => `ST${idx + 1}: ${getRoundStandard(round.par)}`)
     .join(" · ");
-  const standings = allTeams.map(name => ({
-    name,
-    p1: p1[name], p2: p2[name], p3: p3[name], p4: p4[name],
-    total: p1[name] + p2[name] + p3[name] + p4[name],
-    overPar: sumOverPar(name),
-  })).sort((a, b) => {
-    if (b.total !== a.total) return b.total - a.total;
-    return a.overPar - b.overPar;
+  const standings = allTeams.map(name => {
+    const tie = buildTieBreakProfile(name);
+    return {
+      name,
+      p1: p1[name], p2: p2[name], p3: p3[name], p4: p4[name],
+      total: p1[name] + p2[name] + p3[name] + p4[name],
+      overPar: tie.totalOverPar,
+      tie,
+    };
+  }).sort(compareByOfficialRule);
+
+  const pointsAfter4 = Object.fromEntries(
+    allTeams.map(name => [name, (p1[name] || 0) + (p2[name] || 0) + (p3[name] || 0) + (p4[name] || 0)])
+  );
+  const overParAfter4 = Object.fromEntries(
+    allTeams.map(name => {
+      const tie = buildTieBreakProfile(name);
+      return [name, tie.totalOverPar];
+    })
+  );
+  const bostalseeGapNeeded = Object.fromEntries(
+    allTeams
+      .filter(name => name !== "Bostalsee")
+      .map(name => [name, Math.max(0, overParAfter4.Bostalsee - overParAfter4[name] + 1)])
+  );
+
+  const permute = (arr) => {
+    if (arr.length <= 1) return [arr];
+    const out = [];
+    for (let i = 0; i < arr.length; i++) {
+      const rest = arr.slice(0, i).concat(arr.slice(i + 1));
+      const restPerms = permute(rest);
+      for (const p of restPerms) out.push([arr[i], ...p]);
+    }
+    return out;
+  };
+
+  const rankPoints = { 1: 5, 2: 4, 3: 3, 4: 2, 5: 1 };
+  const opponents = allTeams.filter(t => t !== "Bostalsee");
+  const permutations = permute(opponents);
+
+  const championshipByBostalseePos = [1, 2, 3, 4, 5].map((bPos) => {
+    const remainingPlaces = [1, 2, 3, 4, 5].filter(p => p !== bPos);
+    let total = 0;
+    let automatic = 0;
+    let tiebreak = 0;
+
+    for (const perm of permutations) {
+      const placeMap = { Bostalsee: bPos };
+      for (let i = 0; i < perm.length; i++) placeMap[perm[i]] = remainingPlaces[i];
+
+      const finalPoints = {};
+      for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
+
+      const maxPoints = Math.max(...Object.values(finalPoints));
+      const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
+
+      if (!leaders.includes("Bostalsee")) continue;
+
+      total += 1;
+      if (leaders.length === 1) automatic += 1;
+      else tiebreak += 1;
+    }
+
+    return { bPos, total, automatic, tiebreak };
   });
+
+  const b1 = championshipByBostalseePos.find(x => x.bPos === 1);
+  const b2 = championshipByBostalseePos.find(x => x.bPos === 2);
 
   // Compute per-player averages
   const playersWithAvg = players.map(p => {
@@ -412,10 +508,11 @@ export default function App() {
           )}
 
           {sub === "gesamt" && (
-            <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
-              <div style={css.sec}>Gesamttabelle nach 4 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
-              <div style={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <>
+              <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
+                <div style={css.sec}>Gesamttabelle nach 4 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr>
                       {["Pos.", "Mannschaft", "ST1 Score", "ST1 Pkt", "ST2 Score", "ST2 Pkt", "ST3 Score", "ST3 Pkt", "ST4 Score", "ST4 Pkt", "Gesamt", "Schläge über Par"].map((h, i) =>
@@ -462,10 +559,88 @@ export default function App() {
                       );
                     })}
                   </tbody>
-                </table>
+                  </table>
+                </div>
+                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
               </div>
-              <div style={css.note}>Bei Punktgleichheit entscheidet die geringere Summe Schläge über Par (Platzstandard je Spieltag: Par×6). Platzstandards: {standardSummary}. ST3: Barbarossa und Katharinenhof schlaggleich (508) → je 3,5 Punkte · ST4: Kurpfalz gewinnt mit 475 · Platz 5 = Absteiger</div>
-            </div>
+
+              <div style={{ ...css.card, borderRadius: 8 }}>
+                <div style={css.sec}>Meisterschafts-Konstellationen für Bostalsee (für Team-Besprechung)</div>
+                <div style={{ padding: 14, display: "grid", gap: 12 }}>
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10 }}>
+                  <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
+                    <div style={{ fontSize: 10, color: "#7dd3a8", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Muss passieren</div>
+                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: 13, lineHeight: 1.35 }}>Bostalsee muss am 5. Spieltag mindestens Platz 2 erreichen.</div>
+                  </div>
+                  <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
+                    <div style={{ fontSize: 10, color: "#fbbf24", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Kritischer Hebel</div>
+                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: 13, lineHeight: 1.35 }}>Bei Punktgleichheit mit Kurpfalz muss Bostalsee am 5. Spieltag mindestens 18 Schläge besser sein.</div>
+                  </div>
+                  <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
+                    <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Nicht ausreichend</div>
+                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: 13, lineHeight: 1.35 }}>Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
+                  <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
+                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg A: Bostalsee wird 1.</div>
+                    <div style={{ color: "#94a3b8", fontSize: 12, lineHeight: 1.45 }}>
+                      {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
+                    </div>
+                    <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "#cbd5e1", fontSize: 12, lineHeight: 1.5 }}>
+                      <li>Wenn Barbarossa 2. wird, reicht Platz 1 für Bostalsee nicht (Barbarossa hat dann 18,5 Punkte).</li>
+                      <li>Wenn Kurpfalz 2. wird, entscheidet die Schlagdifferenz: Bostalsee muss 18 besser sein als Kurpfalz.</li>
+                      <li>Wenn Katharinenhof oder Westpfalz 2. wird, ist Bostalsee mit Platz 1 sicher Meister.</li>
+                    </ul>
+                  </div>
+
+                  <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
+                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg B: Bostalsee wird 2.</div>
+                    <div style={{ color: "#94a3b8", fontSize: 12, lineHeight: 1.45 }}>
+                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
+                    </div>
+                    <ul style={{ margin: "8px 0 0", paddingLeft: 18, color: "#cbd5e1", fontSize: 12, lineHeight: 1.5 }}>
+                      <li>Dieser Weg funktioniert nur, wenn Westpfalz den Spieltag gewinnt.</li>
+                      <li>Wenn Kurpfalz dabei 3. wird (17 Punkte), braucht Bostalsee wieder 18 Schläge Vorteil auf Kurpfalz.</li>
+                      <li>Platz 2 hinter einem anderen Sieger als Westpfalz reicht nicht aus.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div style={{ background: "#101826", border: "1px solid #23314a", borderRadius: 8, padding: 12 }}>
+                  <div style={{ color: "#93c5fd", fontWeight: 700, fontSize: 12, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>Benötigter Schlagvorteil bei Punktgleichheit</div>
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+                      <thead>
+                        <tr>
+                          <th style={{ ...css.th, textAlign: "left" }}>Gegner</th>
+                          <th style={{ ...css.th, textAlign: "right" }}>Rückstand Bostalsee nach ST1–ST4</th>
+                          <th style={{ ...css.th, textAlign: "right" }}>Bedingung am 5. Spieltag</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {allTeams.filter(t => t !== "Bostalsee").map(team => {
+                          const gap = overParAfter4.Bostalsee - overParAfter4[team];
+                          const need = bostalseeGapNeeded[team];
+                          return (
+                            <tr key={team} style={{ borderBottom: "1px solid #1e2a3a" }}>
+                              <td style={{ ...css.td, textAlign: "left", color: "#e2e8f0", fontWeight: 600 }}>{team}</td>
+                              <td style={{ ...css.td, color: gap > 0 ? RED : C2, fontWeight: 700 }}>{gap > 0 ? `+${gap}` : `${gap}`}</td>
+                              <td style={{ ...css.td, color: need === 0 ? C2 : AMB, fontWeight: 700 }}>
+                                {need === 0 ? "Kein Vorteil nötig" : `Bostalsee mind. ${need} besser`}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                </div>
+                <div style={css.note}>Legende für Besprechung: "mind. X besser" bedeutet: Bostalsee braucht am 5. Spieltag mindestens X Schläge weniger als der genannte Gegner. Tie-Breaker basiert auf der Gesamtsumme Schläge über Par über alle Spieltage.</div>
+              </div>
+            </>
           )}
 
           {sub === "ei" && (
