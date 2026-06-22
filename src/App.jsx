@@ -25,7 +25,7 @@ function LoginGate({ onAuth }) {
     <div style={{ minHeight: "100vh", background: "#0f1117", display: "flex", alignItems: "center", justifyContent: "center", padding: 20, fontFamily: "system-ui,sans-serif" }}>
       <div style={{ width: "100%", maxWidth: 340 }}>
         <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 4, textTransform: "uppercase", color: "#4a5568", marginBottom: 8 }}>AK30 · Bostalsee · 2026</div>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 4, textTransform: "uppercase", color: "#4a5568", marginBottom: 8 }}>AK30 · GC Bostalsee · 2026</div>
           <div style={{ fontSize: 22, fontWeight: 700, color: "#e2e8f0" }}>Dashboard</div>
         </div>
         <form onSubmit={handleSubmit} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 10, padding: 24 }}>
@@ -55,15 +55,15 @@ function LoginGate({ onAuth }) {
 }
 
 const hcpiTeams = [
-  { name: "Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8, s4avg: 7.50, s4med: 6.80, s4n: 8 },
-  { name: "Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.44, s4med: 7.25, s4n: 8 },
-  { name: "Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 8.86, s4med: 8.35, s4n: 8 },
-  { name: "Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 9.66, s4med: 9.60, s4n: 8 },
-  { name: "Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 6.81, s4med: 6.35, s4n: 8 },
+  { name: "GC Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8, s4avg: 7.50, s4med: 6.80, s4n: 8 },
+  { name: "GC Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.44, s4med: 7.25, s4n: 8 },
+  { name: "GC Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 8.86, s4med: 8.35, s4n: 8 },
+  { name: "EGC Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 9.66, s4med: 9.60, s4n: 8 },
+  { name: "GC Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 6.81, s4med: 6.35, s4n: 8 },
 ];
 
 const chartData = hcpiTeams.map(t => ({
-  name: t.name === "Katharinenhof" ? "Katharinh." : t.name,
+  name: t.name === "GC Katharinenhof" ? "Katharinh." : t.name,
   "1.ST": +t.s1avg.toFixed(2),
   "2.ST": +t.s2avg.toFixed(2),
   "3.ST": +t.s3avg.toFixed(2),
@@ -71,32 +71,32 @@ const chartData = hcpiTeams.map(t => ({
 }));
 
 const st1 = [
-  { name: "Katharinenhof", rank: 1, ts: 469, soll: 462, streicher: "Kurt (82), Fischer (82)" },
-  { name: "Barbarossa",    rank: 2, ts: 489, soll: 476, streicher: "Recktenwald (90), Schleppi (90)" },
-  { name: "Kurpfalz",      rank: 3, ts: 491, soll: 469, streicher: "Rischbode (87), Mühl (87)" },
-  { name: "Bostalsee",     rank: 4, ts: 507, soll: 469, streicher: "Ludwig (91), Scholler (93)" },
-  { name: "Westpfalz",     rank: 5, ts: 512, soll: 480, streicher: "Jakob (93), Flierl (102)" },
+  { name: "GC Katharinenhof", rank: 1, ts: 469, soll: 462, streicher: "Kurt (82), Fischer (82)" },
+  { name: "GC Barbarossa",    rank: 2, ts: 489, soll: 476, streicher: "Recktenwald (90), Schleppi (90)" },
+  { name: "GC Kurpfalz",      rank: 3, ts: 491, soll: 469, streicher: "Rischbode (87), Mühl (87)" },
+  { name: "GC Bostalsee",     rank: 4, ts: 507, soll: 469, streicher: "Ludwig (91), Scholler (93)" },
+  { name: "EGC Westpfalz",     rank: 5, ts: 512, soll: 480, streicher: "Jakob (93), Flierl (102)" },
 ];
 const st2 = [
-  { name: "Barbarossa",    rank: 1, ts: 502, soll: 480, streicher: "Häusler (90), Wasem (99)" },
-  { name: "Kurpfalz",      rank: 2, ts: 505, soll: 482, streicher: "Ruthig (90), Türk (90)" },
-  { name: "Katharinenhof", rank: 3, ts: 519, soll: 472, streicher: "— (2× No Return)" },
-  { name: "Bostalsee",     rank: 4, ts: 520, soll: 477, streicher: "Schade (94), Reiter (95)" },
-  { name: "Westpfalz",     rank: 5, ts: 555, soll: 493, streicher: "Mühe (108) · 1× NR" },
+  { name: "GC Barbarossa",    rank: 1, ts: 502, soll: 480, streicher: "Häusler (90), Wasem (99)" },
+  { name: "GC Kurpfalz",      rank: 2, ts: 505, soll: 482, streicher: "Ruthig (90), Türk (90)" },
+  { name: "GC Katharinenhof", rank: 3, ts: 519, soll: 472, streicher: "— (2× No Return)" },
+  { name: "GC Bostalsee",     rank: 4, ts: 520, soll: 477, streicher: "Schade (94), Reiter (95)" },
+  { name: "EGC Westpfalz",     rank: 5, ts: 555, soll: 493, streicher: "Mühe (108) · 1× NR" },
 ];
 const st3 = [
-  { name: "Bostalsee",     rank: 1, ts: 503, soll: 476, streicher: "Schneider (94), Schmitt (95)" },
-  { name: "Barbarossa",    rank: 2, ts: 508, soll: 492, streicher: "Recktenwald (92), Blauth (99)" },
-  { name: "Katharinenhof", rank: 3, ts: 508, soll: 480, streicher: "Fries (94), Becker (96)" },
-  { name: "Kurpfalz",      rank: 4, ts: 525, soll: 497, streicher: "Okon (97), Mühl (99)" },
-  { name: "Westpfalz",     rank: 5, ts: 550, soll: 501, streicher: "Hammerschmidt (102), Hauck (109)" },
+  { name: "GC Bostalsee",     rank: 1, ts: 503, soll: 476, streicher: "Schneider (94), Schmitt (95)" },
+  { name: "GC Barbarossa",    rank: 2, ts: 508, soll: 492, streicher: "Recktenwald (92), Blauth (99)" },
+  { name: "GC Katharinenhof", rank: 3, ts: 508, soll: 480, streicher: "Fries (94), Becker (96)" },
+  { name: "GC Kurpfalz",      rank: 4, ts: 525, soll: 497, streicher: "Okon (97), Mühl (99)" },
+  { name: "EGC Westpfalz",     rank: 5, ts: 550, soll: 501, streicher: "Hammerschmidt (102), Hauck (109)" },
 ];
 const st4 = [
-  { name: "Kurpfalz",      rank: 1, ts: 475, soll: 463, streicher: "Borrmann (85), Weißkopf (89)" },
-  { name: "Bostalsee",     rank: 2, ts: 483, soll: 475, streicher: "Georg (89), Ludwig (93)" },
-  { name: "Westpfalz",     rank: 3, ts: 485, soll: 484, streicher: "Mühe (92), Klingel (95)" },
-  { name: "Barbarossa",    rank: 4, ts: 494, soll: 480, streicher: "Blauth (97), Metzmann (NRO)" },
-  { name: "Katharinenhof", rank: 5, ts: 504, soll: 468, streicher: "Fries (98), Fischer (NRO)" },
+  { name: "GC Kurpfalz",      rank: 1, ts: 475, soll: 463, streicher: "Borrmann (85), Weißkopf (89)" },
+  { name: "GC Bostalsee",     rank: 2, ts: 483, soll: 475, streicher: "Georg (89), Ludwig (93)" },
+  { name: "EGC Westpfalz",     rank: 3, ts: 485, soll: 484, streicher: "Mühe (92), Klingel (95)" },
+  { name: "GC Barbarossa",    rank: 4, ts: 494, soll: 480, streicher: "Blauth (97), Metzmann (NRO)" },
+  { name: "GC Katharinenhof", rank: 5, ts: 504, soll: 468, streicher: "Fries (98), Fischer (NRO)" },
 ];
 
 const players = [
@@ -117,52 +117,53 @@ const players = [
 
 const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR5 = 71, PAR_FS = 72;
 const DAY5_STORAGE_KEY = "ak30_day5_results";
+const DAY5_SIM_RUN_KEY = "ak30_day5_sim_run";
 
 const day5StartList = [
-  { name: "Newsome, Robert", team: "Barbarossa" },
-  { name: "Schertz, Patric", team: "Barbarossa" },
-  { name: "Metzmann, Florian", team: "Barbarossa" },
-  { name: "Kroehnert, Jonas", team: "Barbarossa" },
-  { name: "Häusler, Gerold", team: "Barbarossa" },
-  { name: "Recktenwald, Tobias", team: "Barbarossa" },
-  { name: "Mühlberger, Felix", team: "Barbarossa" },
-  { name: "Karol, Kamil", team: "Barbarossa" },
+  { name: "Newsome, Robert", team: "GC Barbarossa" },
+  { name: "Schertz, Patric", team: "GC Barbarossa" },
+  { name: "Metzmann, Florian", team: "GC Barbarossa" },
+  { name: "Kroehnert, Jonas", team: "GC Barbarossa" },
+  { name: "Häusler, Gerold", team: "GC Barbarossa" },
+  { name: "Recktenwald, Tobias", team: "GC Barbarossa" },
+  { name: "Mühlberger, Felix", team: "GC Barbarossa" },
+  { name: "Karol, Kamil", team: "GC Barbarossa" },
 
-  { name: "Werny, Erik", team: "Katharinenhof" },
-  { name: "Klampfer, Erwin", team: "Katharinenhof" },
-  { name: "Fischer, Maximilian", team: "Katharinenhof" },
-  { name: "Holzer, Sebastian", team: "Katharinenhof" },
-  { name: "Becker, Michael", team: "Katharinenhof" },
-  { name: "Kirchner, Eric", team: "Katharinenhof" },
-  { name: "Schley, Michael", team: "Katharinenhof" },
-  { name: "Marullo, Giuseppe", team: "Katharinenhof" },
+  { name: "Werny, Erik", team: "GC Katharinenhof" },
+  { name: "Klampfer, Erwin", team: "GC Katharinenhof" },
+  { name: "Fischer, Maximilian", team: "GC Katharinenhof" },
+  { name: "Holzer, Sebastian", team: "GC Katharinenhof" },
+  { name: "Becker, Michael", team: "GC Katharinenhof" },
+  { name: "Kirchner, Eric", team: "GC Katharinenhof" },
+  { name: "Schley, Michael", team: "GC Katharinenhof" },
+  { name: "Marullo, Giuseppe", team: "GC Katharinenhof" },
 
-  { name: "Ley, Karsten", team: "Bostalsee" },
-  { name: "Georg, Heiko", team: "Bostalsee" },
-  { name: "Martin, Lars", team: "Bostalsee" },
-  { name: "Wilhelm, Michael", team: "Bostalsee" },
-  { name: "Reiter, Marco", team: "Bostalsee" },
-  { name: "Schade, Marc André", team: "Bostalsee" },
-  { name: "Ludwig, Tobias", team: "Bostalsee" },
-  { name: "Decker, Yannick", team: "Bostalsee" },
+  { name: "Ley, Karsten", team: "GC Bostalsee" },
+  { name: "Georg, Heiko", team: "GC Bostalsee" },
+  { name: "Martin, Lars", team: "GC Bostalsee" },
+  { name: "Wilhelm, Michael", team: "GC Bostalsee" },
+  { name: "Reiter, Marco", team: "GC Bostalsee" },
+  { name: "Schade, Marc André", team: "GC Bostalsee" },
+  { name: "Ludwig, Tobias", team: "GC Bostalsee" },
+  { name: "Decker, Yannick", team: "GC Bostalsee" },
 
-  { name: "Leopold, Jens", team: "Kurpfalz" },
-  { name: "Kretz, Sascha", team: "Kurpfalz" },
-  { name: "Baronello, Roberto", team: "Kurpfalz" },
-  { name: "Rischbode, Tjark-Lajos", team: "Kurpfalz" },
-  { name: "Bieker, Niels", team: "Kurpfalz" },
-  { name: "Weisskopf, Luis", team: "Kurpfalz" },
-  { name: "Borrmann, Mirko", team: "Kurpfalz" },
-  { name: "Tuerk, Sabri", team: "Kurpfalz" },
+  { name: "Leopold, Jens", team: "GC Kurpfalz" },
+  { name: "Kretz, Sascha", team: "GC Kurpfalz" },
+  { name: "Baronello, Roberto", team: "GC Kurpfalz" },
+  { name: "Rischbode, Tjark-Lajos", team: "GC Kurpfalz" },
+  { name: "Bieker, Niels", team: "GC Kurpfalz" },
+  { name: "Weisskopf, Luis", team: "GC Kurpfalz" },
+  { name: "Borrmann, Mirko", team: "GC Kurpfalz" },
+  { name: "Tuerk, Sabri", team: "GC Kurpfalz" },
 
-  { name: "Wadle, Volker", team: "Westpfalz" },
-  { name: "Riedinger, Jan", team: "Westpfalz" },
-  { name: "Fusenig, Christian", team: "Westpfalz" },
-  { name: "Wiese, Felix", team: "Westpfalz" },
-  { name: "Flierl, Jan-Benjamin", team: "Westpfalz" },
-  { name: "Hammerschmidt, Thorsten", team: "Westpfalz" },
-  { name: "Klingel, Steffen", team: "Westpfalz" },
-  { name: "Muehe, Bennet", team: "Westpfalz" },
+  { name: "Wadle, Volker", team: "EGC Westpfalz" },
+  { name: "Riedinger, Jan", team: "EGC Westpfalz" },
+  { name: "Fusenig, Christian", team: "EGC Westpfalz" },
+  { name: "Wiese, Felix", team: "EGC Westpfalz" },
+  { name: "Flierl, Jan-Benjamin", team: "EGC Westpfalz" },
+  { name: "Hammerschmidt, Thorsten", team: "EGC Westpfalz" },
+  { name: "Klingel, Steffen", team: "EGC Westpfalz" },
+  { name: "Muehe, Bennet", team: "EGC Westpfalz" },
 ];
 
 const css = {
@@ -239,7 +240,7 @@ function TeamTable({ data, title, subnote }) {
           <tbody>
             {data.map(t => {
               const d = t.ts - t.soll;
-              const iB = t.name === "Bostalsee";
+              const iB = t.name === "GC Bostalsee";
               const pC = d <= 10 ? C2 : d <= 25 ? AMB : RED;
               return (
                 <tr key={t.name} style={{ background: iB ? "#12192a" : "transparent", borderBottom: "1px solid #1e2a3a" }}>
@@ -261,7 +262,7 @@ function TeamTable({ data, title, subnote }) {
   );
 }
 
-function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateResult, resetResults }) {
+function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateResult, resetResults, simulateResults }) {
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [scoreInput, setScoreInput] = useState("");
   const [isNR, setIsNR] = useState(false);
@@ -470,6 +471,12 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
               >
                 Live Reset
               </button>
+              <button
+                onClick={simulateResults}
+                style={{ padding: "8px 10px", background: "#1d2738", border: "1px solid #334155", borderRadius: 6, fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#bfdbfe", cursor: "pointer" }}
+              >
+                Simulate
+              </button>
             </div>
           </div>
         </div>
@@ -522,9 +529,9 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
             </thead>
             <tbody>
               {rankedOverallLive.map((t, idx) => (
-                <tr key={t.team} style={{ borderBottom: "1px solid #1e2a3a", background: t.team === "Bostalsee" ? "#12192a" : "transparent" }}>
+                <tr key={t.team} style={{ borderBottom: "1px solid #1e2a3a", background: t.team === "GC Bostalsee" ? "#12192a" : "transparent" }}>
                   <td style={{ ...css.td, textAlign: "left", color: "#94a3b8", fontWeight: 700 }}>{idx + 1}</td>
-                  <td style={{ ...css.td, textAlign: "left", color: t.team === "Bostalsee" ? C1 : "#e2e8f0", fontWeight: 700 }}>{t.team}</td>
+                  <td style={{ ...css.td, textAlign: "left", color: t.team === "GC Bostalsee" ? C1 : "#e2e8f0", fontWeight: 700 }}>{t.team}</td>
                   <td style={{ ...css.td, fontWeight: 700, color: "#cbd5e1" }}>{pointsAfter4[t.team] % 1 === 0 ? pointsAfter4[t.team].toFixed(0) : pointsAfter4[t.team].toFixed(1)}</td>
                   <td style={{ ...css.td, fontWeight: 700, color: t.day5LivePoints >= 3.5 ? C2 : t.day5LivePoints >= 2 ? AMB : "#94a3b8" }}>
                     {t.day5LivePoints % 1 === 0 ? t.day5LivePoints.toFixed(0) : t.day5LivePoints.toFixed(1)}
@@ -556,9 +563,9 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
               const open = teamData.entries.filter((e) => e.value === undefined).length;
 
               return (
-                <div key={team} style={{ border: "1px solid #1f2937", borderRadius: 8, background: team === "Bostalsee" ? "#12192a" : "#0f141e", overflow: "hidden" }}>
+                <div key={team} style={{ border: "1px solid #1f2937", borderRadius: 8, background: team === "GC Bostalsee" ? "#12192a" : "#0f141e", overflow: "hidden" }}>
                   <div style={{ padding: "10px 10px 8px", borderBottom: "1px solid #1f2937" }}>
-                    <div style={{ fontSize: 13, fontWeight: 800, color: team === "Bostalsee" ? C1 : "#e2e8f0" }}>{team}</div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: team === "GC Bostalsee" ? C1 : "#e2e8f0" }}>{team}</div>
                     <div style={{ marginTop: 4, fontSize: 11, color: "#94a3b8" }}>
                       Erfasst {teamData.enteredCount}/8 | Offen {open} | NR {teamData.nrCount}
                     </div>
@@ -615,6 +622,55 @@ export default function App() {
     const stored = localStorage.getItem(DAY5_STORAGE_KEY);
     return stored ? JSON.parse(stored) : {};
   });
+
+  const seededRandom = (seed) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  };
+
+  const simulateDay5Results = () => {
+    const prevRun = parseInt(localStorage.getItem(DAY5_SIM_RUN_KEY) || "0", 10);
+    const run = prevRun + 1;
+    const phase = (run - 1) % 5;
+
+    // Rotierender Teamvorteil fuer klar unterschiedliche Tabellenbilder pro Klick.
+    const teamBiasByPhase = {
+      0: { "GC Bostalsee": -3, "GC Kurpfalz": 1, "GC Katharinenhof": 2, "GC Barbarossa": 4, "EGC Westpfalz": 6 },
+      1: { "GC Kurpfalz": -3, "GC Katharinenhof": 1, "GC Bostalsee": 2, "GC Barbarossa": 4, "EGC Westpfalz": 6 },
+      2: { "GC Katharinenhof": -3, "GC Barbarossa": 1, "GC Kurpfalz": 2, "GC Bostalsee": 4, "EGC Westpfalz": 6 },
+      3: { "GC Barbarossa": -3, "EGC Westpfalz": 1, "GC Katharinenhof": 2, "GC Kurpfalz": 4, "GC Bostalsee": 6 },
+      4: { "EGC Westpfalz": -3, "GC Bostalsee": 1, "GC Barbarossa": 2, "GC Katharinenhof": 4, "GC Kurpfalz": 6 },
+    };
+
+    const teamBias = teamBiasByPhase[phase];
+    const next = {};
+
+    day5StartList.forEach((player, idx) => {
+      const seed = run * 997 + idx * 389 + player.name.length * 17;
+      const r = seededRandom(seed);
+
+      // Einige offene Felder und wenige NR fuer realistische Zwischensituationen.
+      const openChance = 0.08 + ((seed % 5) * 0.01);
+      const nrChance = 0.03;
+
+      if (r < openChance) return;
+      if (r > 1 - nrChance) {
+        next[player.name] = null;
+        return;
+      }
+
+      const base = 79;
+      const variation = Math.floor(seededRandom(seed + 31) * 16) - 8; // -8..+7
+      const pressure = Math.floor(seededRandom(seed + 73) * 5) - 2;   // -2..+2
+      const score = base + variation + pressure + (teamBias[player.team] || 0);
+      next[player.name] = Math.max(68, Math.min(102, score));
+    });
+
+    localStorage.setItem(DAY5_SIM_RUN_KEY, String(run));
+    setDay5Results(next);
+    localStorage.setItem(DAY5_STORAGE_KEY, JSON.stringify(next));
+  };
+
   useEffect(() => {
     const handler = () => setIsMobile(window.innerWidth < 640);
     window.addEventListener("resize", handler);
@@ -656,7 +712,7 @@ export default function App() {
   const p2 = calcPoints(st2);
   const p3 = calcPoints(st3);
   const p4 = calcPoints(st4);
-  const allTeams = ["Barbarossa", "Katharinenhof", "Bostalsee", "Kurpfalz", "Westpfalz"];
+  const allTeams = ["GC Barbarossa", "GC Katharinenhof", "GC Bostalsee", "GC Kurpfalz", "EGC Westpfalz"];
   const COUNTED_SCORES = 6;
   const roundData = [
     { results: st1, par: PAR1 },
@@ -693,7 +749,7 @@ export default function App() {
   const compareByOfficialRule = (a, b) => {
     if (b.total !== a.total) return b.total - a.total;
 
-    // Laut Regel: Bei unterschiedlicher Anzahl verf├╝gbarer Spieltagsergebnisse
+    // Laut Regel: Bei unterschiedlicher Anzahl verfuegbarer Spieltagsergebnisse
     // belegt die Mannschaft mit weniger Ergebnissen den schlechteren Platz.
     if (a.tie.resultCount !== b.tie.resultCount) return b.tie.resultCount - a.tie.resultCount;
 
@@ -703,13 +759,13 @@ export default function App() {
       if (diff !== 0) return diff;
     }
 
-    // Offiziell w├ñre danach Los; hier stabile Anzeige-Sortierung.
+    // Offiziell waere danach Los; hier stabile Anzeige-Sortierung.
     return a.name.localeCompare(b.name, "de");
   };
 
   const standardSummary = roundData
     .map((round, idx) => `ST${idx + 1}: ${getRoundStandard(round.par)}`)
-    .join(" ┬À ");
+    .join(" | ");
   const standings = allTeams.map(name => {
     const tie = buildTieBreakProfile(name);
     return {
@@ -732,8 +788,8 @@ export default function App() {
   );
   const bostalseeGapNeeded = Object.fromEntries(
     allTeams
-      .filter(name => name !== "Bostalsee")
-      .map(name => [name, Math.max(0, overParAfter4.Bostalsee - overParAfter4[name] + 1)])
+      .filter(name => name !== "GC Bostalsee")
+      .map(name => [name, Math.max(0, overParAfter4["GC Bostalsee"] - overParAfter4[name] + 1)])
   );
 
   const permute = (arr) => {
@@ -748,7 +804,7 @@ export default function App() {
   };
 
   const rankPoints = { 1: 5, 2: 4, 3: 3, 4: 2, 5: 1 };
-  const opponents = allTeams.filter(t => t !== "Bostalsee");
+  const opponents = allTeams.filter(t => t !== "GC Bostalsee");
   const permutations = permute(opponents);
 
   const championshipByBostalseePos = [1, 2, 3, 4, 5].map((bPos) => {
@@ -758,7 +814,7 @@ export default function App() {
     let tiebreak = 0;
 
     for (const perm of permutations) {
-      const placeMap = { Bostalsee: bPos };
+      const placeMap = { "GC Bostalsee": bPos };
       for (let i = 0; i < perm.length; i++) placeMap[perm[i]] = remainingPlaces[i];
 
       const finalPoints = {};
@@ -767,7 +823,7 @@ export default function App() {
       const maxPoints = Math.max(...Object.values(finalPoints));
       const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
 
-      if (!leaders.includes("Bostalsee")) continue;
+      if (!leaders.includes("GC Bostalsee")) continue;
 
       total += 1;
       if (leaders.length === 1) automatic += 1;
@@ -796,9 +852,9 @@ export default function App() {
     <div style={{ ...css.body, padding: isMobile ? "12px 8px" : 20 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 20, borderBottom: "1px solid #1e2a3a", paddingBottom: 0, flexWrap: "wrap" }}>
         <span style={{ fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#4a5568", marginRight: 20, whiteSpace: "nowrap" }}>
-          AK30 ┬À Bostalsee ┬À 2026
+          AK30 - GC Bostalsee - 2026
         </span>
-        <NavTab label="HCPI-├£bersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
+        <NavTab label="HCPI-Uebersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
         <NavTab label="Spieltag 5 LIVE" active={page === "day5"} onClick={() => setPage("day5")} />
         <NavTab label="Ergebnis-Analyse" active={page === "ergebnis"} onClick={() => setPage("ergebnis")} />
       </div>
@@ -807,11 +863,11 @@ export default function App() {
         <div>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(5,1fr)", gap: 10, marginBottom: 16 }}>
             {[
-              ["Feld ├ÿ 1. Spieltag", "8.18", C1],
-              ["Feld ├ÿ 2. Spieltag", "7.60", C2],
-              ["Feld ├ÿ 3. Spieltag", "7.84", C3],
-              ["Feld ├ÿ 4. Spieltag", "7.85", C4],
-              ["St├ñrkster Gegner", "Katharinenhof", C2],
+              ["Feld-Schnitt 1. Spieltag", "8.18", C1],
+              ["Feld-Schnitt 2. Spieltag", "7.60", C2],
+              ["Feld-Schnitt 3. Spieltag", "7.84", C3],
+              ["Feld-Schnitt 4. Spieltag", "7.85", C4],
+              ["Staerkster Gegner", "GC Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
                 <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a5568", marginBottom: 7 }}>{l}</div>
@@ -829,26 +885,27 @@ export default function App() {
                     {[["1. Spieltag (09.05.)", "1.ST", C1], ["2. Spieltag (23.05.)", "2.ST", C2], ["3. Spieltag (06.06.)", "3.ST", C3], ["4. Spieltag (20.06.)", "4.ST", C4]].map(([l, s, c]) => (
                       <th key={l} colSpan={isMobile ? 1 : 3} style={{ ...css.th, textAlign: "center", color: c, borderBottom: `2px solid ${c}`, padding: "9px 6px 4px" }}>{isMobile ? s : l}</th>
                     ))}
-                    <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>╬ö├ÿ 1ÔåÆ4</th>
+                    <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>Delta letzter ST</th>
                   </tr>
                   <tr style={{ background: "#111827", borderBottom: "2px solid #1e2a3a" }}>
-                    <th style={{ ...css.th, color: C1 }}>├ÿ HCPI</th>
+                    <th style={{ ...css.th, color: C1 }}>Avg HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
-                    <th style={{ ...css.th, color: C2 }}>├ÿ HCPI</th>
+                    <th style={{ ...css.th, color: C2 }}>Avg HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
-                    <th style={{ ...css.th, color: C3 }}>├ÿ HCPI</th>
+                    <th style={{ ...css.th, color: C3 }}>Avg HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
-                    <th style={{ ...css.th, color: C4 }}>├ÿ HCPI</th>
+                    <th style={{ ...css.th, color: C4 }}>Avg HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
                   </tr>
                 </thead>
                 <tbody>
                   {hcpiTeams.map(t => {
-                    const d = t.s4avg - t.s1avg;
+                    const avgValues = [t.s1avg, t.s2avg, t.s3avg, t.s4avg].filter((v) => typeof v === "number");
+                    const d = avgValues.length >= 2 ? avgValues[avgValues.length - 1] - avgValues[avgValues.length - 2] : 0;
                     const dc = d > 0.1 ? RED : d < -0.1 ? C2 : "#64748b";
                     return (
                       <tr key={t.name} style={{ borderBottom: "1px solid #1e2a3a" }}>
@@ -875,7 +932,7 @@ export default function App() {
           </div>
 
           <div style={css.card}>
-            <div style={css.sec}>├ÿ HCPI pro Spieltag ÔÇö alle Mannschaften</div>
+            <div style={css.sec}>Avg HCPI pro Spieltag - alle Mannschaften</div>
             <div style={{ padding: "14px 14px 4px" }}>
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={chartData} barGap={3} barCategoryGap="25%">
@@ -907,6 +964,7 @@ export default function App() {
             results={day5Results}
             updateResult={updateDay5Result}
             resetResults={resetDay5Results}
+            simulateResults={simulateDay5Results}
           />
         </div>
       )}
@@ -915,7 +973,7 @@ export default function App() {
         <div>
           <div style={{ display: "flex", gap: 4, marginBottom: 0, flexWrap: "wrap" }}>
             <SubTab label="Mannschaftsvergleich" active={sub === "ms"} onClick={() => setSub("ms")} />
-            <SubTab label="Bostalsee Einzel" active={sub === "ei"} onClick={() => setSub("ei")} />
+            <SubTab label="GC Bostalsee Einzel" active={sub === "ei"} onClick={() => setSub("ei")} />
             <SubTab label="Gesamttabelle" active={sub === "gesamt"} onClick={() => setSub("gesamt")} />
           </div>
 
@@ -928,9 +986,9 @@ export default function App() {
                 <StTab label="4. Spieltag" active={stTab === "st4"} onClick={() => setStTab("st4")} />
               </div>
               {stTab === "st1" && <TeamTable data={st1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127 · Top-6" subnote="Soll = Σ(Par+PHCP) der 6 gewerteten Spieler. Δ positiv = über Erwartung." />}
-              {stTab === "st2" && <TeamTable data={st2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134 · Top-6" subnote="Katharinenhof: 2× No Return. Westpfalz: 1× NR." />}
-              {stTab === "st3" && <TeamTable data={st3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135 · Top-6" subnote="Bostalsee gewinnt den Spieltag. Katharinenhof Rang 3 trotz gleicher Score wegen CR-Ausgleich (*)." />}
-              {stTab === "st4" && <TeamTable data={st4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72 · Top-6" subnote="Kurpfalz gewinnt den Spieltag. Bostalsee stark auf Rang 2. Je ein NRO bei Barbarossa und Katharinenhof." />}
+              {stTab === "st2" && <TeamTable data={st2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134 · Top-6" subnote="GC Katharinenhof: 2× No Return. EGC Westpfalz: 1× NR." />}
+              {stTab === "st3" && <TeamTable data={st3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135 · Top-6" subnote="GC Bostalsee gewinnt den Spieltag. GC Katharinenhof Rang 3 trotz gleicher Score wegen CR-Ausgleich (*)." />}
+              {stTab === "st4" && <TeamTable data={st4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72 · Top-6" subnote="GC Kurpfalz gewinnt den Spieltag. GC Bostalsee stark auf Rang 2. Je ein NRO bei GC Barbarossa und GC Katharinenhof." />}
             </div>
           )}
 
@@ -951,7 +1009,7 @@ export default function App() {
                     {standings.map((t, idx) => {
                       const isTop = idx === 0;
                       const isRelegation = idx === standings.length - 1;
-                      const isBos = t.name === "Bostalsee";
+                      const isBos = t.name === "GC Bostalsee";
                       const posColor = isTop ? C2 : isRelegation ? RED : idx === 1 ? "#94a3b8" : "#64748b";
                       const posBg = isTop ? "#064e3b" : isRelegation ? "#7f1d1d" : idx === 1 ? "#1e2a3a" : "#1e2a3a";
                       const fPts = (pts) => {
@@ -988,7 +1046,7 @@ export default function App() {
                   </tbody>
                   </table>
                 </div>
-                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl ├╝ber/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollst├ñndiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: Barbarossa und Katharinenhof schlaggleich (508) ÔåÆ je 3,5 Punkte ┬À ST4: Kurpfalz gewinnt mit 475 ┬À Platz 5 = Absteiger</div>
+                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl ueber/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollstaendiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
               </div>
 
               <div style={{ ...css.card, borderRadius: 8 }}>
@@ -997,40 +1055,40 @@ export default function App() {
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10 }}>
                   <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#7dd3a8", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Muss passieren</div>
-                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bostalsee muss am 5. Spieltag mindestens Platz 2 erreichen.</div>
+                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee muss am 5. Spieltag mindestens Platz 2 erreichen.</div>
                   </div>
                   <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#fbbf24", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Kritischer Hebel</div>
-                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bei Punktgleichheit mit Kurpfalz muss Bostalsee am 5. Spieltag mindestens 18 Schläge besser sein.</div>
+                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bei Punktgleichheit mit GC Kurpfalz muss GC Bostalsee am 5. Spieltag mindestens 18 Schlaege besser sein.</div>
                   </div>
                   <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Nicht ausreichend</div>
-                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
+                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr moeglich.</div>
                   </div>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
                   <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
-                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg A: Bostalsee wird 1.</div>
+                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg A: GC Bostalsee wird 1.</div>
                     <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
                     </div>
                     <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      <li>Wenn Barbarossa 2. wird, reicht Platz 1 für Bostalsee nicht (Barbarossa hat dann 18,5 Punkte).</li>
-                      <li>Wenn Kurpfalz 2. wird, entscheidet die Schlagdifferenz: Bostalsee muss 18 besser sein als Kurpfalz.</li>
-                      <li>Wenn Katharinenhof oder Westpfalz 2. wird, ist Bostalsee mit Platz 1 sicher Meister.</li>            
+                      <li>Wenn GC Barbarossa 2. wird, reicht Platz 1 fuer GC Bostalsee nicht (GC Barbarossa hat dann 18,5 Punkte).</li>
+                      <li>Wenn GC Kurpfalz 2. wird, entscheidet die Schlagdifferenz: GC Bostalsee muss 18 besser sein als GC Kurpfalz.</li>
+                      <li>Wenn GC Katharinenhof oder EGC Westpfalz 2. wird, ist GC Bostalsee mit Platz 1 sicher Meister.</li>
                     </ul>
                   </div>
 
                   <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
-                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg B: Bostalsee wird 2.</div>
+                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg B: GC Bostalsee wird 2.</div>
                     <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt ├über Punkte, {b2.tiebreak} ├╝ber Tie-Breaker).
+                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt ueber Punkte, {b2.tiebreak} ueber Tie-Breaker).
                     </div>
                     <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      <li>Dieser Weg funktioniert nur, wenn Westpfalz den Spieltag gewinnt.</li>
-                      <li>Wenn Kurpfalz dabei 3. wird (17 Punkte), braucht Bostalsee wieder 18 Schläge Vorteil auf Kurpfalz.</li>
-                      <li>Platz 2 hinter einem anderen Sieger als Westpfalz reicht nicht aus.</li>
+                      <li>Dieser Weg funktioniert nur, wenn EGC Westpfalz den Spieltag gewinnt.</li>
+                      <li>Wenn GC Kurpfalz dabei 3. wird (17 Punkte), braucht GC Bostalsee wieder 18 Schlaege Vorteil auf GC Kurpfalz.</li>
+                      <li>Platz 2 hinter einem anderen Sieger als EGC Westpfalz reicht nicht aus.</li>
                     </ul>
                   </div>
                 </div>
@@ -1039,8 +1097,8 @@ export default function App() {
                   <div style={{ color: "#93c5fd", fontWeight: 700, fontSize: 12, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>Benötigter Schlagvorteil bei Punktgleichheit</div>
                   {isMobile ? (
                     <div style={{ display: "grid", gap: 8 }}>
-                      {allTeams.filter(t => t !== "Bostalsee").map(team => {
-                        const gap = overParAfter4.Bostalsee - overParAfter4[team];
+                      {allTeams.filter(t => t !== "GC Bostalsee").map(team => {
+                        const gap = overParAfter4["GC Bostalsee"] - overParAfter4[team];
                         const need = bostalseeGapNeeded[team];
                         return (
                           <div key={team} style={{ border: "1px solid #1e2a3a", borderRadius: 8, padding: "8px 10px", background: "#0f172a" }}>
@@ -1049,7 +1107,7 @@ export default function App() {
                               <div style={{ color: gap > 0 ? RED : C2, fontWeight: 700, fontSize: 12 }}>{gap > 0 ? `+${gap}` : `${gap}`}</div>
                             </div>
                             <div style={{ color: need === 0 ? C2 : AMB, fontWeight: 700, fontSize: 11, lineHeight: 1.4 }}>
-                              {need === 0 ? "Kein Vorteil nötig" : `Bostalsee mind. ${need} besser am 5. Spieltag`}
+                              {need === 0 ? "Kein Vorteil noetig" : `GC Bostalsee mind. ${need} besser am 5. Spieltag`}
                             </div>
                           </div>
                         );
@@ -1061,20 +1119,20 @@ export default function App() {
                         <thead>
                           <tr>
                             <th style={{ ...css.th, textAlign: "left" }}>Gegner</th>
-                            <th style={{ ...css.th, textAlign: "right" }}>Rückstand Bostalsee nach ST1-ST4</th>
+                            <th style={{ ...css.th, textAlign: "right" }}>Rueckstand GC Bostalsee nach ST1-ST4</th>
                             <th style={{ ...css.th, textAlign: "right" }}>Bedingung am 5. Spieltag</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {allTeams.filter(t => t !== "Bostalsee").map(team => {
-                            const gap = overParAfter4.Bostalsee - overParAfter4[team];
+                          {allTeams.filter(t => t !== "GC Bostalsee").map(team => {
+                            const gap = overParAfter4["GC Bostalsee"] - overParAfter4[team];
                             const need = bostalseeGapNeeded[team];
                             return (
                               <tr key={team} style={{ borderBottom: "1px solid #1e2a3a" }}>
                                 <td style={{ ...css.td, textAlign: "left", color: "#e2e8f0", fontWeight: 600 }}>{team}</td>
                                 <td style={{ ...css.td, color: gap > 0 ? RED : C2, fontWeight: 700 }}>{gap > 0 ? `+${gap}` : `${gap}`}</td>
                                 <td style={{ ...css.td, color: need === 0 ? C2 : AMB, fontWeight: 700 }}>
-                                  {need === 0 ? "Kein Vorteil nötig" : `Bostalsee mind. ${need} besser`}
+                                  {need === 0 ? "Kein Vorteil noetig" : `GC Bostalsee mind. ${need} besser`}
                                 </td>
                               </tr>
                             );
@@ -1085,7 +1143,7 @@ export default function App() {
                   )}
                 </div>
                 </div>
-                <div style={css.note}>Legende für Besprechung: "mind. X besser" bedeutet: Bostalsee braucht am 5. Spieltag mindestens X Schläge weniger als der genannte Gegner. Tie-Breaker basiert auf der Gesamtsumme Schläge über Par über alle Spieltage.</div>
+                <div style={css.note}>Legende fuer Besprechung: "mind. X besser" bedeutet: GC Bostalsee braucht am 5. Spieltag mindestens X Schlaege weniger als der genannte Gegner. Tie-Breaker basiert auf der Gesamtsumme Schlaege ueber Par ueber alle Spieltage.</div>
               </div>
             </>
           )}
@@ -1093,8 +1151,8 @@ export default function App() {
           {sub === "ei" && (
             <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #252d3d", flexWrap: "wrap", gap: 4 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4a5568",üadding: "12px 14px 10px" }}>
-                  Bostalsee – Spieler Δ (Score minus Par+PHCP) pro Spieltag
+                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4a5568", padding: "12px 14px 10px" }}>
+                  GC Bostalsee - Spieler Delta (Score minus Par+PHCP) pro Spieltag
                 </div>
                 <div style={{ padding: "10px 14px" }}>
                   <button
@@ -1196,3 +1254,4 @@ export default function App() {
     </div>
   );
 }
+
