@@ -123,7 +123,7 @@ const day5StartList = [
   { name: "Newsome, Robert", team: "GC Barbarossa" },
   { name: "Schertz, Patric", team: "GC Barbarossa" },
   { name: "Metzmann, Florian", team: "GC Barbarossa" },
-  { name: "Kroehnert, Jonas", team: "GC Barbarossa" },
+  { name: "Kröhnert, Jonas", team: "GC Barbarossa" },
   { name: "Häusler, Gerold", team: "GC Barbarossa" },
   { name: "Recktenwald, Tobias", team: "GC Barbarossa" },
   { name: "Mühlberger, Felix", team: "GC Barbarossa" },
@@ -154,7 +154,7 @@ const day5StartList = [
   { name: "Bieker, Niels", team: "GC Kurpfalz" },
   { name: "Weisskopf, Luis", team: "GC Kurpfalz" },
   { name: "Borrmann, Mirko", team: "GC Kurpfalz" },
-  { name: "Tuerk, Sabri", team: "GC Kurpfalz" },
+  { name: "Türk, Sabri", team: "GC Kurpfalz" },
 
   { name: "Wadle, Volker", team: "EGC Westpfalz" },
   { name: "Riedinger, Jan", team: "EGC Westpfalz" },
@@ -163,7 +163,7 @@ const day5StartList = [
   { name: "Flierl, Jan-Benjamin", team: "EGC Westpfalz" },
   { name: "Hammerschmidt, Thorsten", team: "EGC Westpfalz" },
   { name: "Klingel, Steffen", team: "EGC Westpfalz" },
-  { name: "Muehe, Bennet", team: "EGC Westpfalz" },
+  { name: "Mühe, Bennet", team: "EGC Westpfalz" },
 ];
 
 const css = {
@@ -334,7 +334,7 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
     return a.team.localeCompare(b.team, "de");
   });
 
-  // Live-Punkte fuer ST5 (5-4-3-2-1) mit Punktteilung bei Gleichstand.
+  // Live-Punkte für ST5 (5-4-3-2-1) mit Punktteilung bei Gleichstand.
   const calcDay5LivePoints = (rows) => {
     const base = [5, 4, 3, 2, 1];
     const points = Object.fromEntries(rows.map((r) => [r.team, 0]));
@@ -396,7 +396,7 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
   };
 
   const confirmReset = () => {
-    if (window.confirm("Alle Live-Scores wirklich komplett loeschen?")) resetResults();
+    if (window.confirm("Alle Live-Scores wirklich komplett löschen?")) resetResults();
   };
 
   const enteredPlayers = day5StartList.filter((p) => hasEntry(p.name));
@@ -408,7 +408,7 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
         <div style={css.card}>
           <div style={css.sec}>Live Eingabe / Korrektur</div>
           <div style={{ padding: "14px" }}>
-            <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#4a5568", marginBottom: 6 }}>Spieler waehlen</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#4a5568", marginBottom: 6 }}>Spieler wählen</label>
             <select
               value={selectedPlayer}
               onChange={(e) => setSelectedPlayer(e.target.value)}
@@ -454,7 +454,7 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
                     disabled={!hasEntry(selectedPlayer)}
                     style={{ padding: "10px 12px", background: "#252d3d", border: "1px solid #374151", borderRadius: 6, fontSize: 11, fontWeight: 700, color: hasEntry(selectedPlayer) ? "#cbd5e1" : "#4a5568", cursor: hasEntry(selectedPlayer) ? "pointer" : "not-allowed", textTransform: "uppercase" }}
                   >
-                    Loeschen
+                    Löschen
                   </button>
                 </div>
               </>
@@ -489,7 +489,7 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
                 <tr>
                   <th style={{ ...css.th, textAlign: "left" }}>Mannschaft</th>
                   <th style={css.th}>Top 6 (live)</th>
-                  <th style={css.th}>Schlaege ueber Par</th>
+                  <th style={css.th}>Schläge über Par</th>
                   <th style={css.th}>Ergebnisse</th>
                   <th style={css.th}>Wertung</th>
                 </tr>
@@ -521,9 +521,9 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
                 <th style={css.th}>Punkte nach ST1-4</th>
                 <th style={css.th}>ST5 Live-Punkte</th>
                 <th style={css.th}>Punkte gesamt live</th>
-                <th style={css.th}>Ueber Par nach ST1-4</th>
-                <th style={css.th}>ST5 live ueber Par</th>
-                <th style={css.th}>Ueber Par gesamt live</th>
+                <th style={css.th}>über Par nach ST1-4</th>
+                <th style={css.th}>ST5 live über Par</th>
+                <th style={css.th}>über Par gesamt live</th>
                 <th style={css.th}>Status</th>
               </tr>
             </thead>
@@ -618,11 +618,7 @@ export default function App() {
   const [stTab, setStTab] = useState("st4");
   const [inclFS, setInclFS] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
-  const [tvScaleMode, setTvScaleMode] = useState(() => {
-    if (window.innerWidth >= 2560) return "l";
-    if (window.innerWidth >= 1920) return "m";
-    return "off";
-  });
+  const [tvScaleMode, setTvScaleMode] = useState("off");
   const [day5Results, setDay5Results] = useState(() => {
     const stored = localStorage.getItem(DAY5_STORAGE_KEY);
     return stored ? JSON.parse(stored) : {};
@@ -638,7 +634,7 @@ export default function App() {
     const run = prevRun + 1;
     const phase = (run - 1) % 5;
 
-    // Rotierender Teamvorteil fuer klar unterschiedliche Tabellenbilder pro Klick.
+    // Rotierender Teamvorteil für klar unterschiedliche Tabellenbilder pro Klick.
     const teamBiasByPhase = {
       0: { "GC Bostalsee": -3, "GC Kurpfalz": 1, "GC Katharinenhof": 2, "GC Barbarossa": 4, "EGC Westpfalz": 6 },
       1: { "GC Kurpfalz": -3, "GC Katharinenhof": 1, "GC Bostalsee": 2, "GC Barbarossa": 4, "EGC Westpfalz": 6 },
@@ -654,7 +650,7 @@ export default function App() {
       const seed = run * 997 + idx * 389 + player.name.length * 17;
       const r = seededRandom(seed);
 
-      // Einige offene Felder und wenige NR fuer realistische Zwischensituationen.
+      // Einige offene Felder und wenige NR für realistische Zwischensituationen.
       const openChance = 0.08 + ((seed % 5) * 0.01);
       const nrChance = 0.03;
 
@@ -757,7 +753,7 @@ export default function App() {
   const compareByOfficialRule = (a, b) => {
     if (b.total !== a.total) return b.total - a.total;
 
-    // Laut Regel: Bei unterschiedlicher Anzahl verfuegbarer Spieltagsergebnisse
+    // Laut Regel: Bei unterschiedlicher Anzahl verfügbarer Spieltagsergebnisse
     // belegt die Mannschaft mit weniger Ergebnissen den schlechteren Platz.
     if (a.tie.resultCount !== b.tie.resultCount) return b.tie.resultCount - a.tie.resultCount;
 
@@ -767,7 +763,7 @@ export default function App() {
       if (diff !== 0) return diff;
     }
 
-    // Offiziell waere danach Los; hier stabile Anzeige-Sortierung.
+    // Offiziell wäre danach Los; hier stabile Anzeige-Sortierung.
     return a.name.localeCompare(b.name, "de");
   };
 
@@ -876,7 +872,7 @@ export default function App() {
         <span style={{ fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#4a5568", marginRight: 20, whiteSpace: "nowrap" }}>
           AK30 - GC Bostalsee - 2026
         </span>
-        <NavTab label="HCPI-Uebersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
+        <NavTab label="HCPI-Übersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
         <NavTab label="Spieltag 5 LIVE" active={page === "day5"} onClick={() => setPage("day5")} />
         <NavTab label="Ergebnis-Analyse" active={page === "ergebnis"} onClick={() => setPage("ergebnis")} />
         <button
@@ -911,7 +907,7 @@ export default function App() {
               ["Feld-Schnitt 2. Spieltag", "7.60", C2],
               ["Feld-Schnitt 3. Spieltag", "7.84", C3],
               ["Feld-Schnitt 4. Spieltag", "7.85", C4],
-              ["Staerkster Gegner", "GC Katharinenhof", C2],
+              ["Stärkster Gegner", "GC Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
                 <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a5568", marginBottom: 7 }}>{l}</div>
@@ -1090,7 +1086,7 @@ export default function App() {
                   </tbody>
                   </table>
                 </div>
-                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl ueber/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollstaendiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
+                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
               </div>
 
               <div style={{ ...css.card, borderRadius: 8 }}>
@@ -1103,11 +1099,11 @@ export default function App() {
                   </div>
                   <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#fbbf24", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Kritischer Hebel</div>
-                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bei Punktgleichheit mit GC Kurpfalz muss GC Bostalsee am 5. Spieltag mindestens 18 Schlaege besser sein.</div>
+                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bei Punktgleichheit mit GC Kurpfalz muss GC Bostalsee am 5. Spieltag mindestens 18 Schläge besser sein.</div>
                   </div>
                   <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
                     <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Nicht ausreichend</div>
-                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr moeglich.</div>
+                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
                   </div>
                 </div>
 
@@ -1118,7 +1114,7 @@ export default function App() {
                       {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
                     </div>
                     <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      <li>Wenn GC Barbarossa 2. wird, reicht Platz 1 fuer GC Bostalsee nicht (GC Barbarossa hat dann 18,5 Punkte).</li>
+                      <li>Wenn GC Barbarossa 2. wird, reicht Platz 1 für GC Bostalsee nicht (GC Barbarossa hat dann 18,5 Punkte).</li>
                       <li>Wenn GC Kurpfalz 2. wird, entscheidet die Schlagdifferenz: GC Bostalsee muss 18 besser sein als GC Kurpfalz.</li>
                       <li>Wenn GC Katharinenhof oder EGC Westpfalz 2. wird, ist GC Bostalsee mit Platz 1 sicher Meister.</li>
                     </ul>
@@ -1127,11 +1123,11 @@ export default function App() {
                   <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
                     <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg B: GC Bostalsee wird 2.</div>
                     <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt ueber Punkte, {b2.tiebreak} ueber Tie-Breaker).
+                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
                     </div>
                     <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
                       <li>Dieser Weg funktioniert nur, wenn EGC Westpfalz den Spieltag gewinnt.</li>
-                      <li>Wenn GC Kurpfalz dabei 3. wird (17 Punkte), braucht GC Bostalsee wieder 18 Schlaege Vorteil auf GC Kurpfalz.</li>
+                      <li>Wenn GC Kurpfalz dabei 3. wird (17 Punkte), braucht GC Bostalsee wieder 18 Schläge Vorteil auf GC Kurpfalz.</li>
                       <li>Platz 2 hinter einem anderen Sieger als EGC Westpfalz reicht nicht aus.</li>
                     </ul>
                   </div>
@@ -1151,7 +1147,7 @@ export default function App() {
                               <div style={{ color: gap > 0 ? RED : C2, fontWeight: 700, fontSize: 12 }}>{gap > 0 ? `+${gap}` : `${gap}`}</div>
                             </div>
                             <div style={{ color: need === 0 ? C2 : AMB, fontWeight: 700, fontSize: 11, lineHeight: 1.4 }}>
-                              {need === 0 ? "Kein Vorteil noetig" : `GC Bostalsee mind. ${need} besser am 5. Spieltag`}
+                              {need === 0 ? "Kein Vorteil nötig" : `GC Bostalsee mind. ${need} besser am 5. Spieltag`}
                             </div>
                           </div>
                         );
@@ -1163,7 +1159,7 @@ export default function App() {
                         <thead>
                           <tr>
                             <th style={{ ...css.th, textAlign: "left" }}>Gegner</th>
-                            <th style={{ ...css.th, textAlign: "right" }}>Rueckstand GC Bostalsee nach ST1-ST4</th>
+                            <th style={{ ...css.th, textAlign: "right" }}>Rückstand GC Bostalsee nach ST1-ST4</th>
                             <th style={{ ...css.th, textAlign: "right" }}>Bedingung am 5. Spieltag</th>
                           </tr>
                         </thead>
@@ -1176,7 +1172,7 @@ export default function App() {
                                 <td style={{ ...css.td, textAlign: "left", color: "#e2e8f0", fontWeight: 600 }}>{team}</td>
                                 <td style={{ ...css.td, color: gap > 0 ? RED : C2, fontWeight: 700 }}>{gap > 0 ? `+${gap}` : `${gap}`}</td>
                                 <td style={{ ...css.td, color: need === 0 ? C2 : AMB, fontWeight: 700 }}>
-                                  {need === 0 ? "Kein Vorteil noetig" : `GC Bostalsee mind. ${need} besser`}
+                                  {need === 0 ? "Kein Vorteil nötig" : `GC Bostalsee mind. ${need} besser`}
                                 </td>
                               </tr>
                             );
@@ -1187,7 +1183,7 @@ export default function App() {
                   )}
                 </div>
                 </div>
-                <div style={css.note}>Legende fuer Besprechung: "mind. X besser" bedeutet: GC Bostalsee braucht am 5. Spieltag mindestens X Schlaege weniger als der genannte Gegner. Tie-Breaker basiert auf der Gesamtsumme Schlaege ueber Par ueber alle Spieltage.</div>
+                <div style={css.note}>Legende für Besprechung: "mind. X besser" bedeutet: GC Bostalsee braucht am 5. Spieltag mindestens X Schläge weniger als der genannte Gegner. Tie-Breaker basiert auf der Gesamtsumme Schläge über Par über alle Spieltage.</div>
               </div>
             </>
           )}
