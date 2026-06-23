@@ -1091,6 +1091,28 @@ export default function App() {
 
               <div style={{ ...css.card, borderRadius: 8 }}>
                 <div style={css.sec}>Unsere Meisterschafts-Konstellationen</div>
+                {(() => {
+                  const target = new Date("2026-08-15T00:00:00");
+                  const now = new Date();
+                  const diffMs = target - now;
+                  const diffDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+                  return (
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: isMobile ? "12px 10px" : "14px 20px", background: "linear-gradient(135deg, #0f1e36 0%, #1a0e2e 100%)", borderBottom: "1px solid #2a3b59" }}>
+                      <div style={{ textAlign: "center" }}>
+                        <div style={{ fontSize: isMobile ? 36 : 52, fontWeight: 900, color: diffDays <= 14 ? "#f87171" : diffDays <= 30 ? "#fbbf24" : "#60a5fa", lineHeight: 1, fontVariantNumeric: "tabular-nums", letterSpacing: -2 }}>
+                          {diffDays}
+                        </div>
+                        <div style={{ fontSize: 10, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 1.5, marginTop: 4 }}>
+                          {diffDays === 1 ? "Tag" : "Tage"}
+                        </div>
+                      </div>
+                      <div style={{ borderLeft: "1px solid #2a3b59", paddingLeft: 16 }}>
+                        <div style={{ fontSize: isMobile ? 11 : 13, color: "#e2e8f0", fontWeight: 700, marginBottom: 2 }}>bis zur Meisterschaftsentscheidung</div>
+                        <div style={{ fontSize: isMobile ? 10 : 11, color: "#64748b" }}>15. August 2026 · 5. Spieltag</div>
+                      </div>
+                    </div>
+                  );
+                })()}
                 <div style={{ padding: isMobile ? 10 : 14, display: "grid", gap: isMobile ? 10 : 12 }}>
                 <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10 }}>
                   <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
