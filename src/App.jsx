@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const C1 = "#60a5fa", C2 = "#34d399", C3 = "#a78bfa", C4 = "#fb923c", RED = "#f87171", AMB = "#fbbf24";
@@ -840,6 +840,84 @@ export default function App() {
   const b1 = championshipByBostalseePos.find(x => x.bPos === 1);
   const b2 = championshipByBostalseePos.find(x => x.bPos === 2);
 
+  // GC Bostalsee holt Heimsieg (wird 1.) - Ausgang je nach Team auf Platz 2
+  const bos1ByRunnerUp = opponents.map(runnerUp => {
+    const remaining = opponents.filter(t => t !== runnerUp);
+    const remPerms = permute(remaining);
+    let total = 0, automatic = 0, tiebreak = 0;
+
+    for (const perm of remPerms) {
+      const placeMap = { "GC Bostalsee": 1, [runnerUp]: 2 };
+      perm.forEach((team, i) => { placeMap[team] = i + 3; });
+
+      const finalPoints = {};
+      for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
+
+      const maxPoints = Math.max(...Object.values(finalPoints));
+      const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
+
+      if (!leaders.includes("GC Bostalsee")) continue;
+      total += 1;
+      if (leaders.length === 1) automatic += 1;
+      else tiebreak += 1;
+    }
+
+    return { runnerUp, total, automatic, tiebreak, count: remPerms.length };
+  });
+
+  // GC Bostalsee wird 2. - Ausgang je nach Team auf Platz 1
+  const bos2ByWinner = opponents.map(winner => {
+    const remaining = opponents.filter(t => t !== winner);
+    const remPerms = permute(remaining);
+    let total = 0, automatic = 0, tiebreak = 0;
+
+    for (const perm of remPerms) {
+      const placeMap = { "GC Bostalsee": 2, [winner]: 1 };
+      perm.forEach((team, i) => { placeMap[team] = i + 3; });
+
+      const finalPoints = {};
+      for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
+
+      const maxPoints = Math.max(...Object.values(finalPoints));
+      const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
+
+      if (!leaders.includes("GC Bostalsee")) continue;
+      total += 1;
+      if (leaders.length === 1) automatic += 1;
+      else tiebreak += 1;
+    }
+
+    return { winner, total, automatic, tiebreak, count: remPerms.length };
+  });
+
+  // Bei gemischtem Ausgang (weder immer noch nie Meister): Aufschlüsselung nach Team auf Platz 3
+  const bos2ThirdPlaceDetail = (winner) => {
+    const remaining = opponents.filter(t => t !== winner);
+    return remaining.map(thirdPlace => {
+      const rest = remaining.filter(t => t !== thirdPlace);
+      const restPerms = permute(rest);
+      let total = 0, automatic = 0, tiebreak = 0;
+
+      for (const perm of restPerms) {
+        const placeMap = { "GC Bostalsee": 2, [winner]: 1, [thirdPlace]: 3 };
+        perm.forEach((team, i) => { placeMap[team] = i + 4; });
+
+        const finalPoints = {};
+        for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
+
+        const maxPoints = Math.max(...Object.values(finalPoints));
+        const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
+
+        if (!leaders.includes("GC Bostalsee")) continue;
+        total += 1;
+        if (leaders.length === 1) automatic += 1;
+        else tiebreak += 1;
+      }
+
+      return { thirdPlace, total, automatic, tiebreak, count: restPerms.length };
+    });
+  };
+
   // Compute per-player averages
   const playersWithAvg = players.map(p => {
     const leagueScores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3], [p.s4, p.p4, PAR4]]
@@ -1114,98 +1192,114 @@ export default function App() {
                   );
                 })()}
                 <div style={{ padding: isMobile ? 10 : 14, display: "grid", gap: isMobile ? 10 : 12 }}>
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10 }}>
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10, alignItems: "start" }}>
                   <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
-                    <div style={{ fontSize: 10, color: "#7dd3a8", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Muss passieren</div>
-                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee muss am 5. Spieltag mindestens Platz 2 erreichen.</div>
-                  </div>
-                  <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
-                    <div style={{ fontSize: 10, color: "#fbbf24", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Kritischer Hebel</div>
-                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>Bei Punktgleichheit mit GC Kurpfalz muss GC Bostalsee am 5. Spieltag mindestens 18 Schläge besser sein.</div>
-                  </div>
-                  <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
-                    <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>Nicht ausreichend</div>
-                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
-                  </div>
-                </div>
-
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
-                  <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
-                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg A: GC Bostalsee wird 1.</div>
-                    <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
+                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee holt Heimsieg</div>
+                    <div style={{ color: "#7dd3a8", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
                       {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
                     </div>
-                    <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      <li>Wenn GC Barbarossa 2. wird, reicht Platz 1 für GC Bostalsee nicht (GC Barbarossa hat dann 18,5 Punkte).</li>
-                      <li>Wenn GC Kurpfalz 2. wird, entscheidet die Schlagdifferenz: GC Bostalsee muss 18 besser sein als GC Kurpfalz.</li>
-                      <li>Wenn GC Katharinenhof oder EGC Westpfalz 2. wird, ist GC Bostalsee mit Platz 1 sicher Meister.</li>
-                    </ul>
-                  </div>
-
-                  <div style={{ background: "#12192a", border: "1px solid #2a3b59", borderRadius: 8, padding: 12 }}>
-                    <div style={{ color: C1, fontWeight: 700, fontSize: 13, marginBottom: 6 }}>Weg B: GC Bostalsee wird 2.</div>
-                    <div style={{ color: "#94a3b8", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
-                    </div>
-                    <ul style={{ margin: "8px 0 0", paddingLeft: isMobile ? 16 : 18, color: "#cbd5e1", fontSize: isMobile ? 11 : 12, lineHeight: 1.5 }}>
-                      <li>Dieser Weg funktioniert nur, wenn EGC Westpfalz den Spieltag gewinnt.</li>
-                      <li>Wenn GC Kurpfalz dabei 3. wird (17 Punkte), braucht GC Bostalsee wieder 18 Schläge Vorteil auf GC Kurpfalz.</li>
-                      <li>Platz 2 hinter einem anderen Sieger als EGC Westpfalz reicht nicht aus.</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div style={{ background: "#101826", border: "1px solid #23314a", borderRadius: 8, padding: 12 }}>
-                  <div style={{ color: "#93c5fd", fontWeight: 700, fontSize: 12, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>Benötigter Schlagvorteil bei Punktgleichheit</div>
-                  {isMobile ? (
-                    <div style={{ display: "grid", gap: 8 }}>
-                      {allTeams.filter(t => t !== "GC Bostalsee").map(team => {
-                        const gap = overParAfter4["GC Bostalsee"] - overParAfter4[team];
-                        const need = bostalseeGapNeeded[team];
-                        return (
-                          <div key={team} style={{ border: "1px solid #1e2a3a", borderRadius: 8, padding: "8px 10px", background: "#0f172a" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
-                              <div style={{ color: "#e2e8f0", fontWeight: 700, fontSize: 12 }}>{team}</div>
-                              <div style={{ color: gap > 0 ? RED : C2, fontWeight: 700, fontSize: 12 }}>{gap > 0 ? `+${gap}` : `${gap}`}</div>
-                            </div>
-                            <div style={{ color: need === 0 ? C2 : AMB, fontWeight: 700, fontSize: 11, lineHeight: 1.4 }}>
-                              {need === 0 ? "Kein Vorteil nötig" : `GC Bostalsee mind. ${need} besser am 5. Spieltag`}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
                     <div style={{ overflowX: "auto" }}>
-                      <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 420 }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse" }}>
                         <thead>
                           <tr>
-                            <th style={{ ...css.th, textAlign: "left" }}>Gegner</th>
-                            <th style={{ ...css.th, textAlign: "right" }}>Rückstand GC Bostalsee nach ST1-ST4</th>
-                            <th style={{ ...css.th, textAlign: "right" }}>Bedingung am 5. Spieltag</th>
+                            <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>2. Platz</th>
+                            <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>Status</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {allTeams.filter(t => t !== "GC Bostalsee").map(team => {
-                            const gap = overParAfter4["GC Bostalsee"] - overParAfter4[team];
-                            const need = bostalseeGapNeeded[team];
+                          {bos1ByRunnerUp.map(sc => {
+                            const safe = sc.automatic === sc.count;
+                            const none = sc.total === 0;
+                            const color = safe ? C2 : none ? RED : AMB;
+                            const icon = safe ? "✓" : none ? "✗" : "⚠";
+                            let label;
+                            if (safe) label = "Meister sicher";
+                            else if (none) label = "Keine Meisterschaft";
+                            else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.runnerUp]} Schläge besser`;
+                            else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
                             return (
-                              <tr key={team} style={{ borderBottom: "1px solid #1e2a3a" }}>
-                                <td style={{ ...css.td, textAlign: "left", color: "#e2e8f0", fontWeight: 600 }}>{team}</td>
-                                <td style={{ ...css.td, color: gap > 0 ? RED : C2, fontWeight: 700 }}>{gap > 0 ? `+${gap}` : `${gap}`}</td>
-                                <td style={{ ...css.td, color: need === 0 ? C2 : AMB, fontWeight: 700 }}>
-                                  {need === 0 ? "Kein Vorteil nötig" : `GC Bostalsee mind. ${need} besser`}
-                                </td>
+                              <tr key={sc.runnerUp} style={{ borderBottom: "1px solid #1f4d35" }}>
+                                <td style={{ ...css.td, textAlign: "left", color: "#d1fae5", fontWeight: 600, padding: "6px 4px" }}>{sc.runnerUp}</td>
+                                <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
                               </tr>
                             );
                           })}
                         </tbody>
                       </table>
                     </div>
-                  )}
+                  </div>
+
+                  <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
+                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee wird 2.</div>
+                    <div style={{ color: "#fbbf24", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
+                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
+                    </div>
+                    <div style={{ overflowX: "auto" }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                        <thead>
+                          <tr>
+                            <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>1. Platz</th>
+                            <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {bos2ByWinner.map(sc => {
+                            const safe = sc.automatic === sc.count;
+                            const none = sc.total === 0;
+                            const mixed = !safe && !none;
+                            const color = safe ? C2 : none ? RED : AMB;
+                            const icon = safe ? "✓" : none ? "✗" : "⚠";
+                            let label;
+                            if (safe) label = "Meister sicher";
+                            else if (none) label = "Keine Meisterschaft";
+                            else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.winner]} Schläge besser`;
+                            else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
+                            const detail = mixed ? bos2ThirdPlaceDetail(sc.winner) : null;
+                            return (
+                              <Fragment key={sc.winner}>
+                                <tr style={{ borderBottom: mixed ? "none" : "1px solid #6b3f16" }}>
+                                  <td style={{ ...css.td, textAlign: "left", color: "#fde68a", fontWeight: 600, padding: "6px 4px" }}>{sc.winner}</td>
+                                  <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
+                                </tr>
+                                {mixed && (
+                                  <tr style={{ borderBottom: "1px solid #6b3f16" }}>
+                                    <td colSpan={2} style={{ padding: "0 4px 8px" }}>
+                                      <div style={{ display: "grid", gap: 3, paddingLeft: 10, borderLeft: "2px solid #6b3f16" }}>
+                                        {detail.map(d => {
+                                          const dSafe = d.automatic === d.count;
+                                          const dNone = d.total === 0;
+                                          const dColor = dSafe ? C2 : dNone ? RED : AMB;
+                                          const dIcon = dSafe ? "✓" : dNone ? "✗" : "⚠";
+                                          let dLabel;
+                                          if (dSafe) dLabel = "Meister sicher";
+                                          else if (dNone) dLabel = "Keine Meisterschaft";
+                                          else if (d.tiebreak === d.count) dLabel = `Tie-Break: mind. ${bostalseeGapNeeded[d.thirdPlace]} Schläge besser`;
+                                          else dLabel = `${d.total} von ${d.count} Fällen`;
+                                          return (
+                                            <div key={d.thirdPlace} style={{ fontSize: isMobile ? 10 : 11 }}>
+                                              <span style={{ color: "#fbbf24", fontWeight: 600 }}>3. {d.thirdPlace}: </span>
+                                              <span style={{ color: dColor, fontWeight: 700 }}>{dIcon} {dLabel}</span>
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                    </td>
+                                  </tr>
+                                )}
+                              </Fragment>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
+                    <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>GC Bostalsee wird 3. oder schlechter</div>
+                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
+                  </div>
                 </div>
                 </div>
-                <div style={css.note}>Legende für Besprechung: "mind. X besser" bedeutet: GC Bostalsee braucht am 5. Spieltag mindestens X Schläge weniger als der genannte Gegner. Tie-Breaker basiert auf der Gesamtsumme Schläge über Par über alle Spieltage.</div>
               </div>
             </>
           )}
