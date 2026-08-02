@@ -100,22 +100,23 @@ const st4 = [
 ];
 
 const players = [
-  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false, pf: 6,    sf: 99   },
-  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true,  pf: 7,    sf: 81   },
-  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false, pf: null, sf: null },
-  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true,  pf: null, sf: null },
-  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false, pf: 8,    sf: 84   },
-  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false, pf: 7,    sf: 89   },
-  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false, pf: null, sf: null },
-  { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 4,    sf: 78   },
-  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, pf: 10,   sf: 92   },
-  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false, pf: null, sf: null },
-  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false, pf: null, sf: null },
-  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 12,   sf: 87   },
-  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, pf: 5,    sf: 82   },
+  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false, pf: 6,    sf: 99,   pr: 6,    sr: 75   },
+  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true,  pf: 7,    sf: 81,   pr: 7,    sr: 85   },
+  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false, pf: null, sf: null, pr: 4,    sr: 74   },
+  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true,  pf: null, sf: null, pr: 10,   sr: 81   },
+  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false, pf: 8,    sf: 84,   pr: null, sr: null },
+  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false, pf: 7,    sf: 89,   pr: 7,    sr: 77   },
+  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false, pf: null, sf: null, pr: 15,   sr: 92   },
+  { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 4,    sf: 78,   pr: null, sr: null },
+  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, pf: 10,   sf: 92,   pr: 10,   sr: 87   },
+  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false, pf: null, sf: null, pr: 8,    sr: 82   },
+  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false, pf: null, sf: null, pr: null, sr: null },
+  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 12,   sf: 87,   pr: 6,    sr: null },
+  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, pf: 5,    sf: 82,   pr: 6,    sr: 85   },
 ];
 
-const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR5 = 71, PAR_FS = 72;
+const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR5 = 71;
+const PAR_FS_H = 72, PAR_FS_R = 71;
 const DAY5_STORAGE_KEY = "ak30_day5_results";
 const DAY5_SIM_RUN_KEY = "ak30_day5_sim_run";
 
@@ -922,8 +923,9 @@ export default function App() {
   const playersWithAvg = players.map(p => {
     const leagueScores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3], [p.s4, p.p4, PAR4]]
       .filter(([s]) => s != null);
-    const fsScores = (inclFS && p.sf != null) ? [[p.sf, p.pf, PAR_FS]] : [];
-    const allScores = [...leagueScores, ...fsScores];
+    const fsHinScores = (inclFS && p.sf != null && p.pf != null) ? [[p.sf, p.pf, PAR_FS_H]] : [];
+    const fsRueckScores = (inclFS && p.sr != null && p.pr != null) ? [[p.sr, p.pr, PAR_FS_R]] : [];
+    const allScores = [...leagueScores, ...fsHinScores, ...fsRueckScores];
     const deltas = allScores.map(([s, ph, par]) => s - (par + ph));
     const avgScore = allScores.length > 0 ? (allScores.reduce((a, [s]) => a + s, 0) / allScores.length) : null;
     const avgDelta = deltas.length > 0 ? (deltas.reduce((a, d) => a + d, 0) / deltas.length) : null;
@@ -1320,14 +1322,14 @@ export default function App() {
                 </div>
               </div>
               <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1260 }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1500 }}>
                   <thead>
                     <tr>
                       <th style={{ ...css.th, textAlign: "left", position: "sticky", left: 0, background: "#111827", zIndex: 2 }}>Spieler</th>
-                      <th style={{ ...css.th, background: "#19160a", color: AMB, display: isMobile ? "none" : undefined }}>FS PHCP</th>
-                      <th style={{ ...css.th, background: "#19160a", color: AMB, display: isMobile ? "none" : undefined }}>FS Soll</th>
-                      <th style={{ ...css.th, background: "#19160a", color: AMB }}>FS Sc</th>
-                      <th style={{ ...css.th, background: "#19160a", color: AMB }}>FS Δ</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB, display: isMobile ? "none" : undefined }}>FS-H PHCP</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB, display: isMobile ? "none" : undefined }}>FS-H Soll</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB }}>FS-H Sc</th>
+                      <th style={{ ...css.th, background: "#19160a", color: AMB }}>FS-H Δ</th>
                       <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST1 PHCP</th>
                       <th style={{ ...css.th, display: isMobile ? "none" : undefined }}>ST1 Soll</th>
                       <th style={css.th}>ST1 Sc</th>
@@ -1344,6 +1346,10 @@ export default function App() {
                       <th style={{ ...css.th, color: C4, display: isMobile ? "none" : undefined }}>ST4 Soll</th>
                       <th style={{ ...css.th, color: C4 }}>ST4 Sc</th>
                       <th style={{ ...css.th, color: C4 }}>ST4 Δ</th>
+                      <th style={{ ...css.th, background: "#102016", color: C2, display: isMobile ? "none" : undefined }}>FS-R PHCP</th>
+                      <th style={{ ...css.th, background: "#102016", color: C2, display: isMobile ? "none" : undefined }}>FS-R Soll</th>
+                      <th style={{ ...css.th, background: "#102016", color: C2 }}>FS-R Sc</th>
+                      <th style={{ ...css.th, background: "#102016", color: C2 }}>FS-R Δ</th>
                       <th style={{ ...css.th, background: "#161d2c" }}>Ø Score</th>
                       <th style={{ ...css.th, background: "#161d2c" }}>Ø Δ</th>
                     </tr>
@@ -1354,7 +1360,8 @@ export default function App() {
                       const d2 = p.p2 != null && p.s2 != null ? p.s2 - (PAR2 + p.p2) : null;
                       const d3 = p.p3 != null && p.s3 != null ? p.s3 - (PAR3 + p.p3) : null;
                       const d4 = p.p4 != null && p.s4 != null ? p.s4 - (PAR4 + p.p4) : null;
-                      const df = p.pf != null && p.sf != null ? p.sf - (PAR_FS + p.pf) : null;
+                      const dfh = p.pf != null && p.sf != null ? p.sf - (PAR_FS_H + p.pf) : null;
+                      const dfr = p.pr != null && p.sr != null ? p.sr - (PAR_FS_R + p.pr) : null;
                       const fV = (v, str) => v == null
                         ? <span style={{ color: "#2d3748" }}>—</span>
                         : <span style={{ opacity: str ? 0.4 : 1 }}>{v}</span>;
@@ -1371,9 +1378,9 @@ export default function App() {
                         <tr key={p.name} style={{ borderBottom: "1px solid #1e2a3a" }}>
                           <td style={{ ...css.td, textAlign: "left", color: "#cbd5e1", fontWeight: 500, position: "sticky", left: 0, background: "#1a1f2e", zIndex: 1 }}>{p.name}</td>
                           <td style={{ ...css.td, background: "#19160a", display: mob }}>{fV(p.pf, false)}</td>
-                          <td style={{ ...css.td, background: "#19160a", display: mob }}>{fS(p.pf, PAR_FS, false)}</td>
+                          <td style={{ ...css.td, background: "#19160a", display: mob }}>{fS(p.pf, PAR_FS_H, false)}</td>
                           <td style={{ ...css.td, background: "#19160a" }}>{fV(p.sf, false)}</td>
-                          <td style={{ ...css.td, background: "#19160a" }}>{fD(df, false)}</td>
+                          <td style={{ ...css.td, background: "#19160a" }}>{fD(dfh, false)}</td>
                           <td style={{ ...css.td, display: mob }}>{fV(p.p1, p.str1)}</td>
                           <td style={{ ...css.td, display: mob }}>{fS(p.p1, PAR1, p.str1)}</td>
                           <td style={css.td}>{fV(p.s1, p.str1)}</td>
@@ -1390,6 +1397,10 @@ export default function App() {
                           <td style={{ ...css.td, display: mob }}>{fS(p.p4, PAR4, p.str4)}</td>
                           <td style={css.td}>{fV(p.s4, p.str4)}</td>
                           <td style={css.td}>{fD(d4, p.str4)}</td>
+                          <td style={{ ...css.td, background: "#102016", display: mob }}>{fV(p.pr, false)}</td>
+                          <td style={{ ...css.td, background: "#102016", display: mob }}>{fS(p.pr, PAR_FS_R, false)}</td>
+                          <td style={{ ...css.td, background: "#102016" }}>{fV(p.sr, false)}</td>
+                          <td style={{ ...css.td, background: "#102016" }}>{fD(dfr, false)}</td>
                           <td style={{ ...css.td, background: "#161d2c", color: avgScoreColor, fontWeight: 700 }}>
                             {p.avgScore != null ? p.avgScore.toFixed(1) : <span style={{ color: "#2d3748" }}>—</span>}
                           </td>
@@ -1402,7 +1413,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS = Freundschaftsspiel Mommenheim 21.03. · Ø {inclFS ? "inkl. Freundschaftsspiel" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS-H = Freundschaftsspiel Hinspiel Mommenheim 21.03. · FS-R = Freundschaftsspiel Rückspiel 02.08. · Ø {inclFS ? "inkl. Freundschaftsspiele" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
             </div>
           )}
         </div>
