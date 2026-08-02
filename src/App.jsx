@@ -209,13 +209,14 @@ function Rank({ r }) {
 }
 
 function DBar({ delta }) {
-  const pct = Math.min(100, delta / 55 * 100);
-  const c = delta <= 10 ? C2 : delta <= 25 ? AMB : RED;
+  const absDelta = Math.abs(delta);
+  const pct = Math.min(100, absDelta / 55 * 100);
+  const c = delta <= 0 ? C2 : delta <= 5 ? AMB : RED;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 6, justifyContent: "flex-end" }}>
-      <span style={{ color: c, fontWeight: 700, fontSize: 13, minWidth: 32, textAlign: "right" }}>+{delta}</span>
+      <span style={{ color: c, fontWeight: 700, fontSize: 13, minWidth: 32, textAlign: "right" }}>{delta >= 0 ? "+" : ""}{delta}</span>
       <div style={{ width: 60, height: 7, background: "#1e2a3a", borderRadius: 3, overflow: "hidden" }}>
-        <div style={{ width: `${pct}%`, height: "100%", background: c }} />
+        <div style={{ width: `${pct}%`, height: "100%", background: c, transform: delta < 0 ? "scaleX(-1)" : "scaleX(1)", transformOrigin: "left center" }} />
       </div>
     </div>
   );
@@ -225,7 +226,7 @@ function dColor(d) {
   return d <= 0 ? C2 : d <= 5 ? AMB : RED;
 }
 
-function TeamTable({ data, title, subnote }) {
+function TeamTable({ data, title, subnote, par }) {
   return (
     <div style={css.card}>
       <div style={css.sec}>{title}</div>
@@ -233,24 +234,24 @@ function TeamTable({ data, title, subnote }) {
         <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 560 }}>
           <thead>
             <tr>
-              {["Mannschaft", "Rang", "Team-Score", "Soll (6×)", "Δ Ist−Soll", "Ø/Spieler", "Streicher"].map((h, i) =>
+              {["Mannschaft", "Rang", "Team-Score", "Soll (6×)", "Schläge über/unter Par", "Ø/Spieler", "Streicher"].map((h, i) =>
                 <th key={i} style={{ ...css.th, textAlign: i === 0 || i === 6 ? "left" : "right" }}>{h}</th>
               )}
             </tr>
           </thead>
           <tbody>
             {data.map(t => {
-              const d = t.ts - t.soll;
+              const overPar = par != null ? t.ts - par * 6 : null;
               const iB = t.name === "GC Bostalsee";
-              const pC = d <= 10 ? C2 : d <= 25 ? AMB : RED;
+              const pC = overPar == null ? "#64748b" : overPar <= 0 ? C2 : overPar <= 5 ? AMB : RED;
               return (
                 <tr key={t.name} style={{ background: iB ? "#12192a" : "transparent", borderBottom: "1px solid #1e2a3a" }}>
                   <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: iB ? C1 : "#e2e8f0" }}>{t.name}{iB ? " ★" : ""}</td>
                   <td style={css.td}><Rank r={t.rank} /></td>
                   <td style={{ ...css.td, color: C1, fontWeight: 600 }}>{t.ts}</td>
-                  <td style={{ ...css.td, color: "#374151" }}>{t.soll}</td>
-                  <td style={css.td}><DBar delta={d} /></td>
-                  <td style={{ ...css.td, color: pC, fontWeight: 600 }}>+{(d / 6).toFixed(1)}</td>
+                  <td style={{ ...css.td, color: "#374151" }}>{par != null ? par * 6 : t.soll}</td>
+                  <td style={css.td}>{overPar == null ? "—" : <DBar delta={overPar} />}</td>
+                  <td style={{ ...css.td, color: pC, fontWeight: 600 }}>{overPar == null ? "—" : `${overPar >= 0 ? "+" : ""}${(overPar / 6).toFixed(1)}`}</td>
                   <td style={{ ...css.td, textAlign: "left", fontSize: 11, color: "#4a5568" }}>{t.streicher}</td>
                 </tr>
               );
@@ -937,6 +938,13 @@ export default function App() {
     setTvScaleMode((prev) => (prev === "off" ? "m" : prev === "m" ? "l" : "off"));
   };
   const tvModeLabel = tvScaleMode === "off" ? "TV Modus: Aus" : tvScaleMode === "m" ? "TV Modus: M" : "TV Modus: L";
+  const fRoundDelta = (stData, name, par) => {
+    const entry = stData.find(x => x.name === name);
+    if (!entry) return <span style={{ color: "#2d3748" }}>—</span>;
+    const delta = entry.ts - (par * 6);
+    const color = delta <= 0 ? C2 : delta <= 5 ? AMB : RED;
+    return <span style={{ color, fontWeight: 700 }}>{delta >= 0 ? "+" : ""}{delta}</span>;
+  };
 
   return (
     <div
@@ -1105,10 +1113,10 @@ export default function App() {
                 <StTab label="3. Spieltag" active={stTab === "st3"} onClick={() => setStTab("st3")} />
                 <StTab label="4. Spieltag" active={stTab === "st4"} onClick={() => setStTab("st4")} />
               </div>
-              {stTab === "st1" && <TeamTable data={st1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127 · Top-6" subnote="Soll = Σ(Par+PHCP) der 6 gewerteten Spieler. Δ positiv = über Erwartung." />}
-              {stTab === "st2" && <TeamTable data={st2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134 · Top-6" subnote="GC Katharinenhof: 2× No Return. EGC Westpfalz: 1× NR." />}
-              {stTab === "st3" && <TeamTable data={st3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135 · Top-6" subnote="GC Bostalsee gewinnt den Spieltag. GC Katharinenhof Rang 3 trotz gleicher Score wegen CR-Ausgleich (*)." />}
-              {stTab === "st4" && <TeamTable data={st4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72 · Top-6" subnote="GC Kurpfalz gewinnt den Spieltag. GC Bostalsee stark auf Rang 2. Je ein NRO bei GC Barbarossa und GC Katharinenhof." />}
+              {stTab === "st1" && <TeamTable data={st1} par={PAR1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127 · Top-6" subnote="Schläge über/unter Par nach Platzstandard der 6 gewerteten Spieler." />}
+              {stTab === "st2" && <TeamTable data={st2} par={PAR2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134 · Top-6" subnote="GC Katharinenhof: 2× No Return. EGC Westpfalz: 1× NR." />}
+              {stTab === "st3" && <TeamTable data={st3} par={PAR3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135 · Top-6" subnote="GC Bostalsee gewinnt den Spieltag. GC Katharinenhof Rang 3 trotz gleicher Score wegen CR-Ausgleich (*)." />}
+              {stTab === "st4" && <TeamTable data={st4} par={PAR4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72 · Top-6" subnote="GC Kurpfalz gewinnt den Spieltag. GC Bostalsee stark auf Rang 2. Je ein NRO bei GC Barbarossa und GC Katharinenhof." />}
             </div>
           )}
 
@@ -1120,9 +1128,13 @@ export default function App() {
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr>
-                      {["Pos.", "Mannschaft", "ST1 Score", "ST1 Pkt", "ST2 Score", "ST2 Pkt", "ST3 Score", "ST3 Pkt", "ST4 Score", "ST4 Pkt", "Gesamt", "Schläge über Par"].map((h, i) =>
-                        <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: i === 10 ? "#161d2c" : "transparent" }}>{h}</th>
-                      )}
+                      {["Pos.", "Mannschaft", "ST1 Score", "ST1 ±Par", "ST1 Pkt", "ST2 Score", "ST2 ±Par", "ST2 Pkt", "ST3 Score", "ST3 ±Par", "ST3 Pkt", "ST4 Score", "ST4 ±Par", "ST4 Pkt", "Gesamt", "Schläge über Par"].map((h, i) => {
+                        const isTotalCol = h === "Gesamt";
+                        const isOverParCol = h === "Schläge über Par";
+                        return (
+                          <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: isTotalCol || isOverParCol ? "#161d2c" : "transparent" }}>{h}</th>
+                        );
+                      })}
                     </tr>
                   </thead>
                   <tbody>
@@ -1147,12 +1159,16 @@ export default function App() {
                           </td>
                           <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isRelegation ? RED : isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}{isRelegation ? " ↓" : ""}</td>
                           <td style={css.td}>{fScore(st1, t.name)}</td>
+                          <td style={css.td}>{fRoundDelta(st1, t.name, PAR1)}</td>
                           <td style={css.td}>{fPts(t.p1)}</td>
                           <td style={css.td}>{fScore(st2, t.name)}</td>
+                          <td style={css.td}>{fRoundDelta(st2, t.name, PAR2)}</td>
                           <td style={css.td}>{fPts(t.p2)}</td>
                           <td style={css.td}>{fScore(st3, t.name)}</td>
+                          <td style={css.td}>{fRoundDelta(st3, t.name, PAR3)}</td>
                           <td style={css.td}>{fPts(t.p3)}</td>
                           <td style={css.td}>{fScore(st4, t.name)}</td>
+                          <td style={css.td}>{fRoundDelta(st4, t.name, PAR4)}</td>
                           <td style={css.td}>{fPts(t.p4)}</td>
                           <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: isTop ? C2 : isRelegation ? RED : "#e2e8f0" }}>
                             {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
@@ -1166,7 +1182,7 @@ export default function App() {
                   </tbody>
                   </table>
                 </div>
-                <div style={css.note}>Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
+                <div style={css.note}>Legende: + = über Par, − = unter Par. Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
               </div>
 
               <div style={{ ...css.card, borderRadius: 8 }}>
