@@ -25,11 +25,11 @@ function LoginGate({ onAuth }) {
     <div style={{ minHeight: "100vh", background: "#0f1117", display: "flex", alignItems: "center", justifyContent: "center", padding: 20, fontFamily: "system-ui,sans-serif" }}>
       <div style={{ width: "100%", maxWidth: 340 }}>
         <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 4, textTransform: "uppercase", color: "#4a5568", marginBottom: 8 }}>AK30 · GC Bostalsee · 2026</div>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 4, textTransform: "uppercase", color: "#64748b", marginBottom: 8 }}>AK30 · GC Bostalsee · 2026</div>
           <div style={{ fontSize: 22, fontWeight: 700, color: "#e2e8f0" }}>Dashboard</div>
         </div>
         <form onSubmit={handleSubmit} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 10, padding: 24 }}>
-          <label style={{ display: "block", fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a5568", marginBottom: 8 }}>
+          <label style={{ display: "block", fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#64748b", marginBottom: 8 }}>
             Passwort
           </label>
           <input
@@ -170,15 +170,15 @@ const day5StartList = [
 const css = {
   body:  { background: "#0f1117", minHeight: "100vh", padding: 20, fontFamily: "system-ui,sans-serif", color: "#e2e8f0", fontSize: 13 },
   card:  { background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, overflow: "hidden", marginBottom: 16 },
-  sec:   { fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4a5568", padding: "12px 14px 10px", borderBottom: "1px solid #252d3d" },
-  th:    { fontSize: 10, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#4a5568", padding: "7px 10px", textAlign: "right", borderBottom: "2px solid #1e2a3a" },
+  sec:   { fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#64748b", padding: "12px 14px 10px", borderBottom: "1px solid #252d3d" },
+  th:    { fontSize: 10, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#64748b", padding: "7px 10px", textAlign: "right", borderBottom: "2px solid #1e2a3a" },
   td:    { padding: "10px", textAlign: "right", color: "#94a3b8", borderBottom: "1px solid #1e2a3a", fontSize: 13 },
-  note:  { fontSize: 11, color: "#4a5568", padding: "9px 14px", borderTop: "1px solid #1e2a3a", fontStyle: "italic" },
+  note:  { fontSize: 11, color: "#64748b", padding: "9px 14px", borderTop: "1px solid #1e2a3a", fontStyle: "italic" },
 };
 
 function NavTab({ label, active, onClick }) {
   return (
-    <div onClick={onClick} style={{ padding: "9px 16px", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", cursor: "pointer", color: active ? "#e2e8f0" : "#4a5568", borderBottom: active ? `2px solid ${C1}` : "2px solid transparent", marginBottom: -1 }}>
+    <div onClick={onClick} style={{ padding: "9px 16px", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", cursor: "pointer", color: active ? "#e2e8f0" : "#64748b", borderBottom: active ? `2px solid ${C1}` : "2px solid transparent", marginBottom: -1 }}>
       {label}
     </div>
   );
@@ -186,7 +186,7 @@ function NavTab({ label, active, onClick }) {
 
 function SubTab({ label, active, onClick }) {
   return (
-    <div onClick={onClick} style={{ padding: "7px 14px", borderRadius: "5px 5px 0 0", fontSize: 10, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", cursor: "pointer", border: "1px solid #252d3d", borderBottom: "none", background: active ? "#1a1f2e" : "#111827", color: active ? "#e2e8f0" : "#4a5568" }}>
+    <div onClick={onClick} style={{ padding: "7px 14px", borderRadius: "5px 5px 0 0", fontSize: 10, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", cursor: "pointer", border: "1px solid #252d3d", borderBottom: "none", background: active ? "#1a1f2e" : "#111827", color: active ? "#e2e8f0" : "#64748b" }}>
       {label}
     </div>
   );
@@ -194,7 +194,7 @@ function SubTab({ label, active, onClick }) {
 
 function StTab({ label, active, onClick }) {
   return (
-    <div onClick={onClick} style={{ padding: "5px 14px", borderRadius: 5, fontSize: 11, fontWeight: 600, cursor: "pointer", background: active ? "#252d3d" : "transparent", color: active ? "#e2e8f0" : "#4a5568", border: "1px solid " + (active ? "#374151" : "#1e2a3a") }}>
+    <div onClick={onClick} style={{ padding: "5px 14px", borderRadius: 5, fontSize: 11, fontWeight: 600, cursor: "pointer", background: active ? "#252d3d" : "transparent", color: active ? "#e2e8f0" : "#64748b", border: "1px solid " + (active ? "#374151" : "#1e2a3a") }}>
       {label}
     </div>
   );
@@ -252,7 +252,7 @@ function TeamTable({ data, title, subnote, par }) {
                   <td style={{ ...css.td, color: "#374151" }}>{par != null ? par * 6 : t.soll}</td>
                   <td style={css.td}>{overPar == null ? "—" : <DBar delta={overPar} />}</td>
                   <td style={{ ...css.td, color: pC, fontWeight: 600 }}>{overPar == null ? "—" : `${overPar >= 0 ? "+" : ""}${(overPar / 6).toFixed(1)}`}</td>
-                  <td style={{ ...css.td, textAlign: "left", fontSize: 11, color: "#4a5568" }}>{t.streicher}</td>
+                  <td style={{ ...css.td, textAlign: "left", fontSize: 11, color: "#64748b" }}>{t.streicher}</td>
                 </tr>
               );
             })}
@@ -264,10 +264,11 @@ function TeamTable({ data, title, subnote, par }) {
   );
 }
 
-function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateResult, resetResults, simulateResults }) {
+function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateResult, resetResults, simulateResults, isMobile, tvFitMode }) {
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [scoreInput, setScoreInput] = useState("");
   const [isNR, setIsNR] = useState(false);
+  const [isInputOpen, setIsInputOpen] = useState(true);
 
   const hasEntry = (name) => Object.prototype.hasOwnProperty.call(results, name);
 
@@ -404,17 +405,53 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
   const enteredPlayers = day5StartList.filter((p) => hasEntry(p.name));
   const openPlayers = day5StartList.filter((p) => !hasEntry(p.name));
 
+  const compact = !isMobile;
+  const isTvFit = !isMobile && tvFitMode !== "off";
+  const thStyle = {
+    ...css.th,
+    padding: isTvFit ? "6px 8px" : css.th.padding,
+    fontSize: isTvFit ? 9 : css.th.fontSize,
+  };
+
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
+      <div style={{ marginBottom: isTvFit ? 8 : compact ? 12 : 16 }}>
         <div style={css.card}>
-          <div style={css.sec}>Live Eingabe / Korrektur</div>
-          <div style={{ padding: "14px" }}>
-            <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#4a5568", marginBottom: 6 }}>Spieler wählen</label>
+          <div style={{ ...css.sec, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+            <span>Live Eingabe</span>
+            <button
+              onClick={() => setIsInputOpen((prev) => !prev)}
+              style={{
+                padding: "5px 10px",
+                background: "#252d3d",
+                border: "1px solid #3b475b",
+                borderRadius: 6,
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: 1,
+                textTransform: "uppercase",
+                color: "#cbd5e1",
+                cursor: "pointer",
+              }}
+            >
+              {isInputOpen ? "Einklappen" : "Ausklappen"}
+            </button>
+          </div>
+
+          {!isInputOpen && (
+            <div style={{ padding: isTvFit ? "8px 10px" : "10px 12px", fontSize: 11, color: "#94a3b8", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+              <span>Erfasst: {enteredPlayers.length}/40</span>
+              <span>Offen: {openPlayers.length}</span>
+            </div>
+          )}
+
+          {isInputOpen && (
+          <div style={{ padding: isTvFit ? "8px 10px" : compact ? "10px 12px" : "14px" }}>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#64748b", marginBottom: 6 }}>Spieler wählen</label>
             <select
               value={selectedPlayer}
               onChange={(e) => setSelectedPlayer(e.target.value)}
-              style={{ width: "100%", boxSizing: "border-box", background: "#111827", border: "1px solid #252d3d", borderRadius: 6, padding: "8px 10px", fontSize: 13, color: "#e2e8f0", marginBottom: 12, outline: "none" }}
+              style={{ width: "100%", boxSizing: "border-box", background: "#111827", border: "1px solid #252d3d", borderRadius: 6, padding: isTvFit ? "6px 8px" : compact ? "7px 9px" : "8px 10px", fontSize: isTvFit ? 12 : 13, color: "#e2e8f0", marginBottom: isTvFit ? 10 : 12, outline: "none" }}
             >
               <option value="">- Spieler -</option>
               {sortedPlayers.map((p) => (
@@ -426,19 +463,19 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
 
             {selectedPlayer && (
               <>
-                <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#4a5568", marginBottom: 6 }}>Score oder NR</label>
-                <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+                <label style={{ display: "block", fontSize: 11, fontWeight: 600, letterSpacing: 1, textTransform: "uppercase", color: "#64748b", marginBottom: 6 }}>Score oder NR</label>
+                <div style={{ display: "flex", gap: 8, marginBottom: isTvFit ? 10 : 12 }}>
                   <input
                     type="number"
                     value={scoreInput}
                     onChange={(e) => { setScoreInput(e.target.value); setIsNR(false); }}
                     placeholder="z.B. 76"
                     disabled={isNR}
-                    style={{ flex: 1, background: "#111827", border: "1px solid #252d3d", borderRadius: 6, padding: "8px 10px", fontSize: 13, color: isNR ? "#374151" : "#e2e8f0", outline: "none", opacity: isNR ? 0.5 : 1 }}
+                    style={{ flex: 1, background: "#111827", border: "1px solid #252d3d", borderRadius: 6, padding: isTvFit ? "6px 8px" : compact ? "7px 9px" : "8px 10px", fontSize: isTvFit ? 12 : 13, color: isNR ? "#374151" : "#e2e8f0", outline: "none", opacity: isNR ? 0.5 : 1 }}
                   />
                   <button
                     onClick={() => { setIsNR(!isNR); setScoreInput(""); }}
-                    style={{ padding: "8px 12px", background: isNR ? RED : "#252d3d", border: "1px solid " + (isNR ? RED : "#374151"), borderRadius: 6, fontSize: 11, fontWeight: 600, color: isNR ? "#fff" : "#94a3b8", cursor: "pointer", whiteSpace: "nowrap" }}
+                    style={{ padding: isTvFit ? "7px 10px" : "8px 12px", background: isNR ? RED : "#252d3d", border: "1px solid " + (isNR ? RED : "#374151"), borderRadius: 6, fontSize: isTvFit ? 10 : 11, fontWeight: 600, color: isNR ? "#fff" : "#94a3b8", cursor: "pointer", whiteSpace: "nowrap" }}
                   >
                     {isNR ? "NR" : "NR?"}
                   </button>
@@ -447,14 +484,14 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
                 <div style={{ display: "flex", gap: 8 }}>
                   <button
                     onClick={saveSelected}
-                    style={{ flex: 1, padding: "10px", background: C1, border: "none", borderRadius: 6, fontSize: 12, fontWeight: 700, color: "#0f1117", cursor: "pointer", textTransform: "uppercase", letterSpacing: 1 }}
+                    style={{ flex: 1, padding: isTvFit ? "8px" : "10px", background: C1, border: "none", borderRadius: 6, fontSize: isTvFit ? 11 : 12, fontWeight: 700, color: "#0f1117", cursor: "pointer", textTransform: "uppercase", letterSpacing: 1 }}
                   >
                     {hasEntry(selectedPlayer) ? "Aktualisieren" : "Speichern"}
                   </button>
                   <button
                     onClick={deleteSelected}
                     disabled={!hasEntry(selectedPlayer)}
-                    style={{ padding: "10px 12px", background: "#252d3d", border: "1px solid #374151", borderRadius: 6, fontSize: 11, fontWeight: 700, color: hasEntry(selectedPlayer) ? "#cbd5e1" : "#4a5568", cursor: hasEntry(selectedPlayer) ? "pointer" : "not-allowed", textTransform: "uppercase" }}
+                    style={{ padding: isTvFit ? "8px 10px" : "10px 12px", background: "#252d3d", border: "1px solid #374151", borderRadius: 6, fontSize: isTvFit ? 10 : 11, fontWeight: 700, color: hasEntry(selectedPlayer) ? "#cbd5e1" : "#64748b", cursor: hasEntry(selectedPlayer) ? "pointer" : "not-allowed", textTransform: "uppercase" }}
                   >
                     Löschen
                   </button>
@@ -462,103 +499,106 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
               </>
             )}
 
-            <div style={{ fontSize: 11, color: "#4a5568", marginTop: 14, paddingTop: 14, borderTop: "1px solid #252d3d", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <div style={{ fontSize: isTvFit ? 10 : 11, color: "#64748b", marginTop: isTvFit ? 10 : 14, paddingTop: isTvFit ? 10 : 14, borderTop: "1px solid #252d3d", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
               <div>
                 <div>Erfasst: {enteredPlayers.length}/40</div>
                 <div>Offen: {openPlayers.length}</div>
               </div>
               <button
                 onClick={confirmReset}
-                style={{ padding: "8px 10px", background: "#3a1616", border: "1px solid #7f1d1d", borderRadius: 6, fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#fecaca", cursor: "pointer" }}
+                style={{ padding: isTvFit ? "7px 9px" : "8px 10px", background: "#3a1616", border: "1px solid #7f1d1d", borderRadius: 6, fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#fecaca", cursor: "pointer" }}
               >
                 Live Reset
               </button>
               <button
                 onClick={simulateResults}
-                style={{ padding: "8px 10px", background: "#1d2738", border: "1px solid #334155", borderRadius: 6, fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#bfdbfe", cursor: "pointer" }}
+                style={{ padding: isTvFit ? "7px 9px" : "8px 10px", background: "#1d2738", border: "1px solid #334155", borderRadius: 6, fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#bfdbfe", cursor: "pointer" }}
               >
                 Simulate
               </button>
             </div>
           </div>
+          )}
         </div>
+      </div>
 
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "minmax(300px, 0.85fr) minmax(0, 2.15fr)", gap: isTvFit ? 10 : compact ? 12 : 16, marginBottom: isTvFit ? 10 : compact ? 12 : 16 }}>
         <div style={css.card}>
           <div style={css.sec}>Live Tagesscore</div>
           <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 460 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 0 }}>
               <thead>
                 <tr>
-                  <th style={{ ...css.th, textAlign: "left" }}>Mannschaft</th>
-                  <th style={css.th}>Top 6 (live)</th>
-                  <th style={css.th}>Schläge über Par</th>
-                  <th style={css.th}>Ergebnisse</th>
-                  <th style={css.th}>Wertung</th>
+                  <th style={{ ...thStyle, textAlign: "left" }}>Mannschaft</th>
+                  <th style={thStyle}>Top 6 (live)</th>
+                  <th style={thStyle}>Schläge über Par</th>
+                  <th style={thStyle}>Ergebnisse</th>
+                  <th style={thStyle}>Wertung</th>
                 </tr>
               </thead>
               <tbody>
                 {rankedDay.map((t, idx) => (
                   <tr key={t.team} style={{ borderBottom: "1px solid #1e2a3a" }}>
-                    <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 13, color: "#e2e8f0" }}>{idx + 1}. {t.team}</td>
-                    <td style={{ ...css.td, color: t.top6 == null ? "#4a5568" : C1, fontWeight: 700 }}>{t.top6 == null ? "-" : t.top6}</td>
-                    <td style={{ ...css.td, color: t.day5OverPar == null ? "#4a5568" : dColor(t.day5OverPar), fontWeight: 700 }}>{formatSigned(t.day5OverPar)}</td>
-                    <td style={css.td}>{t.enteredCount}/8</td>
-                    <td style={{ ...css.td, color: t.inWertung ? C2 : AMB, fontWeight: 700 }}>{t.inWertung ? "ja" : `${t.counted}/6`}</td>
+                    <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: isTvFit ? 11 : compact ? 12 : 13, color: "#e2e8f0", padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{idx + 1}. {t.team}</td>
+                    <td style={{ ...css.td, color: t.top6 == null ? "#64748b" : C1, fontWeight: 700, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{t.top6 == null ? "-" : t.top6}</td>
+                    <td style={{ ...css.td, color: t.day5OverPar == null ? "#64748b" : dColor(t.day5OverPar), fontWeight: 700, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{formatSigned(t.day5OverPar)}</td>
+                    <td style={{ ...css.td, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{t.enteredCount}/8</td>
+                    <td style={{ ...css.td, color: t.inWertung ? C2 : AMB, fontWeight: 700, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{t.inWertung ? "ja" : `${t.counted}/6`}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </div>
-      </div>
 
-      <div style={css.card}>
-        <div style={css.sec}>Live Gesamttabelle (mit ST5 Effekt)</div>
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 680 }}>
-            <thead>
-              <tr>
-                <th style={{ ...css.th, textAlign: "left" }}>Pos.</th>
-                <th style={{ ...css.th, textAlign: "left" }}>Mannschaft</th>
-                <th style={css.th}>Punkte nach ST1-4</th>
-                <th style={css.th}>ST5 Live-Punkte</th>
-                <th style={css.th}>Punkte gesamt live</th>
-                <th style={css.th}>über Par nach ST1-4</th>
-                <th style={css.th}>ST5 live über Par</th>
-                <th style={css.th}>über Par gesamt live</th>
-                <th style={css.th}>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rankedOverallLive.map((t, idx) => (
-                <tr key={t.team} style={{ borderBottom: "1px solid #1e2a3a", background: t.team === "GC Bostalsee" ? "#12192a" : "transparent" }}>
-                  <td style={{ ...css.td, textAlign: "left", color: "#94a3b8", fontWeight: 700 }}>{idx + 1}</td>
-                  <td style={{ ...css.td, textAlign: "left", color: t.team === "GC Bostalsee" ? C1 : "#e2e8f0", fontWeight: 700 }}>{t.team}</td>
-                  <td style={{ ...css.td, fontWeight: 700, color: "#cbd5e1" }}>{pointsAfter4[t.team] % 1 === 0 ? pointsAfter4[t.team].toFixed(0) : pointsAfter4[t.team].toFixed(1)}</td>
-                  <td style={{ ...css.td, fontWeight: 700, color: t.day5LivePoints >= 3.5 ? C2 : t.day5LivePoints >= 2 ? AMB : "#94a3b8" }}>
-                    {t.day5LivePoints % 1 === 0 ? t.day5LivePoints.toFixed(0) : t.day5LivePoints.toFixed(1)}
-                  </td>
-                  <td style={{ ...css.td, fontWeight: 700, color: C1 }}>
-                    {t.totalPointsLive % 1 === 0 ? t.totalPointsLive.toFixed(0) : t.totalPointsLive.toFixed(1)}
-                  </td>
-                  <td style={{ ...css.td, color: dColor(overParAfter4[t.team]), fontWeight: 700 }}>+{overParAfter4[t.team]}</td>
-                  <td style={{ ...css.td, color: t.day5OverPar == null ? "#4a5568" : dColor(t.day5OverPar), fontWeight: 700 }}>{formatSigned(t.day5OverPar)}</td>
-                  <td style={{ ...css.td, color: dColor(t.totalOverParLive), fontWeight: 700 }}>{formatSigned(t.totalOverParLive)}</td>
-                  <td style={{ ...css.td, color: t.enteredCount === 8 || t.inWertung ? C2 : AMB, fontWeight: 700 }}>
-                    {t.enteredCount === 8 ? "vollständig" : t.inWertung ? `in Wertung ${t.enteredCount}/8` : `vorläufig ${t.counted}/6`}
-                  </td>
+        <div style={css.card}>
+          <div style={css.sec}>Live Gesamttabelle</div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 680 }}>
+              <thead>
+                <tr>
+                  <th style={{ ...thStyle, textAlign: "left" }}>Pos.</th>
+                  <th style={{ ...thStyle, textAlign: "left" }}>Mannschaft</th>
+                  <th style={thStyle}>Punkte nach ST1-4</th>
+                  <th style={thStyle}>ST5 Live-Punkte</th>
+                  <th style={thStyle}>Punkte gesamt live</th>
+                  <th style={thStyle}>über Par nach ST1-4</th>
+                  <th style={thStyle}>ST5 live über Par</th>
+                  <th style={thStyle}>über Par gesamt live</th>
+                  <th style={thStyle}>Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {rankedOverallLive.map((t, idx) => (
+                  <tr key={t.team} style={{ borderBottom: "1px solid #1e2a3a", background: t.team === "GC Bostalsee" ? "#12192a" : "transparent" }}>
+                    <td style={{ ...css.td, textAlign: "left", color: "#94a3b8", fontWeight: 700, fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{idx + 1}</td>
+                    <td style={{ ...css.td, textAlign: "left", color: t.team === "GC Bostalsee" ? C1 : "#e2e8f0", fontWeight: 700, fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{t.team}</td>
+                    <td style={{ ...css.td, fontWeight: 700, color: "#cbd5e1", fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{pointsAfter4[t.team] % 1 === 0 ? pointsAfter4[t.team].toFixed(0) : pointsAfter4[t.team].toFixed(1)}</td>
+                    <td style={{ ...css.td, fontWeight: 700, color: t.day5LivePoints >= 3.5 ? C2 : t.day5LivePoints >= 2 ? AMB : "#94a3b8", fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>
+                      {t.day5LivePoints % 1 === 0 ? t.day5LivePoints.toFixed(0) : t.day5LivePoints.toFixed(1)}
+                    </td>
+                    <td style={{ ...css.td, fontWeight: 700, color: C1, fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>
+                      {t.totalPointsLive % 1 === 0 ? t.totalPointsLive.toFixed(0) : t.totalPointsLive.toFixed(1)}
+                    </td>
+                    <td style={{ ...css.td, color: dColor(overParAfter4[t.team]), fontWeight: 700, fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>+{overParAfter4[t.team]}</td>
+                    <td style={{ ...css.td, color: t.day5OverPar == null ? "#64748b" : dColor(t.day5OverPar), fontWeight: 700, fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{formatSigned(t.day5OverPar)}</td>
+                    <td style={{ ...css.td, color: dColor(t.totalOverParLive), fontWeight: 700, fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>{formatSigned(t.totalOverParLive)}</td>
+                    <td style={{ ...css.td, color: t.enteredCount === 8 || t.inWertung ? C2 : AMB, fontWeight: 700, fontSize: isTvFit ? 12 : css.td.fontSize, padding: isTvFit ? "6px 8px" : compact ? "8px" : "10px" }}>
+                      {t.enteredCount === 8 ? "vollständig" : t.inWertung ? `in Wertung ${t.enteredCount}/8` : `vorläufig ${t.counted}/6`}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={css.note}>Diese Tabelle reagiert ab dem ersten Ergebnis. Endgültig korrekt für den Spieltag ist sie bei mindestens 6 gewerteten Scores je Mannschaft.</div>
         </div>
-        <div style={css.note}>Diese Tabelle reagiert ab dem ersten Ergebnis. Endgültig korrekt für den Spieltag ist sie bei mindestens 6 gewerteten Scores je Mannschaft.</div>
       </div>
 
       <div style={css.card}>
         <div style={css.sec}>Live Spielerübersicht je Mannschaft</div>
         <div style={{ overflowX: "auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 12, minWidth: 1040 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: isTvFit ? 8 : 12, minWidth: isTvFit ? 980 : 1040 }}>
             {allTeams.map((team) => {
               const teamData = teamLive.find((t) => t.team === team);
               if (!teamData) return null;
@@ -566,9 +606,9 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
 
               return (
                 <div key={team} style={{ border: "1px solid #1f2937", borderRadius: 8, background: team === "GC Bostalsee" ? "#12192a" : "#0f141e", overflow: "hidden" }}>
-                  <div style={{ padding: "10px 10px 8px", borderBottom: "1px solid #1f2937" }}>
-                    <div style={{ fontSize: 13, fontWeight: 800, color: team === "GC Bostalsee" ? C1 : "#e2e8f0" }}>{team}</div>
-                    <div style={{ marginTop: 4, fontSize: 11, color: "#94a3b8" }}>
+                  <div style={{ padding: isTvFit ? "8px 8px 6px" : "10px 10px 8px", borderBottom: "1px solid #1f2937" }}>
+                    <div style={{ fontSize: isTvFit ? 12 : 13, fontWeight: 800, color: team === "GC Bostalsee" ? C1 : "#e2e8f0" }}>{team}</div>
+                    <div style={{ marginTop: isTvFit ? 2 : 4, fontSize: isTvFit ? 10 : 11, color: "#94a3b8" }}>
                       Erfasst {teamData.enteredCount}/8 | Offen {open} | NR {teamData.nrCount}
                     </div>
                   </div>
@@ -587,15 +627,15 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
                             justifyContent: "space-between",
                             alignItems: "center",
                             gap: 8,
-                            padding: "7px 10px",
+                            padding: isTvFit ? "5px 8px" : "7px 10px",
                             borderBottom: "1px solid #1a2332",
                             background: isOpen ? "#0d1420" : "transparent",
                           }}
                         >
-                          <div style={{ fontSize: 12, color: isOpen ? "#64748b" : "#d1d5db", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          <div style={{ fontSize: isTvFit ? 11 : 12, color: isOpen ? "#64748b" : "#d1d5db", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                             {entry.name}
                           </div>
-                          <div style={{ fontSize: 12, fontWeight: 700, color: isOpen ? "#64748b" : isNR ? RED : C2, minWidth: 38, textAlign: "right" }}>
+                          <div style={{ fontSize: isTvFit ? 11 : 12, fontWeight: 700, color: isOpen ? "#64748b" : isNR ? RED : C2, minWidth: isTvFit ? 30 : 38, textAlign: "right" }}>
                             {label}
                           </div>
                         </div>
@@ -933,7 +973,12 @@ export default function App() {
     return { ...p, avgScore, avgDelta, played: allScores.length };
   });
 
-  const displayScale = isMobile ? 1 : tvScaleMode === "l" ? 1.7 : tvScaleMode === "m" ? 1.45 : 1;
+  const isDay5TvFit = page === "day5" && !isMobile && tvScaleMode !== "off";
+  const displayScale = isMobile
+    ? 1
+    : isDay5TvFit
+      ? tvScaleMode === "l" ? 1.2 : 1.1
+      : tvScaleMode === "l" ? 1.7 : tvScaleMode === "m" ? 1.45 : 1;
   const cycleTvScaleMode = () => {
     setTvScaleMode((prev) => (prev === "off" ? "m" : prev === "m" ? "l" : "off"));
   };
@@ -957,7 +1002,7 @@ export default function App() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 2, marginBottom: 20, borderBottom: "1px solid #1e2a3a", paddingBottom: 0, flexWrap: "wrap" }}>
-        <span style={{ fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#4a5568", marginRight: 20, whiteSpace: "nowrap" }}>
+        <span style={{ fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", color: "#64748b", marginRight: 20, whiteSpace: "nowrap" }}>
           AK30 - GC Bostalsee - 2026
         </span>
         <NavTab label="HCPI-Übersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
@@ -998,7 +1043,7 @@ export default function App() {
               ["Stärkster Gegner", "GC Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
-                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#4a5568", marginBottom: 7 }}>{l}</div>
+                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 1.5, textTransform: "uppercase", color: "#64748b", marginBottom: 7 }}>{l}</div>
                 <div style={{ fontWeight: 700, fontSize: v.length > 8 ? 16 : 28, color: c, lineHeight: 1 }}>{v}</div>
               </div>
             ))}
@@ -1065,7 +1110,7 @@ export default function App() {
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={chartData} barGap={3} barCategoryGap="25%">
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e2a3a" vertical={false} />
-                  <XAxis dataKey="name" tick={{ fill: "#4a5568", fontSize: 9, fontWeight: 600 }} axisLine={false} tickLine={false} />
+                  <XAxis dataKey="name" tick={{ fill: "#64748b", fontSize: 9, fontWeight: 600 }} axisLine={false} tickLine={false} />
                   <YAxis domain={[0, 12]} tick={{ fill: "#374151", fontSize: 9 }} axisLine={false} tickLine={false} />
                   <Tooltip contentStyle={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 6, color: "#e2e8f0", fontSize: 11 }} cursor={{ fill: "#1e2a3a" }} />
                   <Legend wrapperStyle={{ fontSize: 10, color: "#64748b", paddingTop: 6 }} />
@@ -1093,6 +1138,8 @@ export default function App() {
             updateResult={updateDay5Result}
             resetResults={resetDay5Results}
             simulateResults={simulateDay5Results}
+            isMobile={isMobile}
+            tvFitMode={isDay5TvFit ? tvScaleMode : "off"}
           />
         </div>
       )}
@@ -1325,13 +1372,13 @@ export default function App() {
           {sub === "ei" && (
             <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #252d3d", flexWrap: "wrap", gap: 4 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#4a5568", padding: "12px 14px 10px" }}>
+                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#64748b", padding: "12px 14px 10px" }}>
                   GC Bostalsee - Spieler Delta (Score minus Par+PHCP) pro Spieltag
                 </div>
                 <div style={{ padding: "10px 14px" }}>
                   <button
                     onClick={() => setInclFS(!inclFS)}
-                    style={{ background: inclFS ? AMB : "#252d3d", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: inclFS ? "#0f1117" : "#4a5568", cursor: "pointer" }}
+                    style={{ background: inclFS ? AMB : "#252d3d", border: "none", borderRadius: 6, padding: "6px 14px", fontSize: 10, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: inclFS ? "#0f1117" : "#64748b", cursor: "pointer" }}
                   >
                     {inclFS ? "✓ " : ""}Freundschaftsspiele
                   </button>
@@ -1383,10 +1430,10 @@ export default function App() {
                         : <span style={{ opacity: str ? 0.4 : 1 }}>{v}</span>;
                       const fD = (d, str) => d == null
                         ? <span style={{ color: "#2d3748" }}>—</span>
-                        : <span style={{ color: str ? "#4a5568" : dColor(d), fontWeight: 600, opacity: str ? 0.4 : 1 }}>{d >= 0 ? "+" : ""}{d}</span>;
+                        : <span style={{ color: str ? "#64748b" : dColor(d), fontWeight: 600, opacity: str ? 0.4 : 1 }}>{d >= 0 ? "+" : ""}{d}</span>;
                       const fS = (ph, par, str) => ph == null
                         ? <span style={{ color: "#2d3748" }}>—</span>
-                        : <span style={{ opacity: str ? 0.4 : 1, color: "#4a5568" }}>{par + ph}</span>;
+                        : <span style={{ opacity: str ? 0.4 : 1, color: "#64748b" }}>{par + ph}</span>;
                       const avgScoreColor = p.avgScore != null ? (p.avgScore < 85 ? C2 : p.avgScore < 92 ? AMB : RED) : "#2d3748";
                       const avgDeltaColor = p.avgDelta != null ? dColor(Math.round(p.avgDelta)) : "#2d3748";
                       const mob = isMobile ? "none" : undefined;
