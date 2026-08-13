@@ -120,6 +120,7 @@ const allPlayers = [
   // GC Barbarossa
   { name: "Blauth, Christian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 17,   s3: 99,   str3: true,  p4: 17,   s4: 97,   str4: true  },
   { name: "Häusler, Gerold",          team: "GC Barbarossa",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 90,   str2: true,  p3: 6,    s3: 87,   str3: false, p4: 6,    s4: 87,   str4: false },
+  { name: "Karol, Kamil",             team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
   { name: "Kröhnert, Jonas",          team: "GC Barbarossa",   p1: 15,   s1: 85,   str1: false, p2: 16,   s2: 82,   str2: false, p3: 13,   s3: 87,   str3: false, p4: 13,   s4: 83,   str4: false },
   { name: "Metzmann, Florian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 11,   s2: 88,   str2: false, p3: 11,   s3: 84,   str3: false, p4: 10,   s4: null, str4: true  },
   { name: "Mühlberger, Felix",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 8,    s4: 82,   str4: false },
@@ -187,6 +188,7 @@ const allPlayers = [
   { name: "Mühe, Bennet",             team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 24,   s2: 108,  str2: true,  p3: null, s3: null, str3: false, p4: 22,   s4: 92,   str4: true  },
   { name: "Orth, Christian",          team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 13,   s3: 95,   str3: false, p4: null, s4: null, str4: false },
   { name: "Riedinger, Jan",           team: "EGC Westpfalz",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 96,   str2: false, p3: null, s3: null, str3: false, p4: 5,    s4: 75,   str4: false },
+  { name: "Roschy, Sascha",           team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
   { name: "Wadle, Volker",            team: "EGC Westpfalz",   p1: 6,    s1: 77,   str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 83,   str3: false, p4: 6,    s4: 73,   str4: false },
   { name: "Wiese, Felix",             team: "EGC Westpfalz",   p1: 5,    s1: 88,   str1: false, p2: 7,    s2: 82,   str2: false, p3: 6,    s3: 85,   str3: false, p4: 6,    s4: 81,   str4: false },
 ];
@@ -213,6 +215,8 @@ const ALLE_COLUMNS = {
   soll4:     { label: "ST4 Soll", type: "number", get: r => r.soll4 },
   s4:        { label: "ST4 Sc",   type: "number", get: r => r.s4 },
   d4:        { label: "ST4 Δ",    type: "number", get: r => r.d4 },
+  s5:        { label: "ST5 Sc",   type: "number", get: r => r.s5 },
+  d5:        { label: "ST5 Δ",    type: "number", get: r => r.d5 },
   avgScore:  { label: "Ø Score",  type: "number", get: r => r.avgScore },
   avgDelta:  { label: "Ø Δ",      type: "number", get: r => r.avgDelta },
 };
@@ -272,6 +276,8 @@ const day5StartList = [
   { name: "Roschy, Sascha", team: "EGC Westpfalz" },
   { name: "Henniger, Harald", team: "EGC Westpfalz" },
 ];
+
+const day5NameSet = new Set(day5StartList.map(p => p.name));
 
 const css = {
   body:  { background: "#0f1117", minHeight: "100vh", padding: 20, fontFamily: "system-ui,sans-serif", color: "#e2e8f0", fontSize: 13 },
@@ -767,6 +773,7 @@ export default function App() {
   const [inclFS, setInclFS] = useState(false);
   const [alleSortKeys, setAlleSortKeys] = useState([{ key: "team", dir: "asc" }]);
   const [alleSearch, setAlleSearch] = useState("");
+  const [alleNurNeu5, setAlleNurNeu5] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
   const [tvScaleMode, setTvScaleMode] = useState("off");
   const [day5Results, setDay5Results] = useState(() => {
@@ -1113,8 +1120,15 @@ export default function App() {
       const rawScores = [p.s1, p.s2, p.s3, p.s4].filter(s => s != null);
       const avgScore = rawScores.length > 0 ? rawScores.reduce((a, s) => a + s, 0) / rawScores.length : null;
       const avgDelta = deltas.length > 0 ? deltas.reduce((a, d) => a + d, 0) / deltas.length : null;
-      return { ...p, soll1, soll2, soll3, soll4, d1, d2, d3, d4, avgScore, avgDelta, played: rawScores.length };
+      const entered5 = Object.prototype.hasOwnProperty.call(day5Results, p.name);
+      const raw5 = entered5 ? day5Results[p.name] : undefined;
+      const nr5 = entered5 && raw5 === null;
+      const s5 = entered5 && !nr5 ? raw5 : null;
+      const d5 = s5 != null ? s5 - PAR5 : null;
+      const neu5 = day5NameSet.has(p.name) && rawScores.length === 0;
+      return { ...p, soll1, soll2, soll3, soll4, d1, d2, d3, d4, s5, d5, entered5, nr5, neu5, avgScore, avgDelta, played: rawScores.length };
     })
+    .filter(p => !alleNurNeu5 || p.neu5)
     .sort((a, b) => {
       for (const { key, dir } of alleSortKeys) {
         const col = ALLE_COLUMNS[key];
@@ -1644,9 +1658,18 @@ export default function App() {
             <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #252d3d", flexWrap: "wrap", gap: 8 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#64748b", padding: "12px 14px 10px" }}>
-                  Alle Spieler - Spieler Delta (Score minus Par+PHCP) pro Spieltag
+                  Alle Spieler - Spieler Delta (Score minus Par+PHCP) pro Spieltag inkl. ST5 live
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", flexWrap: "wrap" }}>
+                  <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: alleNurNeu5 ? C2 : "#94a3b8", cursor: "pointer", userSelect: "none" }}>
+                    <input
+                      type="checkbox"
+                      checked={alleNurNeu5}
+                      onChange={(e) => setAlleNurNeu5(e.target.checked)}
+                      style={{ accentColor: C2, cursor: "pointer" }}
+                    />
+                    Nur ST5-Neuzugänge
+                  </label>
                   <input
                     type="text"
                     value={alleSearch}
@@ -1657,7 +1680,7 @@ export default function App() {
                 </div>
               </div>
               <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1260 }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1380 }}>
                   <thead>
                     <tr>
                       {(() => {
@@ -1703,6 +1726,8 @@ export default function App() {
                             {sortTh("soll4", { color: C4, ...mobHide })}
                             {sortTh("s4", { color: C4 })}
                             {sortTh("d4", { color: C4 })}
+                            {sortTh("s5", { color: C2 })}
+                            {sortTh("d5", { color: C2 })}
                             {sortTh("avgScore", { background: "#161d2c" })}
                             {sortTh("avgDelta", { background: "#161d2c" })}
                           </>
@@ -1722,6 +1747,14 @@ export default function App() {
                       const fS = (ph, par, str) => ph == null
                         ? <span style={{ color: "#2d3748" }}>—</span>
                         : <span style={{ opacity: str ? 0.4 : 1, color: "#64748b" }}>{par + ph}</span>;
+                      const f5 = !p.entered5
+                        ? <span style={{ color: "#2d3748" }}>—</span>
+                        : p.nr5
+                          ? <span style={{ color: RED, fontWeight: 600 }}>NR</span>
+                          : <span>{p.s5}</span>;
+                      const fD5 = p.d5 == null
+                        ? <span style={{ color: "#2d3748" }}>—</span>
+                        : <span style={{ color: dColor(p.d5), fontWeight: 600 }}>{p.d5 >= 0 ? "+" : ""}{p.d5}</span>;
                       const avgScoreColor = p.avgScore != null ? (p.avgScore < 85 ? C2 : p.avgScore < 92 ? AMB : RED) : "#2d3748";
                       const avgDeltaColor = p.avgDelta != null ? dColor(Math.round(p.avgDelta)) : "#2d3748";
                       const mob = isMobile ? "none" : undefined;
@@ -1747,6 +1780,8 @@ export default function App() {
                           <td style={{ ...css.td, display: mob }}>{fS(p.p4, PAR4, p.str4)}</td>
                           <td style={css.td}>{fV(p.s4, p.str4)}</td>
                           <td style={css.td}>{fD(d4, p.str4)}</td>
+                          <td style={css.td}>{f5}</td>
+                          <td style={css.td}>{fD5}</td>
                           <td style={{ ...css.td, background: "#161d2c", color: avgScoreColor, fontWeight: 700 }}>
                             {p.avgScore != null ? p.avgScore.toFixed(1) : <span style={{ color: "#2d3748" }}>—</span>}
                           </td>
@@ -1759,10 +1794,12 @@ export default function App() {
                   </tbody>
                 </table>
                 {allPlayersWithAvg.length === 0 && (
-                  <div style={{ padding: "20px 14px", textAlign: "center", fontSize: 12, color: "#64748b" }}>Kein Spieler gefunden für "{alleSearch}"</div>
+                  <div style={{ padding: "20px 14px", textAlign: "center", fontSize: 12, color: "#64748b" }}>
+                    {alleNurNeu5 ? "Keine ST5-Neuzugänge gefunden" : `Kein Spieler gefunden für "${alleSearch}"`}
+                  </div>
                 )}
               </div>
-              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · Ø nur Ligaspiele (ST1-ST4) · {isMobile ? "PHCP/Soll ausgeblendet" : "Ausgegraut = Streicher"} · {allPlayersWithAvg.length} von {allPlayers.length} Spielern</div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · Ø nur Ligaspiele (ST1-ST4) · ST5 live aus Live-Eingabe (ohne PHCP, Δ ggü. Par {PAR5}) · ST5-Neuzugänge = in ST5-Startliste, aber ohne Einsatz in ST1-4 · {isMobile ? "PHCP/Soll ausgeblendet" : "Ausgegraut = Streicher"} · {allPlayersWithAvg.length} von {allPlayers.length} Spielern</div>
             </div>
           )}
         </div>
