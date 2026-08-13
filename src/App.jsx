@@ -63,7 +63,7 @@ const hcpiTeams = [
 ];
 
 const chartData = hcpiTeams.map(t => ({
-  name: t.name === "GC Katharinenhof" ? "Katharinh." : t.name,
+  name: t.name === "GC Katharinenhof" ? "GC Katharinenhof" : t.name,
   "1.ST": +t.s1avg.toFixed(2),
   "2.ST": +t.s2avg.toFixed(2),
   "3.ST": +t.s3avg.toFixed(2),
@@ -307,7 +307,7 @@ function SubTab({ label, active, onClick }) {
 
 function Rank({ r }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: r === 1 ? "#78350f" : "#1e2a3a", color: r === 1 ? "#fbbf24" : r <= 3 ? "#94a3b8" : "#64748b", fontWeight: 700, fontSize: 12 }}>
+    <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: "#1e2a3a", color: r <= 3 ? "#94a3b8" : "#64748b", fontWeight: 700, fontSize: 12 }}>
       {r}
     </span>
   );
@@ -1198,7 +1198,7 @@ export default function App() {
 
       {page === "hcpi" && (
         <div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(3,1fr)", gap: 10, marginBottom: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(6,1fr)", gap: 10, marginBottom: 16 }}>
             {[
               ["Feld-Schnitt 1. Spieltag", "8.18", C1],
               ["Feld-Schnitt 2. Spieltag", "7.60", C2],
@@ -1305,13 +1305,22 @@ export default function App() {
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
-                  {["Pos.", "Mannschaft", "ST1 Score", "ST1 ±Par", "ST1 Pkt", "ST2 Score", "ST2 ±Par", "ST2 Pkt", "ST3 Score", "ST3 ±Par", "ST3 Pkt", "ST4 Score", "ST4 ±Par", "ST4 Pkt", "Gesamt", "Schläge über Par"].map((h, i) => {
-                    const isTotalCol = h === "Gesamt";
-                    const isOverParCol = h === "Schläge über Par";
-                    return (
-                      <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: isTotalCol || isOverParCol ? "#161d2c" : "transparent" }}>{h}</th>
-                    );
-                  })}
+                  <th rowSpan={2} style={{ ...css.th, textAlign: "left", verticalAlign: "bottom", paddingBottom: 9 }}>Pos.</th>
+                  <th rowSpan={2} style={{ ...css.th, textAlign: "left", verticalAlign: "bottom", paddingBottom: 9 }}>Mannschaft</th>
+                  {[["1. Spieltag (09.05.)", C1], ["2. Spieltag (23.05.)", C2], ["3. Spieltag (06.06.)", C3], ["4. Spieltag (20.06.)", C4]].map(([l, c]) => (
+                    <th key={l} colSpan={3} style={{ ...css.th, textAlign: "center", color: c, borderBottom: `2px solid ${c}`, padding: "9px 6px 4px" }}>{l}</th>
+                  ))}
+                  <th rowSpan={2} style={{ ...css.th, background: "#161d2c", verticalAlign: "bottom", paddingBottom: 9 }}>Gesamt</th>
+                  <th rowSpan={2} style={{ ...css.th, background: "#161d2c", verticalAlign: "bottom", paddingBottom: 9 }}>Schläge über Par</th>
+                </tr>
+                <tr>
+                  {[C1, C2, C3, C4].map((c, i) => (
+                    <Fragment key={i}>
+                      <th style={{ ...css.th, color: c }}>Score</th>
+                      <th style={css.th}>±Par</th>
+                      <th style={css.th}>Pkt</th>
+                    </Fragment>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -1325,9 +1334,9 @@ export default function App() {
                     const c = pts === 5 ? C2 : pts >= 3.5 ? AMB : pts >= 2 ? "#94a3b8" : RED;
                     return <span style={{ color: c, fontWeight: 700 }}>{pts % 1 === 0 ? pts.toFixed(0) : pts.toFixed(1)}</span>;
                   };
-                  const fScore = (stData, name) => {
+                  const fScore = (stData, name, c) => {
                     const entry = stData.find(x => x.name === name);
-                    return entry ? <span style={{ color: "#64748b" }}>{entry.ts}</span> : <span style={{ color: "#2d3748" }}>—</span>;
+                    return entry ? <span style={{ color: c, fontWeight: 600 }}>{entry.ts}</span> : <span style={{ color: "#2d3748" }}>—</span>;
                   };
                   return (
                     <tr key={t.name} style={{ background: isBos ? "#12192a" : "transparent", borderBottom: "1px solid #1e2a3a" }}>
@@ -1335,16 +1344,16 @@ export default function App() {
                         <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: posBg, color: posColor, fontWeight: 700, fontSize: 12 }}>{idx + 1}</span>
                       </td>
                       <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isRelegation ? RED : isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}{isRelegation ? " ↓" : ""}</td>
-                      <td style={css.td}>{fScore(st1, t.name)}</td>
+                      <td style={css.td}>{fScore(st1, t.name, C1)}</td>
                       <td style={css.td}>{fRoundDelta(st1, t.name, PAR1)}</td>
                       <td style={css.td}>{fPts(t.p1)}</td>
-                      <td style={css.td}>{fScore(st2, t.name)}</td>
+                      <td style={css.td}>{fScore(st2, t.name, C2)}</td>
                       <td style={css.td}>{fRoundDelta(st2, t.name, PAR2)}</td>
                       <td style={css.td}>{fPts(t.p2)}</td>
-                      <td style={css.td}>{fScore(st3, t.name)}</td>
+                      <td style={css.td}>{fScore(st3, t.name, C3)}</td>
                       <td style={css.td}>{fRoundDelta(st3, t.name, PAR3)}</td>
                       <td style={css.td}>{fPts(t.p3)}</td>
-                      <td style={css.td}>{fScore(st4, t.name)}</td>
+                      <td style={css.td}>{fScore(st4, t.name, C4)}</td>
                       <td style={css.td}>{fRoundDelta(st4, t.name, PAR4)}</td>
                       <td style={css.td}>{fPts(t.p4)}</td>
                       <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: isTop ? C2 : isRelegation ? RED : "#e2e8f0" }}>
