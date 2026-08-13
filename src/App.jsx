@@ -55,11 +55,11 @@ function LoginGate({ onAuth }) {
 }
 
 const hcpiTeams = [
-  { name: "GC Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8, s4avg: 7.50, s4med: 6.80, s4n: 8 },
-  { name: "GC Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.44, s4med: 7.25, s4n: 8 },
-  { name: "GC Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 8.86, s4med: 8.35, s4n: 8 },
-  { name: "EGC Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 9.66, s4med: 9.60, s4n: 8 },
-  { name: "GC Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 6.81, s4med: 6.35, s4n: 8 },
+  { name: "GC Katharinenhof", s1avg: 6.09, s1med: 6.50, s1n: 8, s2avg: 5.95, s2med: 5.75, s2n: 8, s3avg: 6.29, s3med: 7.00, s3n: 8, s4avg: 7.50, s4med: 6.80, s4n: 8, s5avg: 5.81, s5med: 6.35, s5n: 8 },
+  { name: "GC Kurpfalz",      s1avg: 8.16, s1med: 8.85, s1n: 8, s2avg: 7.50, s2med: 8.45, s2n: 8, s3avg: 8.95, s3med: 8.55, s3n: 8, s4avg: 6.44, s4med: 7.25, s4n: 8, s5avg: 5.93, s5med: 6.30, s5n: 8 },
+  { name: "GC Barbarossa",    s1avg: 9.54, s1med: 9.60, s1n: 7, s2avg: 6.83, s2med: 6.20, s2n: 8, s3avg: 9.47, s3med: 8.35, s3n: 8, s4avg: 8.86, s4med: 8.35, s4n: 8, s5avg: 6.38, s5med: 5.30, s5n: 8 },
+  { name: "EGC Westpfalz",     s1avg: 7.96, s1med: 8.30, s1n: 7, s2avg: 10.20, s2med: 10.10, s2n: 8, s3avg: 8.64, s3med: 9.00, s3n: 8, s4avg: 9.66, s4med: 9.60, s4n: 8, s5avg: 10.89, s5med: 11.20, s5n: 8 },
+  { name: "GC Bostalsee",     s1avg: 7.35, s1med: 6.50, s1n: 8, s2avg: 7.53, s2med: 6.85, s2n: 8, s3avg: 5.84, s3med: 5.90, s3n: 8, s4avg: 6.81, s4med: 6.35, s4n: 8, s5avg: 6.06, s5med: 6.00, s5n: 8 },
 ];
 
 const chartData = hcpiTeams.map(t => ({
@@ -68,6 +68,7 @@ const chartData = hcpiTeams.map(t => ({
   "2.ST": +t.s2avg.toFixed(2),
   "3.ST": +t.s3avg.toFixed(2),
   "4.ST": +t.s4avg.toFixed(2),
+  "5.ST": +t.s5avg.toFixed(2),
 }));
 
 const st1 = [
@@ -121,50 +122,50 @@ const DAY5_STORAGE_KEY = "ak30_day5_results";
 const DAY5_SIM_RUN_KEY = "ak30_day5_sim_run";
 
 const day5StartList = [
-  { name: "Newsome, Robert", team: "GC Barbarossa" },
-  { name: "Schertz, Patric", team: "GC Barbarossa" },
   { name: "Metzmann, Florian", team: "GC Barbarossa" },
+  { name: "Schertz, Patric", team: "GC Barbarossa" },
+  { name: "Newsome, Robert", team: "GC Barbarossa" },
   { name: "Kröhnert, Jonas", team: "GC Barbarossa" },
   { name: "Häusler, Gerold", team: "GC Barbarossa" },
-  { name: "Recktenwald, Tobias", team: "GC Barbarossa" },
-  { name: "Mühlberger, Felix", team: "GC Barbarossa" },
+  { name: "Velten, Nick", team: "GC Barbarossa" },
   { name: "Karol, Kamil", team: "GC Barbarossa" },
+  { name: "Mühlberger, Felix", team: "GC Barbarossa" },
 
   { name: "Werny, Erik", team: "GC Katharinenhof" },
-  { name: "Klampfer, Erwin", team: "GC Katharinenhof" },
-  { name: "Fischer, Maximilian", team: "GC Katharinenhof" },
-  { name: "Holzer, Sebastian", team: "GC Katharinenhof" },
-  { name: "Becker, Michael", team: "GC Katharinenhof" },
-  { name: "Kirchner, Eric", team: "GC Katharinenhof" },
   { name: "Schley, Michael", team: "GC Katharinenhof" },
+  { name: "Weiß, Andreas", team: "GC Katharinenhof" },
+  { name: "Holzer, Sebastian", team: "GC Katharinenhof" },
+  { name: "Kirchner, Eric", team: "GC Katharinenhof" },
+  { name: "Kurt, Medeni", team: "GC Katharinenhof" },
+  { name: "Müller, Mike", team: "GC Katharinenhof" },
   { name: "Marullo, Giuseppe", team: "GC Katharinenhof" },
 
-  { name: "Ley, Karsten", team: "GC Bostalsee" },
-  { name: "Georg, Heiko", team: "GC Bostalsee" },
   { name: "Martin, Lars", team: "GC Bostalsee" },
+  { name: "Georg, Heiko", team: "GC Bostalsee" },
+  { name: "Ley, Karsten", team: "GC Bostalsee" },
+  { name: "Schneider, Christian", team: "GC Bostalsee" },
   { name: "Wilhelm, Michael", team: "GC Bostalsee" },
-  { name: "Reiter, Marco", team: "GC Bostalsee" },
-  { name: "Schade, Marc André", team: "GC Bostalsee" },
-  { name: "Ludwig, Tobias", team: "GC Bostalsee" },
+  { name: "Scholler, Fabian", team: "GC Bostalsee" },
+  { name: "Schmitt, Christoph", team: "GC Bostalsee" },
   { name: "Decker, Yannick", team: "GC Bostalsee" },
 
   { name: "Leopold, Jens", team: "GC Kurpfalz" },
-  { name: "Kretz, Sascha", team: "GC Kurpfalz" },
   { name: "Baronello, Roberto", team: "GC Kurpfalz" },
-  { name: "Rischbode, Tjark-Lajos", team: "GC Kurpfalz" },
-  { name: "Bieker, Niels", team: "GC Kurpfalz" },
-  { name: "Weisskopf, Luis", team: "GC Kurpfalz" },
+  { name: "Kretz, Sascha", team: "GC Kurpfalz" },
   { name: "Borrmann, Mirko", team: "GC Kurpfalz" },
   { name: "Türk, Sabri", team: "GC Kurpfalz" },
+  { name: "Okon, Philip", team: "GC Kurpfalz" },
+  { name: "Bieker, Niels", team: "GC Kurpfalz" },
+  { name: "Weißkopf, Luis", team: "GC Kurpfalz" },
 
   { name: "Wadle, Volker", team: "EGC Westpfalz" },
-  { name: "Riedinger, Jan", team: "EGC Westpfalz" },
+  { name: "Mühe, Bennet", team: "EGC Westpfalz" },
   { name: "Fusenig, Christian", team: "EGC Westpfalz" },
+  { name: "Hammerschmidt, Thorsten", team: "EGC Westpfalz" },
   { name: "Wiese, Felix", team: "EGC Westpfalz" },
   { name: "Flierl, Jan-Benjamin", team: "EGC Westpfalz" },
-  { name: "Hammerschmidt, Thorsten", team: "EGC Westpfalz" },
-  { name: "Klingel, Steffen", team: "EGC Westpfalz" },
-  { name: "Mühe, Bennet", team: "EGC Westpfalz" },
+  { name: "Roschy, Sascha", team: "EGC Westpfalz" },
+  { name: "Henniger, Harald", team: "EGC Westpfalz" },
 ];
 
 const css = {
@@ -1034,12 +1035,13 @@ export default function App() {
 
       {page === "hcpi" && (
         <div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(5,1fr)", gap: 10, marginBottom: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(3,1fr)", gap: 10, marginBottom: 16 }}>
             {[
               ["Feld-Schnitt 1. Spieltag", "8.18", C1],
               ["Feld-Schnitt 2. Spieltag", "7.60", C2],
               ["Feld-Schnitt 3. Spieltag", "7.84", C3],
               ["Feld-Schnitt 4. Spieltag", "7.85", C4],
+              ["Feld-Schnitt 5. Spieltag", "7.01", AMB],
               ["Stärkster Gegner", "GC Katharinenhof", C2],
             ].map(([l, v, c]) => (
               <div key={l} style={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 8, padding: "14px 16px" }}>
@@ -1055,7 +1057,7 @@ export default function App() {
                 <thead>
                   <tr style={{ background: "#111827" }}>
                     <th rowSpan={2} style={{ ...css.th, textAlign: "left", position: "sticky", left: 0, background: "#111827", zIndex: 2, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>Mannschaft</th>
-                    {[["1. Spieltag (09.05.)", "1.ST", C1], ["2. Spieltag (23.05.)", "2.ST", C2], ["3. Spieltag (06.06.)", "3.ST", C3], ["4. Spieltag (20.06.)", "4.ST", C4]].map(([l, s, c]) => (
+                    {[["1. Spieltag (09.05.)", "1.ST", C1], ["2. Spieltag (23.05.)", "2.ST", C2], ["3. Spieltag (06.06.)", "3.ST", C3], ["4. Spieltag (20.06.)", "4.ST", C4], ["5. Spieltag (15.08.)", "5.ST", AMB]].map(([l, s, c]) => (
                       <th key={l} colSpan={isMobile ? 1 : 3} style={{ ...css.th, textAlign: "center", color: c, borderBottom: `2px solid ${c}`, padding: "9px 6px 4px" }}>{isMobile ? s : l}</th>
                     ))}
                     <th rowSpan={2} style={{ ...css.th, borderBottom: "2px solid #1e2a3a", verticalAlign: "bottom", paddingBottom: 9 }}>Delta letzter ST</th>
@@ -1073,11 +1075,14 @@ export default function App() {
                     <th style={{ ...css.th, color: C4 }}>Avg HCPI</th>
                     {!isMobile && <th style={css.th}>Med</th>}
                     {!isMobile && <th style={css.th}>N</th>}
+                    <th style={{ ...css.th, color: AMB }}>Avg HCPI</th>
+                    {!isMobile && <th style={css.th}>Med</th>}
+                    {!isMobile && <th style={css.th}>N</th>}
                   </tr>
                 </thead>
                 <tbody>
                   {hcpiTeams.map(t => {
-                    const avgValues = [t.s1avg, t.s2avg, t.s3avg, t.s4avg].filter((v) => typeof v === "number");
+                    const avgValues = [t.s1avg, t.s2avg, t.s3avg, t.s4avg, t.s5avg].filter((v) => typeof v === "number");
                     const d = avgValues.length >= 2 ? avgValues[avgValues.length - 1] - avgValues[avgValues.length - 2] : 0;
                     const dc = d > 0.1 ? RED : d < -0.1 ? C2 : "#64748b";
                     return (
@@ -1095,6 +1100,9 @@ export default function App() {
                         <td style={{ ...css.td, color: C4, fontWeight: 600 }}>{t.s4avg.toFixed(2)}</td>
                         {!isMobile && <td style={css.td}>{t.s4med.toFixed(2)}</td>}
                         {!isMobile && <td style={css.td}>{t.s4n}</td>}
+                        <td style={{ ...css.td, color: AMB, fontWeight: 600 }}>{t.s5avg.toFixed(2)}</td>
+                        {!isMobile && <td style={css.td}>{t.s5med.toFixed(2)}</td>}
+                        {!isMobile && <td style={css.td}>{t.s5n}</td>}
                         <td style={{ ...css.td, fontWeight: 700, color: dc }}>{(d >= 0 ? "+" : "") + d.toFixed(2)}</td>
                       </tr>
                     );
@@ -1118,6 +1126,7 @@ export default function App() {
                   <Bar dataKey="2.ST" fill={C2} radius={[3, 3, 0, 0]} />
                   <Bar dataKey="3.ST" fill={C3} radius={[3, 3, 0, 0]} />
                   <Bar dataKey="4.ST" fill={C4} radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="5.ST" fill={AMB} radius={[3, 3, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
