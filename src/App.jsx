@@ -116,8 +116,113 @@ const players = [
   { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, pf: 5,    sf: 82,   pr: 6,    sr: 85   },
 ];
 
+const allPlayers = [
+  // GC Barbarossa
+  { name: "Blauth, Christian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 17,   s3: 99,   str3: true,  p4: 17,   s4: 97,   str4: true  },
+  { name: "Häusler, Gerold",          team: "GC Barbarossa",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 90,   str2: true,  p3: 6,    s3: 87,   str3: false, p4: 6,    s4: 87,   str4: false },
+  { name: "Kröhnert, Jonas",          team: "GC Barbarossa",   p1: 15,   s1: 85,   str1: false, p2: 16,   s2: 82,   str2: false, p3: 13,   s3: 87,   str3: false, p4: 13,   s4: 83,   str4: false },
+  { name: "Metzmann, Florian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 11,   s2: 88,   str2: false, p3: 11,   s3: 84,   str3: false, p4: 10,   s4: null, str4: true  },
+  { name: "Mühlberger, Felix",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 8,    s4: 82,   str4: false },
+  { name: "Newsome, Robert",          team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 0,    s2: 81,   str2: false, p3: null, s3: null, str3: false, p4: 0,    s4: 79,   str4: false },
+  { name: "Noll, Matthias",           team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 8,    s2: 86,   str2: false, p3: 7,    s3: 86,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Pinillos Cediel, Raúl",    team: "GC Barbarossa",   p1: 11,   s1: 86,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+  { name: "Recktenwald, Tobias",      team: "GC Barbarossa",   p1: 17,   s1: 90,   str1: true,  p2: null, s2: null, str2: false, p3: 17,   s3: 92,   str3: true,  p4: 16,   s4: 87,   str4: false },
+  { name: "Schertz, Patric",          team: "GC Barbarossa",   p1: 4,    s1: 79,   str1: false, p2: 6,    s2: 82,   str2: false, p3: 5,    s3: 81,   str3: false, p4: 5,    s4: 76,   str4: false },
+  { name: "Schleppi, Christoph",      team: "GC Barbarossa",   p1: 16,   s1: 90,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+  { name: "Velten, Nick",             team: "GC Barbarossa",   p1: 5,    s1: 78,   str1: false, p2: 7,    s2: 83,   str2: false, p3: 6,    s3: 83,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Wasem, Jochen",            team: "GC Barbarossa",   p1: 10,   s1: 83,   str1: false, p2: 11,   s2: 99,   str2: true,  p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+
+  // GC Katharinenhof
+  { name: "Becker, Michael",          team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: 9,    s2: 94,   str2: false, p3: 8,    s3: 96,   str3: true,  p4: 8,    s4: 86,   str4: false },
+  { name: "Fischer, Maximilian",      team: "GC Katharinenhof", p1: 7,    s1: 82,   str1: true,  p2: 9,    s2: null, str2: true,  p3: null, s3: null, str3: false, p4: 7,    s4: null, str4: true  },
+  { name: "Fries, Tobias",            team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 20,   s3: 94,   str3: true,  p4: 19,   s4: 98,   str4: true  },
+  { name: "Holzer, Sebastian",        team: "GC Katharinenhof", p1: 3,    s1: 79,   str1: false, p2: 4,    s2: 80,   str2: false, p3: 2,    s3: 83,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Kirchner, Eric",           team: "GC Katharinenhof", p1: 6,    s1: 75,   str1: false, p2: 6,    s2: 85,   str2: false, p3: null, s3: null, str3: false, p4: 7,    s4: 86,   str4: false },
+  { name: "Klampfer, Erwin",          team: "GC Katharinenhof", p1: 6,    s1: 77,   str1: false, p2: 7,    s2: 90,   str2: false, p3: null, s3: null, str3: false, p4: 6,    s4: 83,   str4: false },
+  { name: "Kurt, Medeni",             team: "GC Katharinenhof", p1: 10,   s1: 82,   str1: true,  p2: null, s2: null, str2: false, p3: 9,    s3: 89,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Lehr, Christian",          team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 5,    s3: 93,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Marullo, Giuseppe",        team: "GC Katharinenhof", p1: 5,    s1: 78,   str1: false, p2: 7,    s2: 82,   str2: false, p3: 5,    s3: 77,   str3: false, p4: 4,    s4: 84,   str4: false },
+  { name: "Müller, Mike",             team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 83,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Schley, Michael",          team: "GC Katharinenhof", p1: 8,    s1: 79,   str1: false, p2: 10,   s2: 103,  str2: true,  p3: 8,    s3: 83,   str3: false, p4: 8,    s4: 81,   str4: false },
+  { name: "Weiß, Andreas",            team: "GC Katharinenhof", p1: 8,    s1: 81,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+  { name: "Werny, Erik",              team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 3,    s4: 84,   str4: false },
+
+  // GC Bostalsee
+  { name: "Decker, Yannick",          team: "GC Bostalsee",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false },
+  { name: "Georg, Heiko",             team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true  },
+  { name: "Ley, Karsten",             team: "GC Bostalsee",    p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false },
+  { name: "Ludwig, Tobias",           team: "GC Bostalsee",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true  },
+  { name: "Lyons, Clayton",           team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Martin, Lars",             team: "GC Bostalsee",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false },
+  { name: "Reiter, Marco",            team: "GC Bostalsee",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false },
+  { name: "Schade, Marc André",       team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false },
+  { name: "Schmitt, Christoph",       team: "GC Bostalsee",    p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false },
+  { name: "Schneider, Christian",     team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false },
+  { name: "Scholler, Fabian",         team: "GC Bostalsee",    p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+  { name: "Wilhelm, Michael",         team: "GC Bostalsee",    p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false },
+
+  // GC Kurpfalz
+  { name: "Baronello, Roberto",       team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: -1,   s4: 75,   str4: false },
+  { name: "Bieker, Niels",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 6,    s4: 81,   str4: false },
+  { name: "Borrmann, Mirko",          team: "GC Kurpfalz",     p1: 10,   s1: 82,   str1: false, p2: 11,   s2: 88,   str2: false, p3: 10,   s3: 88,   str3: false, p4: 9,    s4: 87,   str4: true  },
+  { name: "Kraus, Sascha",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 9,    s2: 87,   str2: false, p3: 8,    s3: 88,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Kretz, Sascha",            team: "GC Kurpfalz",     p1: 1,    s1: 80,   str1: false, p2: 2,    s2: 73,   str2: false, p3: null, s3: null, str3: false, p4: 1,    s4: 77,   str4: false },
+  { name: "Leopold, Jens",            team: "GC Kurpfalz",     p1: 6,    s1: 84,   str1: false, p2: 7,    s2: 84,   str2: false, p3: 6,    s3: 82,   str3: false, p4: 6,    s4: 80,   str4: false },
+  { name: "Mühl, Andreas",            team: "GC Kurpfalz",     p1: 15,   s1: 87,   str1: true,  p2: null, s2: null, str2: false, p3: 15,   s3: 99,   str3: true,  p4: null, s4: null, str4: false },
+  { name: "Okon, Philip",             team: "GC Kurpfalz",     p1: 4,    s1: 81,   str1: false, p2: null, s2: null, str2: false, p3: 3,    s3: 97,   str3: true,  p4: null, s4: null, str4: false },
+  { name: "Rischbode, Tjark-Lajos",   team: "GC Kurpfalz",     p1: 11,   s1: 87,   str1: true,  p2: 11,   s2: 88,   str2: false, p3: null, s3: null, str3: false, p4: 9,    s4: 77,   str4: false },
+  { name: "Ruthig, Simon",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 11,   s2: 90,   str2: true,  p3: 11,   s3: 93,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Türk, Sabri",              team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 11,   s2: 90,   str2: true,  p3: 10,   s3: 85,   str3: false, p4: 10,   s4: 85,   str4: false },
+  { name: "Weißkopf, Luis",           team: "GC Kurpfalz",     p1: 13,   s1: 83,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 13,   s4: 89,   str4: true  },
+  { name: "Welker, Thomas",           team: "GC Kurpfalz",     p1: 9,    s1: 81,   str1: false, p2: 10,   s2: 85,   str2: false, p3: 8,    s3: 89,   str3: false, p4: null, s4: null, str4: false },
+
+  // EGC Westpfalz
+  { name: "Flierl, Jan-Benjamin",     team: "EGC Westpfalz",   p1: 12,   s1: 102,  str1: true,  p2: 14,   s2: null, str2: true,  p3: 13,   s3: 99,   str3: false, p4: 13,   s4: 88,   str4: false },
+  { name: "Fusenig, Christian",       team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 10,   s2: 92,   str2: false, p3: 10,   s3: 87,   str3: false, p4: 10,   s4: 84,   str4: false },
+  { name: "Hammerschmidt, Thorsten",  team: "EGC Westpfalz",   p1: 12,   s1: 85,   str1: false, p2: 13,   s2: 97,   str2: false, p3: 13,   s3: 102,  str3: true,  p4: 12,   s4: 84,   str4: false },
+  { name: "Hauck, Timo",              team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 14,   s2: 92,   str2: false, p3: 13,   s3: 109,  str3: true,  p4: null, s4: null, str4: false },
+  { name: "Henniger, Harald",         team: "EGC Westpfalz",   p1: 16,   s1: 92,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+  { name: "Jakob, Lars",              team: "EGC Westpfalz",   p1: 9,    s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+  { name: "Klingel, Steffen",         team: "EGC Westpfalz",   p1: 10,   s1: 92,   str1: false, p2: 11,   s2: 96,   str2: false, p3: 10,   s3: 101,  str3: false, p4: 11,   s4: 95,   str4: true  },
+  { name: "Mühe, Bennet",             team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 24,   s2: 108,  str2: true,  p3: null, s3: null, str3: false, p4: 22,   s4: 92,   str4: true  },
+  { name: "Orth, Christian",          team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 13,   s3: 95,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Riedinger, Jan",           team: "EGC Westpfalz",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 96,   str2: false, p3: null, s3: null, str3: false, p4: 5,    s4: 75,   str4: false },
+  { name: "Wadle, Volker",            team: "EGC Westpfalz",   p1: 6,    s1: 77,   str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 83,   str3: false, p4: 6,    s4: 73,   str4: false },
+  { name: "Wiese, Felix",             team: "EGC Westpfalz",   p1: 5,    s1: 88,   str1: false, p2: 7,    s2: 82,   str2: false, p3: 6,    s3: 85,   str3: false, p4: 6,    s4: 81,   str4: false },
+];
+
 const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR5 = 71;
 const PAR_FS_H = 72, PAR_FS_R = 71;
+
+const ALLE_COLUMNS = {
+  name:      { label: "Spieler",  type: "string", get: r => r.name },
+  team:      { label: "Team",     type: "string", get: r => r.team },
+  p1:        { label: "ST1 PHCP", type: "number", get: r => r.p1 },
+  soll1:     { label: "ST1 Soll", type: "number", get: r => r.soll1 },
+  s1:        { label: "ST1 Sc",   type: "number", get: r => r.s1 },
+  d1:        { label: "ST1 Δ",    type: "number", get: r => r.d1 },
+  p2:        { label: "ST2 PHCP", type: "number", get: r => r.p2 },
+  soll2:     { label: "ST2 Soll", type: "number", get: r => r.soll2 },
+  s2:        { label: "ST2 Sc",   type: "number", get: r => r.s2 },
+  d2:        { label: "ST2 Δ",    type: "number", get: r => r.d2 },
+  p3:        { label: "ST3 PHCP", type: "number", get: r => r.p3 },
+  soll3:     { label: "ST3 Soll", type: "number", get: r => r.soll3 },
+  s3:        { label: "ST3 Sc",   type: "number", get: r => r.s3 },
+  d3:        { label: "ST3 Δ",    type: "number", get: r => r.d3 },
+  p4:        { label: "ST4 PHCP", type: "number", get: r => r.p4 },
+  soll4:     { label: "ST4 Soll", type: "number", get: r => r.soll4 },
+  s4:        { label: "ST4 Sc",   type: "number", get: r => r.s4 },
+  d4:        { label: "ST4 Δ",    type: "number", get: r => r.d4 },
+  avgScore:  { label: "Ø Score",  type: "number", get: r => r.avgScore },
+  avgDelta:  { label: "Ø Δ",      type: "number", get: r => r.avgDelta },
+};
+
+const compareAlleValues = (a, b, type) => {
+  if (a == null && b == null) return 0;
+  if (a == null) return 1;
+  if (b == null) return -1;
+  return type === "string" ? a.localeCompare(b, "de") : a - b;
+};
 const DAY5_STORAGE_KEY = "ak30_day5_results";
 const DAY5_SIM_RUN_KEY = "ak30_day5_sim_run";
 
@@ -660,6 +765,8 @@ export default function App() {
   const [sub, setSub] = useState("ms");
   const [stTab, setStTab] = useState("st4");
   const [inclFS, setInclFS] = useState(false);
+  const [alleSortKeys, setAlleSortKeys] = useState([{ key: "team", dir: "asc" }]);
+  const [alleSearch, setAlleSearch] = useState("");
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
   const [tvScaleMode, setTvScaleMode] = useState("off");
   const [day5Results, setDay5Results] = useState(() => {
@@ -974,6 +1081,49 @@ export default function App() {
     return { ...p, avgScore, avgDelta, played: allScores.length };
   });
 
+  const toggleAlleSort = (key, additive) => {
+    setAlleSortKeys(prev => {
+      const idx = prev.findIndex(s => s.key === key);
+      if (additive) {
+        if (idx === -1) return [...prev, { key, dir: "asc" }];
+        const next = [...prev];
+        next[idx] = { key, dir: next[idx].dir === "asc" ? "desc" : "asc" };
+        return next;
+      }
+      if (prev.length === 1 && prev[0].key === key) {
+        return [{ key, dir: prev[0].dir === "asc" ? "desc" : "asc" }];
+      }
+      return [{ key, dir: "asc" }];
+    });
+  };
+
+  const alleSearchNorm = alleSearch.trim().toLowerCase();
+  const allPlayersWithAvg = allPlayers
+    .filter(p => !alleSearchNorm || p.name.toLowerCase().includes(alleSearchNorm))
+    .map(p => {
+      const soll1 = p.p1 != null ? PAR1 + p.p1 : null;
+      const soll2 = p.p2 != null ? PAR2 + p.p2 : null;
+      const soll3 = p.p3 != null ? PAR3 + p.p3 : null;
+      const soll4 = p.p4 != null ? PAR4 + p.p4 : null;
+      const d1 = p.p1 != null && p.s1 != null ? p.s1 - soll1 : null;
+      const d2 = p.p2 != null && p.s2 != null ? p.s2 - soll2 : null;
+      const d3 = p.p3 != null && p.s3 != null ? p.s3 - soll3 : null;
+      const d4 = p.p4 != null && p.s4 != null ? p.s4 - soll4 : null;
+      const deltas = [d1, d2, d3, d4].filter(d => d != null);
+      const rawScores = [p.s1, p.s2, p.s3, p.s4].filter(s => s != null);
+      const avgScore = rawScores.length > 0 ? rawScores.reduce((a, s) => a + s, 0) / rawScores.length : null;
+      const avgDelta = deltas.length > 0 ? deltas.reduce((a, d) => a + d, 0) / deltas.length : null;
+      return { ...p, soll1, soll2, soll3, soll4, d1, d2, d3, d4, avgScore, avgDelta, played: rawScores.length };
+    })
+    .sort((a, b) => {
+      for (const { key, dir } of alleSortKeys) {
+        const col = ALLE_COLUMNS[key];
+        const c = compareAlleValues(col.get(a), col.get(b), col.type) * (dir === "asc" ? 1 : -1);
+        if (c !== 0) return c;
+      }
+      return alleSortKeys[alleSortKeys.length - 1]?.key === "name" ? 0 : a.name.localeCompare(b.name, "de");
+    });
+
   const isDay5TvFit = page === "day5" && !isMobile && tvScaleMode !== "off";
   const displayScale = isMobile
     ? 1
@@ -1158,6 +1308,7 @@ export default function App() {
           <div style={{ display: "flex", gap: 4, marginBottom: 0, flexWrap: "wrap" }}>
             <SubTab label="Mannschaftsvergleich" active={sub === "ms"} onClick={() => setSub("ms")} />
             <SubTab label="GC Bostalsee Einzel" active={sub === "ei"} onClick={() => setSub("ei")} />
+            <SubTab label="Alle Spieler" active={sub === "alle"} onClick={() => setSub("alle")} />
             <SubTab label="Gesamttabelle" active={sub === "gesamt"} onClick={() => setSub("gesamt")} />
           </div>
 
@@ -1486,6 +1637,132 @@ export default function App() {
                 </table>
               </div>
               <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS-H = Freundschaftsspiel Hinspiel Mommenheim 21.03. · FS-R = Freundschaftsspiel Rückspiel 02.08. · Ø {inclFS ? "inkl. Freundschaftsspiele" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
+            </div>
+          )}
+
+          {sub === "alle" && (
+            <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #252d3d", flexWrap: "wrap", gap: 8 }}>
+                <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#64748b", padding: "12px 14px 10px" }}>
+                  Alle Spieler - Spieler Delta (Score minus Par+PHCP) pro Spieltag
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", flexWrap: "wrap" }}>
+                  <input
+                    type="text"
+                    value={alleSearch}
+                    onChange={(e) => setAlleSearch(e.target.value)}
+                    placeholder="Spieler suchen…"
+                    style={{ background: "#111827", border: "1px solid #252d3d", borderRadius: 6, padding: "6px 10px", fontSize: 12, color: "#e2e8f0", outline: "none", width: 160 }}
+                  />
+                </div>
+              </div>
+              <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: isMobile ? 360 : 1260 }}>
+                  <thead>
+                    <tr>
+                      {(() => {
+                        const sortTh = (key, extraStyle = {}) => {
+                          const sortIdx = alleSortKeys.findIndex(s => s.key === key);
+                          const active = sortIdx !== -1;
+                          const dir = active ? alleSortKeys[sortIdx].dir : null;
+                          return (
+                            <th
+                              key={key}
+                              onClick={(e) => toggleAlleSort(key, e.shiftKey)}
+                              title="Klick: sortieren · Shift+Klick: weitere Sortierstufe"
+                              style={{ ...css.th, cursor: "pointer", userSelect: "none", whiteSpace: "nowrap", ...extraStyle, color: active ? C1 : extraStyle.color }}
+                            >
+                              {ALLE_COLUMNS[key].label}
+                              {active && (
+                                <span style={{ marginLeft: 3 }}>
+                                  {dir === "asc" ? "▲" : "▼"}
+                                  {alleSortKeys.length > 1 && <sup style={{ fontSize: 8, marginLeft: 1 }}>{sortIdx + 1}</sup>}
+                                </span>
+                              )}
+                            </th>
+                          );
+                        };
+                        const mobHide = { display: isMobile ? "none" : undefined };
+                        return (
+                          <>
+                            {sortTh("name", { textAlign: "left", position: "sticky", left: 0, background: "#111827", zIndex: 2 })}
+                            {sortTh("team", { textAlign: "left" })}
+                            {sortTh("p1", mobHide)}
+                            {sortTh("soll1", mobHide)}
+                            {sortTh("s1")}
+                            {sortTh("d1")}
+                            {sortTh("p2", mobHide)}
+                            {sortTh("soll2", mobHide)}
+                            {sortTh("s2")}
+                            {sortTh("d2")}
+                            {sortTh("p3", mobHide)}
+                            {sortTh("soll3", mobHide)}
+                            {sortTh("s3")}
+                            {sortTh("d3")}
+                            {sortTh("p4", { color: C4, ...mobHide })}
+                            {sortTh("soll4", { color: C4, ...mobHide })}
+                            {sortTh("s4", { color: C4 })}
+                            {sortTh("d4", { color: C4 })}
+                            {sortTh("avgScore", { background: "#161d2c" })}
+                            {sortTh("avgDelta", { background: "#161d2c" })}
+                          </>
+                        );
+                      })()}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allPlayersWithAvg.map((p, idx) => {
+                      const { d1, d2, d3, d4 } = p;
+                      const fV = (v, str) => v == null
+                        ? <span style={{ color: "#2d3748" }}>—</span>
+                        : <span style={{ opacity: str ? 0.4 : 1 }}>{v}</span>;
+                      const fD = (d, str) => d == null
+                        ? <span style={{ color: "#2d3748" }}>—</span>
+                        : <span style={{ color: str ? "#64748b" : dColor(d), fontWeight: 600, opacity: str ? 0.4 : 1 }}>{d >= 0 ? "+" : ""}{d}</span>;
+                      const fS = (ph, par, str) => ph == null
+                        ? <span style={{ color: "#2d3748" }}>—</span>
+                        : <span style={{ opacity: str ? 0.4 : 1, color: "#64748b" }}>{par + ph}</span>;
+                      const avgScoreColor = p.avgScore != null ? (p.avgScore < 85 ? C2 : p.avgScore < 92 ? AMB : RED) : "#2d3748";
+                      const avgDeltaColor = p.avgDelta != null ? dColor(Math.round(p.avgDelta)) : "#2d3748";
+                      const mob = isMobile ? "none" : undefined;
+                      const isBos = p.team === "GC Bostalsee";
+                      const newTeamBlock = alleSortKeys[0]?.key === "team" && (idx === 0 || allPlayersWithAvg[idx - 1].team !== p.team);
+                      return (
+                        <tr key={p.name + p.team} style={{ borderBottom: "1px solid #1e2a3a", borderTop: newTeamBlock && idx > 0 ? "2px solid #252d3d" : undefined, background: isBos ? "#12192a" : "transparent" }}>
+                          <td style={{ ...css.td, textAlign: "left", color: isBos ? C1 : "#cbd5e1", fontWeight: 500, position: "sticky", left: 0, background: isBos ? "#12192a" : "#1a1f2e", zIndex: 1 }}>{p.name}</td>
+                          <td style={{ ...css.td, textAlign: "left", fontSize: 11, color: isBos ? C1 : "#64748b" }}>{p.team}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p1, p.str1)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p1, PAR1, p.str1)}</td>
+                          <td style={css.td}>{fV(p.s1, p.str1)}</td>
+                          <td style={css.td}>{fD(d1, p.str1)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p2, p.str2)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p2, PAR2, p.str2)}</td>
+                          <td style={css.td}>{fV(p.s2, p.str2)}</td>
+                          <td style={css.td}>{fD(d2, p.str2)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p3, p.str3)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p3, PAR3, p.str3)}</td>
+                          <td style={css.td}>{fV(p.s3, p.str3)}</td>
+                          <td style={css.td}>{fD(d3, p.str3)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p4, p.str4)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p4, PAR4, p.str4)}</td>
+                          <td style={css.td}>{fV(p.s4, p.str4)}</td>
+                          <td style={css.td}>{fD(d4, p.str4)}</td>
+                          <td style={{ ...css.td, background: "#161d2c", color: avgScoreColor, fontWeight: 700 }}>
+                            {p.avgScore != null ? p.avgScore.toFixed(1) : <span style={{ color: "#2d3748" }}>—</span>}
+                          </td>
+                          <td style={{ ...css.td, background: "#161d2c", color: avgDeltaColor, fontWeight: 700 }}>
+                            {p.avgDelta != null ? (p.avgDelta >= 0 ? "+" : "") + p.avgDelta.toFixed(1) : <span style={{ color: "#2d3748" }}>—</span>}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                {allPlayersWithAvg.length === 0 && (
+                  <div style={{ padding: "20px 14px", textAlign: "center", fontSize: 12, color: "#64748b" }}>Kein Spieler gefunden für "{alleSearch}"</div>
+                )}
+              </div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · Ø nur Ligaspiele (ST1-ST4) · {isMobile ? "PHCP/Soll ausgeblendet" : "Ausgegraut = Streicher"} · {allPlayersWithAvg.length} von {allPlayers.length} Spielern</div>
             </div>
           )}
         </div>
