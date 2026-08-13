@@ -99,6 +99,7 @@ const st4 = [
   { name: "GC Barbarossa",    rank: 4, ts: 494, soll: 480, streicher: "Blauth (97), Metzmann (NRO)" },
   { name: "GC Katharinenhof", rank: 5, ts: 504, soll: 468, streicher: "Fries (98), Fischer (NRO)" },
 ];
+const st5 = [];
 
 const players = [
   { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false, pf: 6,    sf: 99,   pr: 6,    sr: 75   },
@@ -304,14 +305,6 @@ function SubTab({ label, active, onClick }) {
   );
 }
 
-function StTab({ label, active, onClick }) {
-  return (
-    <div onClick={onClick} style={{ padding: "5px 14px", borderRadius: 5, fontSize: 11, fontWeight: 600, cursor: "pointer", background: active ? "#252d3d" : "transparent", color: active ? "#e2e8f0" : "#64748b", border: "1px solid " + (active ? "#374151" : "#1e2a3a") }}>
-      {label}
-    </div>
-  );
-}
-
 function Rank({ r }) {
   return (
     <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: r === 1 ? "#78350f" : "#1e2a3a", color: r === 1 ? "#fbbf24" : r <= 3 ? "#94a3b8" : "#64748b", fontWeight: 700, fontSize: 12 }}>
@@ -338,7 +331,7 @@ function dColor(d) {
   return d <= 0 ? C2 : d <= 5 ? AMB : RED;
 }
 
-function TeamTable({ data, title, subnote, par }) {
+function TeamTable({ data, title, par }) {
   return (
     <div style={css.card}>
       <div style={css.sec}>{title}</div>
@@ -371,7 +364,6 @@ function TeamTable({ data, title, subnote, par }) {
           </tbody>
         </table>
       </div>
-      <div style={css.note}>{subnote}</div>
     </div>
   );
 }
@@ -533,20 +525,27 @@ function Day5LiveScore({ allTeams, pointsAfter4, overParAfter4, results, updateR
             <span>Live Eingabe</span>
             <button
               onClick={() => setIsInputOpen((prev) => !prev)}
+              aria-label={isInputOpen ? "Einklappen" : "Ausklappen"}
+              title={isInputOpen ? "Einklappen" : "Ausklappen"}
               style={{
-                padding: "5px 10px",
+                width: 24,
+                height: 24,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 0,
                 background: "#252d3d",
                 border: "1px solid #3b475b",
                 borderRadius: 6,
-                fontSize: 10,
-                fontWeight: 700,
-                letterSpacing: 1,
-                textTransform: "uppercase",
+                fontSize: 12,
+                lineHeight: 1,
                 color: "#cbd5e1",
                 cursor: "pointer",
+                transform: isInputOpen ? "rotate(0deg)" : "rotate(180deg)",
+                transition: "transform 0.15s ease",
               }}
             >
-              {isInputOpen ? "Einklappen" : "Ausklappen"}
+              ▾
             </button>
           </div>
 
@@ -769,7 +768,6 @@ export default function App() {
   const [authed, setAuthed] = useState(() => !AUTH_PASS || localStorage.getItem(STORAGE_KEY) === "1");
   const [page, setPage] = useState("hcpi");
   const [sub, setSub] = useState("ms");
-  const [stTab, setStTab] = useState("st4");
   const [inclFS, setInclFS] = useState(false);
   const [alleSortKeys, setAlleSortKeys] = useState([{ key: "team", dir: "asc" }]);
   const [alleSearch, setAlleSearch] = useState("");
@@ -1138,12 +1136,12 @@ export default function App() {
       return alleSortKeys[alleSortKeys.length - 1]?.key === "name" ? 0 : a.name.localeCompare(b.name, "de");
     });
 
-  const isDay5TvFit = page === "day5" && !isMobile && tvScaleMode !== "off";
+  const isTvFit = !isMobile && tvScaleMode !== "off";
   const displayScale = isMobile
     ? 1
-    : isDay5TvFit
+    : isTvFit
       ? tvScaleMode === "l" ? 1.2 : 1.1
-      : tvScaleMode === "l" ? 1.7 : tvScaleMode === "m" ? 1.45 : 1;
+      : 1;
   const cycleTvScaleMode = () => {
     setTvScaleMode((prev) => (prev === "off" ? "m" : prev === "m" ? "l" : "off"));
   };
@@ -1171,8 +1169,9 @@ export default function App() {
           AK30 - GC Bostalsee - 2026
         </span>
         <NavTab label="HCPI-Übersicht" active={page === "hcpi"} onClick={() => setPage("hcpi")} />
-        <NavTab label="Spieltag 5 LIVE" active={page === "day5"} onClick={() => setPage("day5")} />
-        <NavTab label="Ergebnis-Analyse" active={page === "ergebnis"} onClick={() => setPage("ergebnis")} />
+        <NavTab label="Analyse" active={page === "ergebnis"} onClick={() => setPage("ergebnis")} />
+        <NavTab label="Gesamttabelle" active={page === "gesamt"} onClick={() => setPage("gesamt")} />
+        <NavTab label="Spieltag live" active={page === "day5"} onClick={() => setPage("day5")} />
         <button
           onClick={cycleTvScaleMode}
           style={{
@@ -1298,6 +1297,208 @@ export default function App() {
         </div>
       )}
 
+      {page === "gesamt" && (
+        <>
+          <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
+            <div style={css.sec}>Gesamttabelle nach 4 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr>
+                  {["Pos.", "Mannschaft", "ST1 Score", "ST1 ±Par", "ST1 Pkt", "ST2 Score", "ST2 ±Par", "ST2 Pkt", "ST3 Score", "ST3 ±Par", "ST3 Pkt", "ST4 Score", "ST4 ±Par", "ST4 Pkt", "Gesamt", "Schläge über Par"].map((h, i) => {
+                    const isTotalCol = h === "Gesamt";
+                    const isOverParCol = h === "Schläge über Par";
+                    return (
+                      <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: isTotalCol || isOverParCol ? "#161d2c" : "transparent" }}>{h}</th>
+                    );
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {standings.map((t, idx) => {
+                  const isTop = idx === 0;
+                  const isRelegation = idx === standings.length - 1;
+                  const isBos = t.name === "GC Bostalsee";
+                  const posColor = isTop ? C2 : isRelegation ? RED : idx === 1 ? "#94a3b8" : "#64748b";
+                  const posBg = isTop ? "#064e3b" : isRelegation ? "#7f1d1d" : idx === 1 ? "#1e2a3a" : "#1e2a3a";
+                  const fPts = (pts) => {
+                    const c = pts === 5 ? C2 : pts >= 3.5 ? AMB : pts >= 2 ? "#94a3b8" : RED;
+                    return <span style={{ color: c, fontWeight: 700 }}>{pts % 1 === 0 ? pts.toFixed(0) : pts.toFixed(1)}</span>;
+                  };
+                  const fScore = (stData, name) => {
+                    const entry = stData.find(x => x.name === name);
+                    return entry ? <span style={{ color: "#64748b" }}>{entry.ts}</span> : <span style={{ color: "#2d3748" }}>—</span>;
+                  };
+                  return (
+                    <tr key={t.name} style={{ background: isBos ? "#12192a" : "transparent", borderBottom: "1px solid #1e2a3a" }}>
+                      <td style={{ ...css.td, textAlign: "left", width: 40 }}>
+                        <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: posBg, color: posColor, fontWeight: 700, fontSize: 12 }}>{idx + 1}</span>
+                      </td>
+                      <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isRelegation ? RED : isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}{isRelegation ? " ↓" : ""}</td>
+                      <td style={css.td}>{fScore(st1, t.name)}</td>
+                      <td style={css.td}>{fRoundDelta(st1, t.name, PAR1)}</td>
+                      <td style={css.td}>{fPts(t.p1)}</td>
+                      <td style={css.td}>{fScore(st2, t.name)}</td>
+                      <td style={css.td}>{fRoundDelta(st2, t.name, PAR2)}</td>
+                      <td style={css.td}>{fPts(t.p2)}</td>
+                      <td style={css.td}>{fScore(st3, t.name)}</td>
+                      <td style={css.td}>{fRoundDelta(st3, t.name, PAR3)}</td>
+                      <td style={css.td}>{fPts(t.p3)}</td>
+                      <td style={css.td}>{fScore(st4, t.name)}</td>
+                      <td style={css.td}>{fRoundDelta(st4, t.name, PAR4)}</td>
+                      <td style={css.td}>{fPts(t.p4)}</td>
+                      <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: isTop ? C2 : isRelegation ? RED : "#e2e8f0" }}>
+                        {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
+                      </td>
+                      <td style={{ ...css.td, fontWeight: 700, color: t.overPar <= 40 ? C2 : t.overPar <= 100 ? AMB : RED }}>
+                        +{t.overPar}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              </table>
+            </div>
+            <div style={css.note}>Legende: + = über Par, − = unter Par. Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
+          </div>
+
+          <div style={{ ...css.card, borderRadius: 8 }}>
+            <div style={css.sec}>Unsere Meisterschafts-Konstellationen</div>
+            {(() => {
+              const target = new Date("2026-08-15T00:00:00");
+              const now = new Date();
+              const diffMs = target - now;
+              const diffDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+              return (
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: isMobile ? "12px 10px" : "14px 20px", background: "linear-gradient(135deg, #0f1e36 0%, #1a0e2e 100%)", borderBottom: "1px solid #2a3b59" }}>
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ fontSize: isMobile ? 36 : 52, fontWeight: 900, color: diffDays <= 14 ? "#f87171" : diffDays <= 30 ? "#fbbf24" : "#60a5fa", lineHeight: 1, fontVariantNumeric: "tabular-nums", letterSpacing: -2 }}>
+                      {diffDays}
+                    </div>
+                    <div style={{ fontSize: 10, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 1.5, marginTop: 4 }}>
+                      {diffDays === 1 ? "Tag" : "Tage"}
+                    </div>
+                  </div>
+                  <div style={{ borderLeft: "1px solid #2a3b59", paddingLeft: 16 }}>
+                    <div style={{ fontSize: isMobile ? 11 : 13, color: "#e2e8f0", fontWeight: 700, marginBottom: 2 }}>bis zur Meisterschaftsentscheidung</div>
+                    <div style={{ fontSize: isMobile ? 10 : 11, color: "#64748b" }}>15. August 2026 · 5. Spieltag</div>
+                  </div>
+                </div>
+              );
+            })()}
+            <div style={{ padding: isMobile ? 10 : 14, display: "grid", gap: isMobile ? 10 : 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10, alignItems: "start" }}>
+              <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
+                <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee holt Heimsieg</div>
+                <div style={{ color: "#7dd3a8", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
+                  {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
+                </div>
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr>
+                        <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>2. Platz</th>
+                        <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bos1ByRunnerUp.map(sc => {
+                        const safe = sc.automatic === sc.count;
+                        const none = sc.total === 0;
+                        const color = safe ? C2 : none ? RED : AMB;
+                        const icon = safe ? "✓" : none ? "✗" : "⚠";
+                        let label;
+                        if (safe) label = "Meister sicher";
+                        else if (none) label = "Keine Meisterschaft";
+                        else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.runnerUp]} Schläge besser`;
+                        else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
+                        return (
+                          <tr key={sc.runnerUp} style={{ borderBottom: "1px solid #1f4d35" }}>
+                            <td style={{ ...css.td, textAlign: "left", color: "#d1fae5", fontWeight: 600, padding: "6px 4px" }}>{sc.runnerUp}</td>
+                            <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
+                <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee wird 2.</div>
+                <div style={{ color: "#fbbf24", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
+                  {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
+                </div>
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr>
+                        <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>1. Platz</th>
+                        <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bos2ByWinner.map(sc => {
+                        const safe = sc.automatic === sc.count;
+                        const none = sc.total === 0;
+                        const mixed = !safe && !none;
+                        const color = safe ? C2 : none ? RED : AMB;
+                        const icon = safe ? "✓" : none ? "✗" : "⚠";
+                        let label;
+                        if (safe) label = "Meister sicher";
+                        else if (none) label = "Keine Meisterschaft";
+                        else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.winner]} Schläge besser`;
+                        else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
+                        const detail = mixed ? bos2ThirdPlaceDetail(sc.winner) : null;
+                        return (
+                          <Fragment key={sc.winner}>
+                            <tr style={{ borderBottom: mixed ? "none" : "1px solid #6b3f16" }}>
+                              <td style={{ ...css.td, textAlign: "left", color: "#fde68a", fontWeight: 600, padding: "6px 4px" }}>{sc.winner}</td>
+                              <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
+                            </tr>
+                            {mixed && (
+                              <tr style={{ borderBottom: "1px solid #6b3f16" }}>
+                                <td colSpan={2} style={{ padding: "0 4px 8px" }}>
+                                  <div style={{ display: "grid", gap: 3, paddingLeft: 10, borderLeft: "2px solid #6b3f16" }}>
+                                    {detail.map(d => {
+                                      const dSafe = d.automatic === d.count;
+                                      const dNone = d.total === 0;
+                                      const dColor = dSafe ? C2 : dNone ? RED : AMB;
+                                      const dIcon = dSafe ? "✓" : dNone ? "✗" : "⚠";
+                                      let dLabel;
+                                      if (dSafe) dLabel = "Meister sicher";
+                                      else if (dNone) dLabel = "Keine Meisterschaft";
+                                      else if (d.tiebreak === d.count) dLabel = `Tie-Break: mind. ${bostalseeGapNeeded[d.thirdPlace]} Schläge besser`;
+                                      else dLabel = `${d.total} von ${d.count} Fällen`;
+                                      return (
+                                        <div key={d.thirdPlace} style={{ fontSize: isMobile ? 10 : 11 }}>
+                                          <span style={{ color: "#fbbf24", fontWeight: 600 }}>3. {d.thirdPlace}: </span>
+                                          <span style={{ color: dColor, fontWeight: 700 }}>{dIcon} {dLabel}</span>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
+                          </Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
+                <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>GC Bostalsee wird 3. oder schlechter</div>
+                <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </>
+      )}
+
       {page === "day5" && (
         <div>
           <div style={{ ...css.card, marginBottom: 0, borderRadius: "8px 8px 0 0" }}>
@@ -1312,7 +1513,7 @@ export default function App() {
             resetResults={resetDay5Results}
             simulateResults={simulateDay5Results}
             isMobile={isMobile}
-            tvFitMode={isDay5TvFit ? tvScaleMode : "off"}
+            tvFitMode={isTvFit ? tvScaleMode : "off"}
           />
         </div>
       )}
@@ -1321,226 +1522,18 @@ export default function App() {
         <div>
           <div style={{ display: "flex", gap: 4, marginBottom: 0, flexWrap: "wrap" }}>
             <SubTab label="Mannschaftsvergleich" active={sub === "ms"} onClick={() => setSub("ms")} />
-            <SubTab label="GC Bostalsee Einzel" active={sub === "ei"} onClick={() => setSub("ei")} />
             <SubTab label="Alle Spieler" active={sub === "alle"} onClick={() => setSub("alle")} />
-            <SubTab label="Gesamttabelle" active={sub === "gesamt"} onClick={() => setSub("gesamt")} />
+            <SubTab label="GC Bostalsee" active={sub === "ei"} onClick={() => setSub("ei")} />
           </div>
 
           {sub === "ms" && (
-            <div>
-              <div style={{ display: "flex", gap: 6, margin: "14px 0 10px" }}>
-                <StTab label="1. Spieltag" active={stTab === "st1"} onClick={() => setStTab("st1")} />
-                <StTab label="2. Spieltag" active={stTab === "st2"} onClick={() => setStTab("st2")} />
-                <StTab label="3. Spieltag" active={stTab === "st3"} onClick={() => setStTab("st3")} />
-                <StTab label="4. Spieltag" active={stTab === "st4"} onClick={() => setStTab("st4")} />
-              </div>
-              {stTab === "st1" && <TeamTable data={st1} par={PAR1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127 · Top-6" subnote="Schläge über/unter Par nach Platzstandard der 6 gewerteten Spieler." />}
-              {stTab === "st2" && <TeamTable data={st2} par={PAR2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134 · Top-6" subnote="GC Katharinenhof: 2× No Return. EGC Westpfalz: 1× NR." />}
-              {stTab === "st3" && <TeamTable data={st3} par={PAR3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135 · Top-6" subnote="GC Bostalsee gewinnt den Spieltag. GC Katharinenhof Rang 3 trotz gleicher Score wegen CR-Ausgleich (*)." />}
-              {stTab === "st4" && <TeamTable data={st4} par={PAR4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72 · Top-6" subnote="GC Kurpfalz gewinnt den Spieltag. GC Bostalsee stark auf Rang 2. Je ein NRO bei GC Barbarossa und GC Katharinenhof." />}
+            <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "0 16px" }}>
+              <TeamTable data={st1} par={PAR1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127" />
+              <TeamTable data={st2} par={PAR2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134" />
+              <TeamTable data={st3} par={PAR3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135" />
+              <TeamTable data={st4} par={PAR4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72" />
+              <TeamTable data={st5} par={PAR5} title="Spieltag 5 – 15.08. · GC Bostalsee · Par 71" />
             </div>
-          )}
-
-          {sub === "gesamt" && (
-            <>
-              <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
-                <div style={css.sec}>Gesamttabelle nach 4 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
-                <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                  <thead>
-                    <tr>
-                      {["Pos.", "Mannschaft", "ST1 Score", "ST1 ±Par", "ST1 Pkt", "ST2 Score", "ST2 ±Par", "ST2 Pkt", "ST3 Score", "ST3 ±Par", "ST3 Pkt", "ST4 Score", "ST4 ±Par", "ST4 Pkt", "Gesamt", "Schläge über Par"].map((h, i) => {
-                        const isTotalCol = h === "Gesamt";
-                        const isOverParCol = h === "Schläge über Par";
-                        return (
-                          <th key={i} style={{ ...css.th, textAlign: i <= 1 ? "left" : "right", background: isTotalCol || isOverParCol ? "#161d2c" : "transparent" }}>{h}</th>
-                        );
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {standings.map((t, idx) => {
-                      const isTop = idx === 0;
-                      const isRelegation = idx === standings.length - 1;
-                      const isBos = t.name === "GC Bostalsee";
-                      const posColor = isTop ? C2 : isRelegation ? RED : idx === 1 ? "#94a3b8" : "#64748b";
-                      const posBg = isTop ? "#064e3b" : isRelegation ? "#7f1d1d" : idx === 1 ? "#1e2a3a" : "#1e2a3a";
-                      const fPts = (pts) => {
-                        const c = pts === 5 ? C2 : pts >= 3.5 ? AMB : pts >= 2 ? "#94a3b8" : RED;
-                        return <span style={{ color: c, fontWeight: 700 }}>{pts % 1 === 0 ? pts.toFixed(0) : pts.toFixed(1)}</span>;
-                      };
-                      const fScore = (stData, name) => {
-                        const entry = stData.find(x => x.name === name);
-                        return entry ? <span style={{ color: "#64748b" }}>{entry.ts}</span> : <span style={{ color: "#2d3748" }}>—</span>;
-                      };
-                      return (
-                        <tr key={t.name} style={{ background: isBos ? "#12192a" : "transparent", borderBottom: "1px solid #1e2a3a" }}>
-                          <td style={{ ...css.td, textAlign: "left", width: 40 }}>
-                            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: posBg, color: posColor, fontWeight: 700, fontSize: 12 }}>{idx + 1}</span>
-                          </td>
-                          <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isRelegation ? RED : isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}{isRelegation ? " ↓" : ""}</td>
-                          <td style={css.td}>{fScore(st1, t.name)}</td>
-                          <td style={css.td}>{fRoundDelta(st1, t.name, PAR1)}</td>
-                          <td style={css.td}>{fPts(t.p1)}</td>
-                          <td style={css.td}>{fScore(st2, t.name)}</td>
-                          <td style={css.td}>{fRoundDelta(st2, t.name, PAR2)}</td>
-                          <td style={css.td}>{fPts(t.p2)}</td>
-                          <td style={css.td}>{fScore(st3, t.name)}</td>
-                          <td style={css.td}>{fRoundDelta(st3, t.name, PAR3)}</td>
-                          <td style={css.td}>{fPts(t.p3)}</td>
-                          <td style={css.td}>{fScore(st4, t.name)}</td>
-                          <td style={css.td}>{fRoundDelta(st4, t.name, PAR4)}</td>
-                          <td style={css.td}>{fPts(t.p4)}</td>
-                          <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: isTop ? C2 : isRelegation ? RED : "#e2e8f0" }}>
-                            {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
-                          </td>
-                          <td style={{ ...css.td, fontWeight: 700, color: t.overPar <= 40 ? C2 : t.overPar <= 100 ? AMB : RED }}>
-                            +{t.overPar}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                  </table>
-                </div>
-                <div style={css.note}>Legende: + = über Par, − = unter Par. Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
-              </div>
-
-              <div style={{ ...css.card, borderRadius: 8 }}>
-                <div style={css.sec}>Unsere Meisterschafts-Konstellationen</div>
-                {(() => {
-                  const target = new Date("2026-08-15T00:00:00");
-                  const now = new Date();
-                  const diffMs = target - now;
-                  const diffDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-                  return (
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: isMobile ? "12px 10px" : "14px 20px", background: "linear-gradient(135deg, #0f1e36 0%, #1a0e2e 100%)", borderBottom: "1px solid #2a3b59" }}>
-                      <div style={{ textAlign: "center" }}>
-                        <div style={{ fontSize: isMobile ? 36 : 52, fontWeight: 900, color: diffDays <= 14 ? "#f87171" : diffDays <= 30 ? "#fbbf24" : "#60a5fa", lineHeight: 1, fontVariantNumeric: "tabular-nums", letterSpacing: -2 }}>
-                          {diffDays}
-                        </div>
-                        <div style={{ fontSize: 10, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 1.5, marginTop: 4 }}>
-                          {diffDays === 1 ? "Tag" : "Tage"}
-                        </div>
-                      </div>
-                      <div style={{ borderLeft: "1px solid #2a3b59", paddingLeft: 16 }}>
-                        <div style={{ fontSize: isMobile ? 11 : 13, color: "#e2e8f0", fontWeight: 700, marginBottom: 2 }}>bis zur Meisterschaftsentscheidung</div>
-                        <div style={{ fontSize: isMobile ? 10 : 11, color: "#64748b" }}>15. August 2026 · 5. Spieltag</div>
-                      </div>
-                    </div>
-                  );
-                })()}
-                <div style={{ padding: isMobile ? 10 : 14, display: "grid", gap: isMobile ? 10 : 12 }}>
-                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10, alignItems: "start" }}>
-                  <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
-                    <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee holt Heimsieg</div>
-                    <div style={{ color: "#7dd3a8", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
-                      {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
-                    </div>
-                    <div style={{ overflowX: "auto" }}>
-                      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                        <thead>
-                          <tr>
-                            <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>2. Platz</th>
-                            <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {bos1ByRunnerUp.map(sc => {
-                            const safe = sc.automatic === sc.count;
-                            const none = sc.total === 0;
-                            const color = safe ? C2 : none ? RED : AMB;
-                            const icon = safe ? "✓" : none ? "✗" : "⚠";
-                            let label;
-                            if (safe) label = "Meister sicher";
-                            else if (none) label = "Keine Meisterschaft";
-                            else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.runnerUp]} Schläge besser`;
-                            else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
-                            return (
-                              <tr key={sc.runnerUp} style={{ borderBottom: "1px solid #1f4d35" }}>
-                                <td style={{ ...css.td, textAlign: "left", color: "#d1fae5", fontWeight: 600, padding: "6px 4px" }}>{sc.runnerUp}</td>
-                                <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
-                    <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee wird 2.</div>
-                    <div style={{ color: "#fbbf24", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
-                      {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
-                    </div>
-                    <div style={{ overflowX: "auto" }}>
-                      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                        <thead>
-                          <tr>
-                            <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>1. Platz</th>
-                            <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {bos2ByWinner.map(sc => {
-                            const safe = sc.automatic === sc.count;
-                            const none = sc.total === 0;
-                            const mixed = !safe && !none;
-                            const color = safe ? C2 : none ? RED : AMB;
-                            const icon = safe ? "✓" : none ? "✗" : "⚠";
-                            let label;
-                            if (safe) label = "Meister sicher";
-                            else if (none) label = "Keine Meisterschaft";
-                            else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.winner]} Schläge besser`;
-                            else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
-                            const detail = mixed ? bos2ThirdPlaceDetail(sc.winner) : null;
-                            return (
-                              <Fragment key={sc.winner}>
-                                <tr style={{ borderBottom: mixed ? "none" : "1px solid #6b3f16" }}>
-                                  <td style={{ ...css.td, textAlign: "left", color: "#fde68a", fontWeight: 600, padding: "6px 4px" }}>{sc.winner}</td>
-                                  <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
-                                </tr>
-                                {mixed && (
-                                  <tr style={{ borderBottom: "1px solid #6b3f16" }}>
-                                    <td colSpan={2} style={{ padding: "0 4px 8px" }}>
-                                      <div style={{ display: "grid", gap: 3, paddingLeft: 10, borderLeft: "2px solid #6b3f16" }}>
-                                        {detail.map(d => {
-                                          const dSafe = d.automatic === d.count;
-                                          const dNone = d.total === 0;
-                                          const dColor = dSafe ? C2 : dNone ? RED : AMB;
-                                          const dIcon = dSafe ? "✓" : dNone ? "✗" : "⚠";
-                                          let dLabel;
-                                          if (dSafe) dLabel = "Meister sicher";
-                                          else if (dNone) dLabel = "Keine Meisterschaft";
-                                          else if (d.tiebreak === d.count) dLabel = `Tie-Break: mind. ${bostalseeGapNeeded[d.thirdPlace]} Schläge besser`;
-                                          else dLabel = `${d.total} von ${d.count} Fällen`;
-                                          return (
-                                            <div key={d.thirdPlace} style={{ fontSize: isMobile ? 10 : 11 }}>
-                                              <span style={{ color: "#fbbf24", fontWeight: 600 }}>3. {d.thirdPlace}: </span>
-                                              <span style={{ color: dColor, fontWeight: 700 }}>{dIcon} {dLabel}</span>
-                                            </div>
-                                          );
-                                        })}
-                                      </div>
-                                    </td>
-                                  </tr>
-                                )}
-                              </Fragment>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
-                    <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>GC Bostalsee wird 3. oder schlechter</div>
-                    <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
-                  </div>
-                </div>
-                </div>
-              </div>
-            </>
           )}
 
           {sub === "ei" && (
@@ -1658,7 +1651,7 @@ export default function App() {
             <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #252d3d", flexWrap: "wrap", gap: 8 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "#64748b", padding: "12px 14px 10px" }}>
-                  Alle Spieler - Spieler Delta (Score minus Par+PHCP) pro Spieltag inkl. ST5 live
+                  Alle Spieler - Spieler Delta (Score minus Par+PHCP) pro Spieltag
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 14px", flexWrap: "wrap" }}>
                   <label style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: alleNurNeu5 ? C2 : "#94a3b8", cursor: "pointer", userSelect: "none" }}>
