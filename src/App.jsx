@@ -99,102 +99,110 @@ const st4 = [
   { name: "GC Barbarossa",    rank: 4, ts: 494, soll: 480, streicher: "Blauth (97), Metzmann (NRO)" },
   { name: "GC Katharinenhof", rank: 5, ts: 504, soll: 468, streicher: "Fries (98), Fischer (NRO)" },
 ];
-const st5 = [];
+const st5 = [
+  { name: "GC Katharinenhof", rank: 1, ts: 469, soll: 426, streicher: "Kurt (85), Holzer (91)" },
+  { name: "GC Barbarossa",    rank: 2, ts: 475, soll: 426, streicher: "Metzmann (84), Mühlberger (87)" },
+  { name: "GC Bostalsee",     rank: 3, ts: 484, soll: 426, streicher: "Scholler (87), Schneider (90)" },
+  { name: "GC Kurpfalz",      rank: 4, ts: 485, soll: 426, streicher: "Borrmann (91), Okon (92)" },
+  { name: "EGC Westpfalz",    rank: 5, ts: 521, soll: 426, streicher: "Flierl (Disq.), Henniger (No Ret.)" },
+];
 
 const players = [
-  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false, pf: 6,    sf: 99,   pr: 6,    sr: 75   },
-  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true,  pf: 7,    sf: 81,   pr: 7,    sr: 85   },
-  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false, pf: null, sf: null, pr: 4,    sr: 74   },
-  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true,  pf: null, sf: null, pr: 10,   sr: 81   },
-  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false, pf: 8,    sf: 84,   pr: null, sr: null },
-  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false, pf: 7,    sf: 89,   pr: 7,    sr: 77   },
-  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false, pf: null, sf: null, pr: 15,   sr: 92   },
-  { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 4,    sf: 78,   pr: null, sr: null },
-  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, pf: 10,   sf: 92,   pr: 10,   sr: 87   },
-  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false, pf: null, sf: null, pr: 8,    sr: 82   },
-  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false, pf: null, sf: null, pr: null, sr: null },
-  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, pf: 12,   sf: 87,   pr: 6,    sr: null },
-  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, pf: 5,    sf: 82,   pr: 6,    sr: 85   },
+  { name: "Decker, Y.",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false, p5: 5,    s5: 77,   str5: false, pf: 6,    sf: 99,   pr: 6,    sr: 75   },
+  { name: "Georg, H.",     p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true,  p5: 7,    s5: 81,   str5: false, pf: 7,    sf: 81,   pr: 7,    sr: 85   },
+  { name: "Ley, K.",       p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false, p5: 4,    s5: 82,   str5: false, pf: null, sf: null, pr: 4,    sr: 74   },
+  { name: "Ludwig, T.",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true,  p5: null, s5: null, str5: false, pf: null, sf: null, pr: 10,   sr: 81   },
+  { name: "Lyons, C.",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false, pf: 8,    sf: 84,   pr: null, sr: null },
+  { name: "Martin, L.",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false, p5: 6,    s5: 83,   str5: false, pf: 7,    sf: 89,   pr: 7,    sr: 77   },
+  { name: "Reiter, M.",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false, p5: null, s5: null, str5: false, pf: null, sf: null, pr: 15,   sr: 92   },
+  { name: "Rink, N.",      p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false, pf: 4,    sf: 78,   pr: null, sr: null },
+  { name: "Schade, M.",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, p5: null, s5: null, str5: false, pf: 10,   sf: 92,   pr: 10,   sr: 87   },
+  { name: "Schmitt, C.",   p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false, p5: 9,    s5: 80,   str5: false, pf: null, sf: null, pr: 8,    sr: 82   },
+  { name: "Schneider, C.", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false, p5: 6,    s5: 90,   str5: true,  pf: null, sf: null, pr: null, sr: null },
+  { name: "Scholler, F.",  p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: 7,    s5: 87,   str5: true,  pf: 12,   sf: 87,   pr: 6,    sr: null },
+  { name: "Wilhelm, M.",   p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, p5: 6,    s5: 81,   str5: false, pf: 5,    sf: 82,   pr: 6,    sr: 85   },
 ];
 
 const allPlayers = [
   // GC Barbarossa
-  { name: "Blauth, Christian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 17,   s3: 99,   str3: true,  p4: 17,   s4: 97,   str4: true  },
-  { name: "Häusler, Gerold",          team: "GC Barbarossa",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 90,   str2: true,  p3: 6,    s3: 87,   str3: false, p4: 6,    s4: 87,   str4: false },
-  { name: "Karol, Kamil",             team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Kröhnert, Jonas",          team: "GC Barbarossa",   p1: 15,   s1: 85,   str1: false, p2: 16,   s2: 82,   str2: false, p3: 13,   s3: 87,   str3: false, p4: 13,   s4: 83,   str4: false },
-  { name: "Metzmann, Florian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 11,   s2: 88,   str2: false, p3: 11,   s3: 84,   str3: false, p4: 10,   s4: null, str4: true  },
-  { name: "Mühlberger, Felix",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 8,    s4: 82,   str4: false },
-  { name: "Newsome, Robert",          team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 0,    s2: 81,   str2: false, p3: null, s3: null, str3: false, p4: 0,    s4: 79,   str4: false },
-  { name: "Noll, Matthias",           team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 8,    s2: 86,   str2: false, p3: 7,    s3: 86,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Pinillos Cediel, Raúl",    team: "GC Barbarossa",   p1: 11,   s1: 86,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Recktenwald, Tobias",      team: "GC Barbarossa",   p1: 17,   s1: 90,   str1: true,  p2: null, s2: null, str2: false, p3: 17,   s3: 92,   str3: true,  p4: 16,   s4: 87,   str4: false },
-  { name: "Schertz, Patric",          team: "GC Barbarossa",   p1: 4,    s1: 79,   str1: false, p2: 6,    s2: 82,   str2: false, p3: 5,    s3: 81,   str3: false, p4: 5,    s4: 76,   str4: false },
-  { name: "Schleppi, Christoph",      team: "GC Barbarossa",   p1: 16,   s1: 90,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Velten, Nick",             team: "GC Barbarossa",   p1: 5,    s1: 78,   str1: false, p2: 7,    s2: 83,   str2: false, p3: 6,    s3: 83,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Wasem, Jochen",            team: "GC Barbarossa",   p1: 10,   s1: 83,   str1: false, p2: 11,   s2: 99,   str2: true,  p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
+  { name: "Blauth, Christian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 17,   s3: 99,   str3: true,  p4: 17,   s4: 97,   str4: true,  p5: null, s5: null, str5: false },
+  { name: "Häusler, Gerold",          team: "GC Barbarossa",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 90,   str2: true,  p3: 6,    s3: 87,   str3: false, p4: 6,    s4: 87,   str4: false, p5: 6,    s5: 81,   str5: false },
+  { name: "Karol, Kamil",             team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: 5,    s5: 82,   str5: false },
+  { name: "Kröhnert, Jonas",          team: "GC Barbarossa",   p1: 15,   s1: 85,   str1: false, p2: 16,   s2: 82,   str2: false, p3: 13,   s3: 87,   str3: false, p4: 13,   s4: 83,   str4: false, p5: 12,   s5: 75,   str5: false },
+  { name: "Metzmann, Florian",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 11,   s2: 88,   str2: false, p3: 11,   s3: 84,   str3: false, p4: 10,   s4: null, str4: true,  p5: 10,   s5: 84,   str5: true  },
+  { name: "Mühlberger, Felix",        team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 8,    s4: 82,   str4: false, p5: 8,    s5: 87,   str5: true  },
+  { name: "Newsome, Robert",          team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 0,    s2: 81,   str2: false, p3: null, s3: null, str3: false, p4: 0,    s4: 79,   str4: false, p5: 4,    s5: 74,   str5: false },
+  { name: "Noll, Matthias",           team: "GC Barbarossa",   p1: null, s1: null, str1: false, p2: 8,    s2: 86,   str2: false, p3: 7,    s3: 86,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Pinillos Cediel, Raúl",    team: "GC Barbarossa",   p1: 11,   s1: 86,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Recktenwald, Tobias",      team: "GC Barbarossa",   p1: 17,   s1: 90,   str1: true,  p2: null, s2: null, str2: false, p3: 17,   s3: 92,   str3: true,  p4: 16,   s4: 87,   str4: false, p5: null, s5: null, str5: false },
+  { name: "Schertz, Patric",          team: "GC Barbarossa",   p1: 4,    s1: 79,   str1: false, p2: 6,    s2: 82,   str2: false, p3: 5,    s3: 81,   str3: false, p4: 5,    s4: 76,   str4: false, p5: 5,    s5: 83,   str5: false },
+  { name: "Schleppi, Christoph",      team: "GC Barbarossa",   p1: 16,   s1: 90,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Velten, Nick",             team: "GC Barbarossa",   p1: 5,    s1: 78,   str1: false, p2: 7,    s2: 83,   str2: false, p3: 6,    s3: 83,   str3: false, p4: null, s4: null, str4: false, p5: 5,    s5: 80,   str5: false },
+  { name: "Wasem, Jochen",            team: "GC Barbarossa",   p1: 10,   s1: 83,   str1: false, p2: 11,   s2: 99,   str2: true,  p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
 
   // GC Katharinenhof
-  { name: "Becker, Michael",          team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: 9,    s2: 94,   str2: false, p3: 8,    s3: 96,   str3: true,  p4: 8,    s4: 86,   str4: false },
-  { name: "Fischer, Maximilian",      team: "GC Katharinenhof", p1: 7,    s1: 82,   str1: true,  p2: 9,    s2: null, str2: true,  p3: null, s3: null, str3: false, p4: 7,    s4: null, str4: true  },
-  { name: "Fries, Tobias",            team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 20,   s3: 94,   str3: true,  p4: 19,   s4: 98,   str4: true  },
-  { name: "Holzer, Sebastian",        team: "GC Katharinenhof", p1: 3,    s1: 79,   str1: false, p2: 4,    s2: 80,   str2: false, p3: 2,    s3: 83,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Kirchner, Eric",           team: "GC Katharinenhof", p1: 6,    s1: 75,   str1: false, p2: 6,    s2: 85,   str2: false, p3: null, s3: null, str3: false, p4: 7,    s4: 86,   str4: false },
-  { name: "Klampfer, Erwin",          team: "GC Katharinenhof", p1: 6,    s1: 77,   str1: false, p2: 7,    s2: 90,   str2: false, p3: null, s3: null, str3: false, p4: 6,    s4: 83,   str4: false },
-  { name: "Kurt, Medeni",             team: "GC Katharinenhof", p1: 10,   s1: 82,   str1: true,  p2: null, s2: null, str2: false, p3: 9,    s3: 89,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Lehr, Christian",          team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 5,    s3: 93,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Marullo, Giuseppe",        team: "GC Katharinenhof", p1: 5,    s1: 78,   str1: false, p2: 7,    s2: 82,   str2: false, p3: 5,    s3: 77,   str3: false, p4: 4,    s4: 84,   str4: false },
-  { name: "Müller, Mike",             team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 83,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Schley, Michael",          team: "GC Katharinenhof", p1: 8,    s1: 79,   str1: false, p2: 10,   s2: 103,  str2: true,  p3: 8,    s3: 83,   str3: false, p4: 8,    s4: 81,   str4: false },
-  { name: "Weiß, Andreas",            team: "GC Katharinenhof", p1: 8,    s1: 81,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Werny, Erik",              team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 3,    s4: 84,   str4: false },
+  { name: "Becker, Michael",          team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: 9,    s2: 94,   str2: false, p3: 8,    s3: 96,   str3: true,  p4: 8,    s4: 86,   str4: false, p5: null, s5: null, str5: false },
+  { name: "Fischer, Maximilian",      team: "GC Katharinenhof", p1: 7,    s1: 82,   str1: true,  p2: 9,    s2: null, str2: true,  p3: null, s3: null, str3: false, p4: 7,    s4: null, str4: true,  p5: null, s5: null, str5: false },
+  { name: "Fries, Tobias",            team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 20,   s3: 94,   str3: true,  p4: 19,   s4: 98,   str4: true,  p5: null, s5: null, str5: false },
+  { name: "Holzer, Sebastian",        team: "GC Katharinenhof", p1: 3,    s1: 79,   str1: false, p2: 4,    s2: 80,   str2: false, p3: 2,    s3: 83,   str3: false, p4: null, s4: null, str4: false, p5: 2,    s5: 91,   str5: true  },
+  { name: "Kirchner, Eric",           team: "GC Katharinenhof", p1: 6,    s1: 75,   str1: false, p2: 6,    s2: 85,   str2: false, p3: null, s3: null, str3: false, p4: 7,    s4: 86,   str4: false, p5: 6,    s5: 76,   str5: false },
+  { name: "Klampfer, Erwin",          team: "GC Katharinenhof", p1: 6,    s1: 77,   str1: false, p2: 7,    s2: 90,   str2: false, p3: null, s3: null, str3: false, p4: 6,    s4: 83,   str4: false, p5: null, s5: null, str5: false },
+  { name: "Kurt, Medeni",             team: "GC Katharinenhof", p1: 10,   s1: 82,   str1: true,  p2: null, s2: null, str2: false, p3: 9,    s3: 89,   str3: false, p4: null, s4: null, str4: false, p5: 10,   s5: 85,   str5: true  },
+  { name: "Lehr, Christian",          team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 5,    s3: 93,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Marullo, Giuseppe",        team: "GC Katharinenhof", p1: 5,    s1: 78,   str1: false, p2: 7,    s2: 82,   str2: false, p3: 5,    s3: 77,   str3: false, p4: 4,    s4: 84,   str4: false, p5: 3,    s5: 78,   str5: false },
+  { name: "Müller, Mike",             team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 83,   str3: false, p4: null, s4: null, str4: false, p5: 7,    s5: 80,   str5: false },
+  { name: "Schley, Michael",          team: "GC Katharinenhof", p1: 8,    s1: 79,   str1: false, p2: 10,   s2: 103,  str2: true,  p3: 8,    s3: 83,   str3: false, p4: 8,    s4: 81,   str4: false, p5: 9,    s5: 84,   str5: false },
+  { name: "Weiß, Andreas",            team: "GC Katharinenhof", p1: 8,    s1: 81,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: 7,    s5: 76,   str5: false },
+  { name: "Werny, Erik",              team: "GC Katharinenhof", p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 3,    s4: 84,   str4: false, p5: 4,    s5: 75,   str5: false },
 
   // GC Bostalsee
-  { name: "Decker, Yannick",          team: "GC Bostalsee",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false },
-  { name: "Georg, Heiko",             team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true  },
-  { name: "Ley, Karsten",             team: "GC Bostalsee",    p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false },
-  { name: "Ludwig, Tobias",           team: "GC Bostalsee",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true  },
-  { name: "Lyons, Clayton",           team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Martin, Lars",             team: "GC Bostalsee",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false },
-  { name: "Reiter, Marco",            team: "GC Bostalsee",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false },
-  { name: "Schade, Marc André",       team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false },
-  { name: "Schmitt, Christoph",       team: "GC Bostalsee",    p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false },
-  { name: "Schneider, Christian",     team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false },
-  { name: "Scholler, Fabian",         team: "GC Bostalsee",    p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Wilhelm, Michael",         team: "GC Bostalsee",    p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false },
+  { name: "Decker, Yannick",          team: "GC Bostalsee",    p1: 6,    s1: 76,   str1: false, p2: 6,    s2: 80,   str2: false, p3: 4,    s3: 84,   str3: false, p4: 5,    s4: 76,   str4: false, p5: 5,    s5: 77,   str5: false },
+  { name: "Georg, Heiko",             team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 8,    s2: 87,   str2: false, p3: 7,    s3: 86,   str3: false, p4: 7,    s4: 89,   str4: true,  p5: 7,    s5: 81,   str5: false },
+  { name: "Ley, Karsten",             team: "GC Bostalsee",    p1: 3,    s1: 84,   str1: false, p2: null, s2: null, str2: false, p3: 4,    s3: 78,   str3: false, p4: 4,    s4: 77,   str4: false, p5: 4,    s5: 82,   str5: false },
+  { name: "Ludwig, Tobias",           team: "GC Bostalsee",    p1: 9,    s1: 91,   str1: true,  p2: 10,   s2: 93,   str2: false, p3: null, s3: null, str3: false, p4: 10,   s4: 93,   str4: true,  p5: null, s5: null, str5: false },
+  { name: "Lyons, Clayton",           team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 89,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Martin, Lars",             team: "GC Bostalsee",    p1: 7,    s1: 82,   str1: false, p2: 9,    s2: 83,   str2: false, p3: 8,    s3: 81,   str3: false, p4: 8,    s4: 76,   str4: false, p5: 6,    s5: 83,   str5: false },
+  { name: "Reiter, Marco",            team: "GC Bostalsee",    p1: 15,   s1: 90,   str1: false, p2: 16,   s2: 95,   str2: true,  p3: null, s3: null, str3: false, p4: 15,   s4: 88,   str4: false, p5: null, s5: null, str5: false },
+  { name: "Schade, Marc André",       team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 11,   s2: 94,   str2: true,  p3: null, s3: null, str3: false, p4: 10,   s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Schmitt, Christoph",       team: "GC Bostalsee",    p1: 7,    s1: 87,   str1: false, p2: null, s2: null, str2: false, p3: 7,    s3: 95,   str3: true,  p4: null, s4: null, str4: false, p5: 9,    s5: 80,   str5: false },
+  { name: "Schneider, Christian",     team: "GC Bostalsee",    p1: null, s1: null, str1: false, p2: 7,    s2: 88,   str2: false, p3: 6,    s3: 94,   str3: true,  p4: 6,    s4: 82,   str4: false, p5: 6,    s5: 90,   str5: true  },
+  { name: "Scholler, Fabian",         team: "GC Bostalsee",    p1: 11,   s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: 7,    s5: 87,   str5: true  },
+  { name: "Wilhelm, Michael",         team: "GC Bostalsee",    p1: 5,    s1: 88,   str1: false, p2: 5,    s2: 89,   str2: false, p3: 4,    s3: 85,   str3: false, p4: 5,    s4: 84,   str4: false, p5: 6,    s5: 81,   str5: false },
 
   // GC Kurpfalz
-  { name: "Baronello, Roberto",       team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: -1,   s4: 75,   str4: false },
-  { name: "Bieker, Niels",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 6,    s4: 81,   str4: false },
-  { name: "Borrmann, Mirko",          team: "GC Kurpfalz",     p1: 10,   s1: 82,   str1: false, p2: 11,   s2: 88,   str2: false, p3: 10,   s3: 88,   str3: false, p4: 9,    s4: 87,   str4: true  },
-  { name: "Kraus, Sascha",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 9,    s2: 87,   str2: false, p3: 8,    s3: 88,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Kretz, Sascha",            team: "GC Kurpfalz",     p1: 1,    s1: 80,   str1: false, p2: 2,    s2: 73,   str2: false, p3: null, s3: null, str3: false, p4: 1,    s4: 77,   str4: false },
-  { name: "Leopold, Jens",            team: "GC Kurpfalz",     p1: 6,    s1: 84,   str1: false, p2: 7,    s2: 84,   str2: false, p3: 6,    s3: 82,   str3: false, p4: 6,    s4: 80,   str4: false },
-  { name: "Mühl, Andreas",            team: "GC Kurpfalz",     p1: 15,   s1: 87,   str1: true,  p2: null, s2: null, str2: false, p3: 15,   s3: 99,   str3: true,  p4: null, s4: null, str4: false },
-  { name: "Okon, Philip",             team: "GC Kurpfalz",     p1: 4,    s1: 81,   str1: false, p2: null, s2: null, str2: false, p3: 3,    s3: 97,   str3: true,  p4: null, s4: null, str4: false },
-  { name: "Rischbode, Tjark-Lajos",   team: "GC Kurpfalz",     p1: 11,   s1: 87,   str1: true,  p2: 11,   s2: 88,   str2: false, p3: null, s3: null, str3: false, p4: 9,    s4: 77,   str4: false },
-  { name: "Ruthig, Simon",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 11,   s2: 90,   str2: true,  p3: 11,   s3: 93,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Türk, Sabri",              team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 11,   s2: 90,   str2: true,  p3: 10,   s3: 85,   str3: false, p4: 10,   s4: 85,   str4: false },
-  { name: "Weißkopf, Luis",           team: "GC Kurpfalz",     p1: 13,   s1: 83,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 13,   s4: 89,   str4: true  },
-  { name: "Welker, Thomas",           team: "GC Kurpfalz",     p1: 9,    s1: 81,   str1: false, p2: 10,   s2: 85,   str2: false, p3: 8,    s3: 89,   str3: false, p4: null, s4: null, str4: false },
+  { name: "Baronello, Roberto",       team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: -1,   s4: 75,   str4: false, p5: -1,   s5: 75,   str5: false },
+  { name: "Bieker, Niels",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 6,    s4: 81,   str4: false, p5: 7,    s5: 85,   str5: false },
+  { name: "Borrmann, Mirko",          team: "GC Kurpfalz",     p1: 10,   s1: 82,   str1: false, p2: 11,   s2: 88,   str2: false, p3: 10,   s3: 88,   str3: false, p4: 9,    s4: 87,   str4: true,  p5: 9,    s5: 91,   str5: true  },
+  { name: "Kraus, Sascha",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 9,    s2: 87,   str2: false, p3: 8,    s3: 88,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Kretz, Sascha",            team: "GC Kurpfalz",     p1: 1,    s1: 80,   str1: false, p2: 2,    s2: 73,   str2: false, p3: null, s3: null, str3: false, p4: 1,    s4: 77,   str4: false, p5: 1,    s5: 77,   str5: false },
+  { name: "Leopold, Jens",            team: "GC Kurpfalz",     p1: 6,    s1: 84,   str1: false, p2: 7,    s2: 84,   str2: false, p3: 6,    s3: 82,   str3: false, p4: 6,    s4: 80,   str4: false, p5: 6,    s5: 78,   str5: false },
+  { name: "Mühl, Andreas",            team: "GC Kurpfalz",     p1: 15,   s1: 87,   str1: true,  p2: null, s2: null, str2: false, p3: 15,   s3: 99,   str3: true,  p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Okon, Philip",             team: "GC Kurpfalz",     p1: 4,    s1: 81,   str1: false, p2: null, s2: null, str2: false, p3: 3,    s3: 97,   str3: true,  p4: null, s4: null, str4: false, p5: 5,    s5: 92,   str5: true  },
+  { name: "Rischbode, Tjark-Lajos",   team: "GC Kurpfalz",     p1: 11,   s1: 87,   str1: true,  p2: 11,   s2: 88,   str2: false, p3: null, s3: null, str3: false, p4: 9,    s4: 77,   str4: false, p5: null, s5: null, str5: false },
+  { name: "Ruthig, Simon",            team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 11,   s2: 90,   str2: true,  p3: 11,   s3: 93,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Türk, Sabri",              team: "GC Kurpfalz",     p1: null, s1: null, str1: false, p2: 11,   s2: 90,   str2: true,  p3: 10,   s3: 85,   str3: false, p4: 10,   s4: 85,   str4: false, p5: 9,    s5: 89,   str5: false },
+  { name: "Weißkopf, Luis",           team: "GC Kurpfalz",     p1: 13,   s1: 83,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: 13,   s4: 89,   str4: true,  p5: 13,   s5: 81,   str5: false },
+  { name: "Welker, Thomas",           team: "GC Kurpfalz",     p1: 9,    s1: 81,   str1: false, p2: 10,   s2: 85,   str2: false, p3: 8,    s3: 89,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
 
   // EGC Westpfalz
-  { name: "Flierl, Jan-Benjamin",     team: "EGC Westpfalz",   p1: 12,   s1: 102,  str1: true,  p2: 14,   s2: null, str2: true,  p3: 13,   s3: 99,   str3: false, p4: 13,   s4: 88,   str4: false },
-  { name: "Fusenig, Christian",       team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 10,   s2: 92,   str2: false, p3: 10,   s3: 87,   str3: false, p4: 10,   s4: 84,   str4: false },
-  { name: "Hammerschmidt, Thorsten",  team: "EGC Westpfalz",   p1: 12,   s1: 85,   str1: false, p2: 13,   s2: 97,   str2: false, p3: 13,   s3: 102,  str3: true,  p4: 12,   s4: 84,   str4: false },
-  { name: "Hauck, Timo",              team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 14,   s2: 92,   str2: false, p3: 13,   s3: 109,  str3: true,  p4: null, s4: null, str4: false },
-  { name: "Henniger, Harald",         team: "EGC Westpfalz",   p1: 16,   s1: 92,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Jakob, Lars",              team: "EGC Westpfalz",   p1: 9,    s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Klingel, Steffen",         team: "EGC Westpfalz",   p1: 10,   s1: 92,   str1: false, p2: 11,   s2: 96,   str2: false, p3: 10,   s3: 101,  str3: false, p4: 11,   s4: 95,   str4: true  },
-  { name: "Mühe, Bennet",             team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 24,   s2: 108,  str2: true,  p3: null, s3: null, str3: false, p4: 22,   s4: 92,   str4: true  },
-  { name: "Orth, Christian",          team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 13,   s3: 95,   str3: false, p4: null, s4: null, str4: false },
-  { name: "Riedinger, Jan",           team: "EGC Westpfalz",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 96,   str2: false, p3: null, s3: null, str3: false, p4: 5,    s4: 75,   str4: false },
-  { name: "Roschy, Sascha",           team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false },
-  { name: "Wadle, Volker",            team: "EGC Westpfalz",   p1: 6,    s1: 77,   str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 83,   str3: false, p4: 6,    s4: 73,   str4: false },
-  { name: "Wiese, Felix",             team: "EGC Westpfalz",   p1: 5,    s1: 88,   str1: false, p2: 7,    s2: 82,   str2: false, p3: 6,    s3: 85,   str3: false, p4: 6,    s4: 81,   str4: false },
+  { name: "Flierl, Jan-Benjamin",     team: "EGC Westpfalz",   p1: 12,   s1: 102,  str1: true,  p2: 14,   s2: null, str2: true,  p3: 13,   s3: 99,   str3: false, p4: 13,   s4: 88,   str4: false, p5: 13,   s5: null, str5: true  },
+  { name: "Fusenig, Christian",       team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 10,   s2: 92,   str2: false, p3: 10,   s3: 87,   str3: false, p4: 10,   s4: 84,   str4: false, p5: 10,   s5: 77,   str5: false },
+  { name: "Hammerschmidt, Thorsten",  team: "EGC Westpfalz",   p1: 12,   s1: 85,   str1: false, p2: 13,   s2: 97,   str2: false, p3: 13,   s3: 102,  str3: true,  p4: 12,   s4: 84,   str4: false, p5: 12,   s5: 93,   str5: false },
+  { name: "Hauck, Timo",              team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 14,   s2: 92,   str2: false, p3: 13,   s3: 109,  str3: true,  p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Henniger, Harald",         team: "EGC Westpfalz",   p1: 16,   s1: 92,   str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: 16,   s5: null, str5: true  },
+  { name: "Jakob, Lars",              team: "EGC Westpfalz",   p1: 9,    s1: 93,   str1: true,  p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Klingel, Steffen",         team: "EGC Westpfalz",   p1: 10,   s1: 92,   str1: false, p2: 11,   s2: 96,   str2: false, p3: 10,   s3: 101,  str3: false, p4: 11,   s4: 95,   str4: true,  p5: null, s5: null, str5: false },
+  { name: "Mühe, Bennet",             team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: 24,   s2: 108,  str2: true,  p3: null, s3: null, str3: false, p4: 22,   s4: 92,   str4: true,  p5: 21,   s5: 96,   str5: false },
+  { name: "Orth, Christian",          team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: 13,   s3: 95,   str3: false, p4: null, s4: null, str4: false, p5: null, s5: null, str5: false },
+  { name: "Riedinger, Jan",           team: "EGC Westpfalz",   p1: 5,    s1: 78,   str1: false, p2: 6,    s2: 96,   str2: false, p3: null, s3: null, str3: false, p4: 5,    s4: 75,   str4: false, p5: null, s5: null, str5: false },
+  { name: "Roschy, Sascha",           team: "EGC Westpfalz",   p1: null, s1: null, str1: false, p2: null, s2: null, str2: false, p3: null, s3: null, str3: false, p4: null, s4: null, str4: false, p5: 14,   s5: 97,   str5: false },
+  { name: "Wadle, Volker",            team: "EGC Westpfalz",   p1: 6,    s1: 77,   str1: false, p2: null, s2: null, str2: false, p3: 5,    s3: 83,   str3: false, p4: 6,    s4: 73,   str4: false, p5: 5,    s5: 79,   str5: false },
+  { name: "Wiese, Felix",             team: "EGC Westpfalz",   p1: 5,    s1: 88,   str1: false, p2: 7,    s2: 82,   str2: false, p3: 6,    s3: 85,   str3: false, p4: 6,    s4: 81,   str4: false, p5: 6,    s5: 79,   str5: false },
 ];
 
 const PAR1 = 71, PAR2 = 72, PAR3 = 74, PAR4 = 72, PAR5 = 71;
+// Course Rating je Spieltag - Basis für die offizielle Brutto-Mannschaftswertung (+/-), lt. Wertungszetteln
+const CR1 = 70.3, CR2 = 72.1, CR3 = 72.9, CR4 = 71.1, CR5 = 70.1;
 const PAR_FS_H = 72, PAR_FS_R = 71;
 
 const ALLE_COLUMNS = {
@@ -216,6 +224,8 @@ const ALLE_COLUMNS = {
   soll4:     { label: "ST4 Soll", type: "number", get: r => r.soll4 },
   s4:        { label: "ST4 Sc",   type: "number", get: r => r.s4 },
   d4:        { label: "ST4 Δ",    type: "number", get: r => r.d4 },
+  p5:        { label: "ST5 PHCP", type: "number", get: r => r.p5 },
+  soll5:     { label: "ST5 Soll", type: "number", get: r => r.soll5 },
   s5:        { label: "ST5 Sc",   type: "number", get: r => r.s5 },
   d5:        { label: "ST5 Δ",    type: "number", get: r => r.d5 },
   avgScore:  { label: "Ø Score",  type: "number", get: r => r.avgScore },
@@ -331,7 +341,7 @@ function dColor(d) {
   return d <= 0 ? C2 : d <= 5 ? AMB : RED;
 }
 
-function TeamTable({ data, title, par }) {
+function TeamTable({ data, title, par, cr }) {
   return (
     <div style={css.card}>
       <div style={css.sec}>{title}</div>
@@ -339,24 +349,24 @@ function TeamTable({ data, title, par }) {
         <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 560 }}>
           <thead>
             <tr>
-              {["Mannschaft", "Rang", "Team-Score", "Soll (6×)", "Schläge über/unter Par", "Ø/Spieler", "Streicher"].map((h, i) =>
+              {["Mannschaft", "Rang", "Team-Score", "Par (6×)", "+/- (ggü. CR)", "Ø/Spieler", "Streicher"].map((h, i) =>
                 <th key={i} style={{ ...css.th, textAlign: i === 0 || i === 6 ? "left" : "right" }}>{h}</th>
               )}
             </tr>
           </thead>
           <tbody>
             {data.map(t => {
-              const overPar = par != null ? t.ts - par * 6 : null;
+              const overCr = cr != null ? Math.round(t.ts - cr * 6) : null;
               const iB = t.name === "GC Bostalsee";
-              const pC = overPar == null ? "#64748b" : overPar <= 0 ? C2 : overPar <= 5 ? AMB : RED;
+              const pC = overCr == null ? "#64748b" : overCr <= 0 ? C2 : overCr <= 5 ? AMB : RED;
               return (
                 <tr key={t.name} style={{ background: iB ? "#12192a" : "transparent", borderBottom: "1px solid #1e2a3a" }}>
                   <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: iB ? C1 : "#e2e8f0" }}>{t.name}{iB ? " ★" : ""}</td>
                   <td style={css.td}><Rank r={t.rank} /></td>
                   <td style={{ ...css.td, color: C1, fontWeight: 600 }}>{t.ts}</td>
                   <td style={{ ...css.td, color: "#374151" }}>{par != null ? par * 6 : t.soll}</td>
-                  <td style={css.td}>{overPar == null ? "—" : <DBar delta={overPar} />}</td>
-                  <td style={{ ...css.td, color: pC, fontWeight: 600 }}>{overPar == null ? "—" : `${overPar >= 0 ? "+" : ""}${(overPar / 6).toFixed(1)}`}</td>
+                  <td style={css.td}>{overCr == null ? "—" : <DBar delta={overCr} />}</td>
+                  <td style={{ ...css.td, color: pC, fontWeight: 600 }}>{overCr == null ? "—" : `${overCr >= 0 ? "+" : ""}${Math.round(overCr / 6)}`}</td>
                   <td style={{ ...css.td, textAlign: "left", fontSize: 11, color: "#64748b" }}>{t.streicher}</td>
                 </tr>
               );
@@ -871,21 +881,23 @@ export default function App() {
   const p2 = calcPoints(st2);
   const p3 = calcPoints(st3);
   const p4 = calcPoints(st4);
+  const p5 = calcPoints(st5);
   const allTeams = ["GC Barbarossa", "GC Katharinenhof", "GC Bostalsee", "GC Kurpfalz", "EGC Westpfalz"];
   const COUNTED_SCORES = 6;
   const roundData = [
-    { results: st1, par: PAR1 },
-    { results: st2, par: PAR2 },
-    { results: st3, par: PAR3 },
-    { results: st4, par: PAR4 },
+    { results: st1, par: PAR1, cr: CR1 },
+    { results: st2, par: PAR2, cr: CR2 },
+    { results: st3, par: PAR3, cr: CR3 },
+    { results: st4, par: PAR4, cr: CR4 },
+    { results: st5, par: PAR5, cr: CR5 },
   ];
-  const getRoundStandard = (par) => par * COUNTED_SCORES;
+  const getRoundStandard = (cr) => cr * COUNTED_SCORES;
 
   const getOverParValues = (name) => {
     const values = [];
     for (const round of roundData) {
       const entry = round.results.find(x => x.name === name);
-      if (entry) values.push(entry.ts - getRoundStandard(round.par));
+      if (entry) values.push(Math.round(entry.ts - getRoundStandard(round.cr)));
     }
     return values;
   };
@@ -923,159 +935,39 @@ export default function App() {
   };
 
   const standardSummary = roundData
-    .map((round, idx) => `ST${idx + 1}: ${getRoundStandard(round.par)}`)
+    .map((round, idx) => `ST${idx + 1}: ${Math.round(getRoundStandard(round.cr))}`)
     .join(" | ");
   const standings = allTeams.map(name => {
     const tie = buildTieBreakProfile(name);
     return {
       name,
-      p1: p1[name], p2: p2[name], p3: p3[name], p4: p4[name],
-      total: p1[name] + p2[name] + p3[name] + p4[name],
+      p1: p1[name], p2: p2[name], p3: p3[name], p4: p4[name], p5: p5[name],
+      total: p1[name] + p2[name] + p3[name] + p4[name] + p5[name],
       overPar: tie.totalOverPar,
       tie,
     };
   }).sort(compareByOfficialRule);
 
+  const champion = standings[0];
+
+  // Punkte-/Schlagstand nach 4 Spieltagen (für den Live-Tab am 5. Spieltag)
   const pointsAfter4 = Object.fromEntries(
     allTeams.map(name => [name, (p1[name] || 0) + (p2[name] || 0) + (p3[name] || 0) + (p4[name] || 0)])
   );
   const overParAfter4 = Object.fromEntries(
     allTeams.map(name => {
-      const tie = buildTieBreakProfile(name);
-      return [name, tie.totalOverPar];
+      const values = [];
+      for (const round of roundData.slice(0, 4)) {
+        const entry = round.results.find(x => x.name === name);
+        if (entry) values.push(Math.round(entry.ts - getRoundStandard(round.cr)));
+      }
+      return [name, values.reduce((a, v) => a + v, 0)];
     })
   );
-  const bostalseeGapNeeded = Object.fromEntries(
-    allTeams
-      .filter(name => name !== "GC Bostalsee")
-      .map(name => [name, Math.max(0, overParAfter4["GC Bostalsee"] - overParAfter4[name] + 1)])
-  );
-
-  const permute = (arr) => {
-    if (arr.length <= 1) return [arr];
-    const out = [];
-    for (let i = 0; i < arr.length; i++) {
-      const rest = arr.slice(0, i).concat(arr.slice(i + 1));
-      const restPerms = permute(rest);
-      for (const p of restPerms) out.push([arr[i], ...p]);
-    }
-    return out;
-  };
-
-  const rankPoints = { 1: 5, 2: 4, 3: 3, 4: 2, 5: 1 };
-  const opponents = allTeams.filter(t => t !== "GC Bostalsee");
-  const permutations = permute(opponents);
-
-  const championshipByBostalseePos = [1, 2, 3, 4, 5].map((bPos) => {
-    const remainingPlaces = [1, 2, 3, 4, 5].filter(p => p !== bPos);
-    let total = 0;
-    let automatic = 0;
-    let tiebreak = 0;
-
-    for (const perm of permutations) {
-      const placeMap = { "GC Bostalsee": bPos };
-      for (let i = 0; i < perm.length; i++) placeMap[perm[i]] = remainingPlaces[i];
-
-      const finalPoints = {};
-      for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
-
-      const maxPoints = Math.max(...Object.values(finalPoints));
-      const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
-
-      if (!leaders.includes("GC Bostalsee")) continue;
-
-      total += 1;
-      if (leaders.length === 1) automatic += 1;
-      else tiebreak += 1;
-    }
-
-    return { bPos, total, automatic, tiebreak };
-  });
-
-  const b1 = championshipByBostalseePos.find(x => x.bPos === 1);
-  const b2 = championshipByBostalseePos.find(x => x.bPos === 2);
-
-  // GC Bostalsee holt Heimsieg (wird 1.) - Ausgang je nach Team auf Platz 2
-  const bos1ByRunnerUp = opponents.map(runnerUp => {
-    const remaining = opponents.filter(t => t !== runnerUp);
-    const remPerms = permute(remaining);
-    let total = 0, automatic = 0, tiebreak = 0;
-
-    for (const perm of remPerms) {
-      const placeMap = { "GC Bostalsee": 1, [runnerUp]: 2 };
-      perm.forEach((team, i) => { placeMap[team] = i + 3; });
-
-      const finalPoints = {};
-      for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
-
-      const maxPoints = Math.max(...Object.values(finalPoints));
-      const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
-
-      if (!leaders.includes("GC Bostalsee")) continue;
-      total += 1;
-      if (leaders.length === 1) automatic += 1;
-      else tiebreak += 1;
-    }
-
-    return { runnerUp, total, automatic, tiebreak, count: remPerms.length };
-  });
-
-  // GC Bostalsee wird 2. - Ausgang je nach Team auf Platz 1
-  const bos2ByWinner = opponents.map(winner => {
-    const remaining = opponents.filter(t => t !== winner);
-    const remPerms = permute(remaining);
-    let total = 0, automatic = 0, tiebreak = 0;
-
-    for (const perm of remPerms) {
-      const placeMap = { "GC Bostalsee": 2, [winner]: 1 };
-      perm.forEach((team, i) => { placeMap[team] = i + 3; });
-
-      const finalPoints = {};
-      for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
-
-      const maxPoints = Math.max(...Object.values(finalPoints));
-      const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
-
-      if (!leaders.includes("GC Bostalsee")) continue;
-      total += 1;
-      if (leaders.length === 1) automatic += 1;
-      else tiebreak += 1;
-    }
-
-    return { winner, total, automatic, tiebreak, count: remPerms.length };
-  });
-
-  // Bei gemischtem Ausgang (weder immer noch nie Meister): Aufschlüsselung nach Team auf Platz 3
-  const bos2ThirdPlaceDetail = (winner) => {
-    const remaining = opponents.filter(t => t !== winner);
-    return remaining.map(thirdPlace => {
-      const rest = remaining.filter(t => t !== thirdPlace);
-      const restPerms = permute(rest);
-      let total = 0, automatic = 0, tiebreak = 0;
-
-      for (const perm of restPerms) {
-        const placeMap = { "GC Bostalsee": 2, [winner]: 1, [thirdPlace]: 3 };
-        perm.forEach((team, i) => { placeMap[team] = i + 4; });
-
-        const finalPoints = {};
-        for (const team of allTeams) finalPoints[team] = pointsAfter4[team] + rankPoints[placeMap[team]];
-
-        const maxPoints = Math.max(...Object.values(finalPoints));
-        const leaders = allTeams.filter(team => finalPoints[team] === maxPoints);
-
-        if (!leaders.includes("GC Bostalsee")) continue;
-        total += 1;
-        if (leaders.length === 1) automatic += 1;
-        else tiebreak += 1;
-      }
-
-      return { thirdPlace, total, automatic, tiebreak, count: restPerms.length };
-    });
-  };
 
   // Compute per-player averages
   const playersWithAvg = players.map(p => {
-    const leagueScores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3], [p.s4, p.p4, PAR4]]
+    const leagueScores = [[p.s1, p.p1, PAR1], [p.s2, p.p2, PAR2], [p.s3, p.p3, PAR3], [p.s4, p.p4, PAR4], [p.s5, p.p5, PAR5]]
       .filter(([s]) => s != null);
     const fsHinScores = (inclFS && p.sf != null && p.pf != null) ? [[p.sf, p.pf, PAR_FS_H]] : [];
     const fsRueckScores = (inclFS && p.sr != null && p.pr != null) ? [[p.sr, p.pr, PAR_FS_R]] : [];
@@ -1110,21 +1002,21 @@ export default function App() {
       const soll2 = p.p2 != null ? PAR2 + p.p2 : null;
       const soll3 = p.p3 != null ? PAR3 + p.p3 : null;
       const soll4 = p.p4 != null ? PAR4 + p.p4 : null;
+      const soll5 = p.p5 != null ? PAR5 + p.p5 : null;
       const d1 = p.p1 != null && p.s1 != null ? p.s1 - soll1 : null;
       const d2 = p.p2 != null && p.s2 != null ? p.s2 - soll2 : null;
       const d3 = p.p3 != null && p.s3 != null ? p.s3 - soll3 : null;
       const d4 = p.p4 != null && p.s4 != null ? p.s4 - soll4 : null;
-      const deltas = [d1, d2, d3, d4].filter(d => d != null);
+      const d5 = p.p5 != null && p.s5 != null ? p.s5 - soll5 : null;
+      const deltas = [d1, d2, d3, d4, d5].filter(d => d != null);
       const rawScores = [p.s1, p.s2, p.s3, p.s4].filter(s => s != null);
-      const avgScore = rawScores.length > 0 ? rawScores.reduce((a, s) => a + s, 0) / rawScores.length : null;
+      const allRawScores = [p.s1, p.s2, p.s3, p.s4, p.s5].filter(s => s != null);
+      const avgScore = allRawScores.length > 0 ? allRawScores.reduce((a, s) => a + s, 0) / allRawScores.length : null;
       const avgDelta = deltas.length > 0 ? deltas.reduce((a, d) => a + d, 0) / deltas.length : null;
-      const entered5 = Object.prototype.hasOwnProperty.call(day5Results, p.name);
-      const raw5 = entered5 ? day5Results[p.name] : undefined;
-      const nr5 = entered5 && raw5 === null;
-      const s5 = entered5 && !nr5 ? raw5 : null;
-      const d5 = s5 != null ? s5 - PAR5 : null;
+      const entered5 = p.p5 != null;
+      const nr5 = entered5 && p.s5 == null;
       const neu5 = day5NameSet.has(p.name) && rawScores.length === 0;
-      return { ...p, soll1, soll2, soll3, soll4, d1, d2, d3, d4, s5, d5, entered5, nr5, neu5, avgScore, avgDelta, played: rawScores.length };
+      return { ...p, soll1, soll2, soll3, soll4, soll5, d1, d2, d3, d4, d5, entered5, nr5, neu5, avgScore, avgDelta, played: rawScores.length };
     })
     .filter(p => !alleNurNeu5 || p.neu5)
     .sort((a, b) => {
@@ -1146,10 +1038,10 @@ export default function App() {
     setTvScaleMode((prev) => (prev === "off" ? "m" : prev === "m" ? "l" : "off"));
   };
   const tvModeLabel = tvScaleMode === "off" ? "TV Modus: Aus" : tvScaleMode === "m" ? "TV Modus: M" : "TV Modus: L";
-  const fRoundDelta = (stData, name, par) => {
+  const fRoundDelta = (stData, name, cr) => {
     const entry = stData.find(x => x.name === name);
     if (!entry) return <span style={{ color: "#2d3748" }}>—</span>;
-    const delta = entry.ts - (par * 6);
+    const delta = Math.round(entry.ts - (cr * 6));
     const color = delta <= 0 ? C2 : delta <= 5 ? AMB : RED;
     return <span style={{ color, fontWeight: 700 }}>{delta >= 0 ? "+" : ""}{delta}</span>;
   };
@@ -1300,24 +1192,24 @@ export default function App() {
       {page === "gesamt" && (
         <>
           <div style={{ ...css.card, borderRadius: "0 8px 8px 8px" }}>
-            <div style={css.sec}>Gesamttabelle nach 4 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
+            <div style={css.sec}>Gesamttabelle · Endstand nach 5 Spieltagen · Punkte: 1. Platz = 5 Pkt, bei Gleichstand geteilt</div>
             <div style={{ overflowX: "auto" }}>
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
                   <th rowSpan={2} style={{ ...css.th, textAlign: "left", verticalAlign: "bottom", paddingBottom: 9 }}>Pos.</th>
                   <th rowSpan={2} style={{ ...css.th, textAlign: "left", verticalAlign: "bottom", paddingBottom: 9 }}>Mannschaft</th>
-                  {[["1. Spieltag (09.05.)", C1], ["2. Spieltag (23.05.)", C2], ["3. Spieltag (06.06.)", C3], ["4. Spieltag (20.06.)", C4]].map(([l, c]) => (
+                  {[["1. Spieltag (09.05.)", C1], ["2. Spieltag (23.05.)", C2], ["3. Spieltag (06.06.)", C3], ["4. Spieltag (20.06.)", C4], ["5. Spieltag (15.08.)", AMB]].map(([l, c]) => (
                     <th key={l} colSpan={3} style={{ ...css.th, textAlign: "center", color: c, borderBottom: `2px solid ${c}`, padding: "9px 6px 4px" }}>{l}</th>
                   ))}
                   <th rowSpan={2} style={{ ...css.th, background: "#161d2c", verticalAlign: "bottom", paddingBottom: 9 }}>Gesamt</th>
-                  <th rowSpan={2} style={{ ...css.th, background: "#161d2c", verticalAlign: "bottom", paddingBottom: 9 }}>Schläge über Par</th>
+                  <th rowSpan={2} style={{ ...css.th, background: "#161d2c", verticalAlign: "bottom", paddingBottom: 9 }}>+/- ggü. CR</th>
                 </tr>
                 <tr>
-                  {[C1, C2, C3, C4].map((c, i) => (
+                  {[C1, C2, C3, C4, AMB].map((c, i) => (
                     <Fragment key={i}>
                       <th style={{ ...css.th, color: c }}>Score</th>
-                      <th style={css.th}>±Par</th>
+                      <th style={css.th}>+/-</th>
                       <th style={css.th}>Pkt</th>
                     </Fragment>
                   ))}
@@ -1343,19 +1235,22 @@ export default function App() {
                       <td style={{ ...css.td, textAlign: "left", width: 40 }}>
                         <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: posBg, color: posColor, fontWeight: 700, fontSize: 12 }}>{idx + 1}</span>
                       </td>
-                      <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isRelegation ? RED : isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}{isRelegation ? " ↓" : ""}</td>
+                      <td style={{ ...css.td, textAlign: "left", fontWeight: 700, fontSize: 14, color: isRelegation ? RED : isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}{isTop ? " 🏆" : ""}{isRelegation ? " ↓" : ""}</td>
                       <td style={css.td}>{fScore(st1, t.name, C1)}</td>
-                      <td style={css.td}>{fRoundDelta(st1, t.name, PAR1)}</td>
+                      <td style={css.td}>{fRoundDelta(st1, t.name, CR1)}</td>
                       <td style={css.td}>{fPts(t.p1)}</td>
                       <td style={css.td}>{fScore(st2, t.name, C2)}</td>
-                      <td style={css.td}>{fRoundDelta(st2, t.name, PAR2)}</td>
+                      <td style={css.td}>{fRoundDelta(st2, t.name, CR2)}</td>
                       <td style={css.td}>{fPts(t.p2)}</td>
                       <td style={css.td}>{fScore(st3, t.name, C3)}</td>
-                      <td style={css.td}>{fRoundDelta(st3, t.name, PAR3)}</td>
+                      <td style={css.td}>{fRoundDelta(st3, t.name, CR3)}</td>
                       <td style={css.td}>{fPts(t.p3)}</td>
                       <td style={css.td}>{fScore(st4, t.name, C4)}</td>
-                      <td style={css.td}>{fRoundDelta(st4, t.name, PAR4)}</td>
+                      <td style={css.td}>{fRoundDelta(st4, t.name, CR4)}</td>
                       <td style={css.td}>{fPts(t.p4)}</td>
+                      <td style={css.td}>{fScore(st5, t.name, AMB)}</td>
+                      <td style={css.td}>{fRoundDelta(st5, t.name, CR5)}</td>
+                      <td style={css.td}>{fPts(t.p5)}</td>
                       <td style={{ ...css.td, background: "#161d2c", fontWeight: 700, fontSize: 15, color: isTop ? C2 : isRelegation ? RED : "#e2e8f0" }}>
                         {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
                       </td>
@@ -1368,141 +1263,41 @@ export default function App() {
               </tbody>
               </table>
             </div>
-            <div style={css.note}>Legende: + = über Par, − = unter Par. Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter Par aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. Platzstandards: {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
+            <div style={css.note}>Legende: + = über Course Rating (CR), − = unter CR – wie auf den offiziellen Wertungszetteln (Brutto-Mannschaftswertung). Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter CR aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. CR-Sollwerte (6×): {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
           </div>
 
           <div style={{ ...css.card, borderRadius: 8 }}>
-            <div style={css.sec}>Unsere Meisterschafts-Konstellationen</div>
-            {(() => {
-              const target = new Date("2026-08-15T00:00:00");
-              const now = new Date();
-              const diffMs = target - now;
-              const diffDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-              return (
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: isMobile ? "12px 10px" : "14px 20px", background: "linear-gradient(135deg, #0f1e36 0%, #1a0e2e 100%)", borderBottom: "1px solid #2a3b59" }}>
-                  <div style={{ textAlign: "center" }}>
-                    <div style={{ fontSize: isMobile ? 36 : 52, fontWeight: 900, color: diffDays <= 14 ? "#f87171" : diffDays <= 30 ? "#fbbf24" : "#60a5fa", lineHeight: 1, fontVariantNumeric: "tabular-nums", letterSpacing: -2 }}>
-                      {diffDays}
-                    </div>
-                    <div style={{ fontSize: 10, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 1.5, marginTop: 4 }}>
-                      {diffDays === 1 ? "Tag" : "Tage"}
-                    </div>
-                  </div>
-                  <div style={{ borderLeft: "1px solid #2a3b59", paddingLeft: 16 }}>
-                    <div style={{ fontSize: isMobile ? 11 : 13, color: "#e2e8f0", fontWeight: 700, marginBottom: 2 }}>bis zur Meisterschaftsentscheidung</div>
-                    <div style={{ fontSize: isMobile ? 10 : 11, color: "#64748b" }}>15. August 2026 · 5. Spieltag</div>
-                  </div>
+            <div style={css.sec}>Saisonfinale 2026 · Endergebnis</div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: isMobile ? "16px 10px" : "20px", background: "linear-gradient(135deg, #0f1e36 0%, #1a0e2e 100%)", borderBottom: "1px solid #2a3b59", textAlign: "center" }}>
+              <div>
+                <div style={{ fontSize: 11, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 2, marginBottom: 6 }}>Meister AK30 2026</div>
+                <div style={{ fontSize: isMobile ? 22 : 30, fontWeight: 900, color: "#fde68a" }}>🏆 {champion.name}</div>
+                <div style={{ fontSize: 12, color: "#7dd3a8", marginTop: 6 }}>
+                  {champion.total % 1 === 0 ? champion.total.toFixed(0) : champion.total.toFixed(1)} Punkte nach 5 Spieltagen
                 </div>
-              );
-            })()}
-            <div style={{ padding: isMobile ? 10 : 14, display: "grid", gap: isMobile ? 10 : 12 }}>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: 10, alignItems: "start" }}>
-              <div style={{ background: "#10251a", border: "1px solid #1f4d35", borderRadius: 8, padding: 10 }}>
-                <div style={{ color: "#d1fae5", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee holt Heimsieg</div>
-                <div style={{ color: "#7dd3a8", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
-                  {b1.total} von 24 Konstellationen sind meisterschaftstauglich ({b1.automatic} direkt über Punkte, {b1.tiebreak} über Tie-Breaker).
-                </div>
-                <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                    <thead>
-                      <tr>
-                        <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>2. Platz</th>
-                        <th style={{ ...css.th, textAlign: "left", color: "#7dd3a8", borderBottom: "2px solid #1f4d35" }}>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {bos1ByRunnerUp.map(sc => {
-                        const safe = sc.automatic === sc.count;
-                        const none = sc.total === 0;
-                        const color = safe ? C2 : none ? RED : AMB;
-                        const icon = safe ? "✓" : none ? "✗" : "⚠";
-                        let label;
-                        if (safe) label = "Meister sicher";
-                        else if (none) label = "Keine Meisterschaft";
-                        else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.runnerUp]} Schläge besser`;
-                        else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
-                        return (
-                          <tr key={sc.runnerUp} style={{ borderBottom: "1px solid #1f4d35" }}>
-                            <td style={{ ...css.td, textAlign: "left", color: "#d1fae5", fontWeight: 600, padding: "6px 4px" }}>{sc.runnerUp}</td>
-                            <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div style={{ background: "#2a1d10", border: "1px solid #6b3f16", borderRadius: 8, padding: 10 }}>
-                <div style={{ color: "#fde68a", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4, marginBottom: 8 }}>GC Bostalsee wird 2.</div>
-                <div style={{ color: "#fbbf24", fontSize: isMobile ? 10 : 11, lineHeight: 1.5, marginBottom: 6 }}>
-                  {b2.total} von 24 Konstellationen sind meisterschaftstauglich ({b2.automatic} direkt über Punkte, {b2.tiebreak} über Tie-Breaker).
-                </div>
-                <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                    <thead>
-                      <tr>
-                        <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>1. Platz</th>
-                        <th style={{ ...css.th, textAlign: "left", color: "#fbbf24", borderBottom: "2px solid #6b3f16" }}>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {bos2ByWinner.map(sc => {
-                        const safe = sc.automatic === sc.count;
-                        const none = sc.total === 0;
-                        const mixed = !safe && !none;
-                        const color = safe ? C2 : none ? RED : AMB;
-                        const icon = safe ? "✓" : none ? "✗" : "⚠";
-                        let label;
-                        if (safe) label = "Meister sicher";
-                        else if (none) label = "Keine Meisterschaft";
-                        else if (sc.tiebreak === sc.count) label = `Tie-Break: mind. ${bostalseeGapNeeded[sc.winner]} Schläge besser`;
-                        else label = `${sc.total} von ${sc.count} Fällen (abhängig von Platz 3-5)`;
-                        const detail = mixed ? bos2ThirdPlaceDetail(sc.winner) : null;
-                        return (
-                          <Fragment key={sc.winner}>
-                            <tr style={{ borderBottom: mixed ? "none" : "1px solid #6b3f16" }}>
-                              <td style={{ ...css.td, textAlign: "left", color: "#fde68a", fontWeight: 600, padding: "6px 4px" }}>{sc.winner}</td>
-                              <td style={{ ...css.td, textAlign: "left", color, fontWeight: 700, padding: "6px 4px" }}>{icon} {label}</td>
-                            </tr>
-                            {mixed && (
-                              <tr style={{ borderBottom: "1px solid #6b3f16" }}>
-                                <td colSpan={2} style={{ padding: "0 4px 8px" }}>
-                                  <div style={{ display: "grid", gap: 3, paddingLeft: 10, borderLeft: "2px solid #6b3f16" }}>
-                                    {detail.map(d => {
-                                      const dSafe = d.automatic === d.count;
-                                      const dNone = d.total === 0;
-                                      const dColor = dSafe ? C2 : dNone ? RED : AMB;
-                                      const dIcon = dSafe ? "✓" : dNone ? "✗" : "⚠";
-                                      let dLabel;
-                                      if (dSafe) dLabel = "Meister sicher";
-                                      else if (dNone) dLabel = "Keine Meisterschaft";
-                                      else if (d.tiebreak === d.count) dLabel = `Tie-Break: mind. ${bostalseeGapNeeded[d.thirdPlace]} Schläge besser`;
-                                      else dLabel = `${d.total} von ${d.count} Fällen`;
-                                      return (
-                                        <div key={d.thirdPlace} style={{ fontSize: isMobile ? 10 : 11 }}>
-                                          <span style={{ color: "#fbbf24", fontWeight: 600 }}>3. {d.thirdPlace}: </span>
-                                          <span style={{ color: dColor, fontWeight: 700 }}>{dIcon} {dLabel}</span>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                </td>
-                              </tr>
-                            )}
-                          </Fragment>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div style={{ background: "#2a1515", border: "1px solid #7f1d1d", borderRadius: 8, padding: 10 }}>
-                <div style={{ fontSize: 10, color: "#fca5a5", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 4 }}>GC Bostalsee wird 3. oder schlechter</div>
-                <div style={{ color: "#fecaca", fontWeight: 700, fontSize: isMobile ? 12 : 13, lineHeight: 1.4 }}>GC Bostalsee auf Platz 3, 4 oder 5: keine Meisterschaft mehr möglich.</div>
               </div>
             </div>
+            <div style={{ padding: isMobile ? 10 : 14 }}>
+              <div style={{ display: "grid", gap: 6 }}>
+                {standings.map((t, idx) => {
+                  const isBos = t.name === "GC Bostalsee";
+                  const isTop = idx === 0;
+                  const isRelegation = idx === standings.length - 1;
+                  return (
+                    <div key={t.name} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", borderRadius: 6, background: isBos ? "#12192a" : "#10141f", border: isTop ? "1px solid #3f3418" : "1px solid #1e2a3a" }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: isTop ? "#3f3418" : "#1e2a3a", color: isTop ? "#fde68a" : isRelegation ? RED : "#94a3b8", fontWeight: 700, fontSize: 12, flexShrink: 0 }}>{idx + 1}</span>
+                      <span style={{ flex: 1, fontWeight: 700, fontSize: 13, color: isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}</span>
+                      <span style={{ fontSize: 12, color: "#64748b" }}>+{t.overPar} ggü. CR</span>
+                      <span style={{ fontWeight: 700, fontSize: 14, color: isTop ? "#fde68a" : "#cbd5e1", minWidth: 34, textAlign: "right" }}>
+                        {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div style={{ ...css.note, borderTop: "none", paddingLeft: 0, paddingRight: 0 }}>
+                Tie-Break Platz 3/4: gleiche Punktzahl, entscheidend war die Gesamtschlagzahl gegenüber Course Rating aller 5 Spieltage. Platz 5 (EGC Westpfalz) steigt ab.
+              </div>
             </div>
           </div>
         </>
@@ -1537,11 +1332,11 @@ export default function App() {
 
           {sub === "ms" && (
             <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "0 16px" }}>
-              <TeamTable data={st1} par={PAR1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127" />
-              <TeamTable data={st2} par={PAR2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134" />
-              <TeamTable data={st3} par={PAR3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135" />
-              <TeamTable data={st4} par={PAR4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72" />
-              <TeamTable data={st5} par={PAR5} title="Spieltag 5 – 15.08. · GC Bostalsee · Par 71" />
+              <TeamTable data={st1} par={PAR1} cr={CR1} title="Spieltag 1 – 09.05. · GC Katharinenhof · Par 71 · Slope 127 · CR 70,3" />
+              <TeamTable data={st2} par={PAR2} cr={CR2} title="Spieltag 2 – 23.05. · GC Kurpfalz · Par 72 · Slope 134 · CR 72,1" />
+              <TeamTable data={st3} par={PAR3} cr={CR3} title="Spieltag 3 – 06.06. · GC Barbarossa · Par 74 · Slope 135 · CR 72,9" />
+              <TeamTable data={st4} par={PAR4} cr={CR4} title="Spieltag 4 – 20.06. · Erster GC Westpfalz · Par 72 · CR 71,1" />
+              <TeamTable data={st5} par={PAR5} cr={CR5} title="Spieltag 5 – 15.08. · GC Bostalsee · Par 71 · Slope 135 · CR 70,1" />
             </div>
           )}
 
@@ -1589,6 +1384,10 @@ export default function App() {
                       <th style={{ ...css.th, background: "#102016", color: C2, display: isMobile ? "none" : undefined }}>FS-R Soll</th>
                       <th style={{ ...css.th, background: "#102016", color: C2 }}>FS-R Sc</th>
                       <th style={{ ...css.th, background: "#102016", color: C2 }}>FS-R Δ</th>
+                      <th style={{ ...css.th, color: AMB, display: isMobile ? "none" : undefined }}>ST5 PHCP</th>
+                      <th style={{ ...css.th, color: AMB, display: isMobile ? "none" : undefined }}>ST5 Soll</th>
+                      <th style={{ ...css.th, color: AMB }}>ST5 Sc</th>
+                      <th style={{ ...css.th, color: AMB }}>ST5 Δ</th>
                       <th style={{ ...css.th, background: "#161d2c" }}>Ø Score</th>
                       <th style={{ ...css.th, background: "#161d2c" }}>Ø Δ</th>
                     </tr>
@@ -1599,6 +1398,7 @@ export default function App() {
                       const d2 = p.p2 != null && p.s2 != null ? p.s2 - (PAR2 + p.p2) : null;
                       const d3 = p.p3 != null && p.s3 != null ? p.s3 - (PAR3 + p.p3) : null;
                       const d4 = p.p4 != null && p.s4 != null ? p.s4 - (PAR4 + p.p4) : null;
+                      const d5 = p.p5 != null && p.s5 != null ? p.s5 - (PAR5 + p.p5) : null;
                       const dfh = p.pf != null && p.sf != null ? p.sf - (PAR_FS_H + p.pf) : null;
                       const dfr = p.pr != null && p.sr != null ? p.sr - (PAR_FS_R + p.pr) : null;
                       const fV = (v, str) => v == null
@@ -1640,6 +1440,10 @@ export default function App() {
                           <td style={{ ...css.td, background: "#102016", display: mob }}>{fS(p.pr, PAR_FS_R, false)}</td>
                           <td style={{ ...css.td, background: "#102016" }}>{fV(p.sr, false)}</td>
                           <td style={{ ...css.td, background: "#102016" }}>{fD(dfr, false)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p5, p.str5)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p5, PAR5, p.str5)}</td>
+                          <td style={css.td}>{fV(p.s5, p.str5)}</td>
+                          <td style={css.td}>{fD(d5, p.str5)}</td>
                           <td style={{ ...css.td, background: "#161d2c", color: avgScoreColor, fontWeight: 700 }}>
                             {p.avgScore != null ? p.avgScore.toFixed(1) : <span style={{ color: "#2d3748" }}>—</span>}
                           </td>
@@ -1652,7 +1456,7 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
-              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS-H = Freundschaftsspiel Hinspiel Mommenheim 21.03. · FS-R = Freundschaftsspiel Rückspiel 02.08. · Ø {inclFS ? "inkl. Freundschaftsspiele" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · FS-H = Freundschaftsspiel Hinspiel Mommenheim 21.03. · FS-R = Freundschaftsspiel Rückspiel 02.08. · ST5 = Spieltag 5, 15.08. GC Bostalsee (Endergebnis) · Ø {inclFS ? "inkl. Freundschaftsspiele" : "nur Ligaspiele"}{isMobile ? " · PHCP/Soll ausgeblendet" : " · Ausgegraut = Streicher"}</div>
             </div>
           )}
 
@@ -1728,8 +1532,10 @@ export default function App() {
                             {sortTh("soll4", { color: C4, ...mobHide })}
                             {sortTh("s4", { color: C4 })}
                             {sortTh("d4", { color: C4 })}
-                            {sortTh("s5", { color: C2 })}
-                            {sortTh("d5", { color: C2 })}
+                            {sortTh("p5", { color: AMB, ...mobHide })}
+                            {sortTh("soll5", { color: AMB, ...mobHide })}
+                            {sortTh("s5", { color: AMB })}
+                            {sortTh("d5", { color: AMB })}
                             {sortTh("avgScore", { background: "#161d2c" })}
                             {sortTh("avgDelta", { background: "#161d2c" })}
                           </>
@@ -1739,7 +1545,7 @@ export default function App() {
                   </thead>
                   <tbody>
                     {allPlayersWithAvg.map((p, idx) => {
-                      const { d1, d2, d3, d4 } = p;
+                      const { d1, d2, d3, d4, d5 } = p;
                       const fV = (v, str) => v == null
                         ? <span style={{ color: "#2d3748" }}>—</span>
                         : <span style={{ opacity: str ? 0.4 : 1 }}>{v}</span>;
@@ -1752,11 +1558,8 @@ export default function App() {
                       const f5 = !p.entered5
                         ? <span style={{ color: "#2d3748" }}>—</span>
                         : p.nr5
-                          ? <span style={{ color: RED, fontWeight: 600 }}>NR</span>
-                          : <span>{p.s5}</span>;
-                      const fD5 = p.d5 == null
-                        ? <span style={{ color: "#2d3748" }}>—</span>
-                        : <span style={{ color: dColor(p.d5), fontWeight: 600 }}>{p.d5 >= 0 ? "+" : ""}{p.d5}</span>;
+                          ? <span style={{ color: RED, fontWeight: 600, opacity: p.str5 ? 0.4 : 1 }}>NR</span>
+                          : <span style={{ opacity: p.str5 ? 0.4 : 1 }}>{p.s5}</span>;
                       const avgScoreColor = p.avgScore != null ? (p.avgScore < 85 ? C2 : p.avgScore < 92 ? AMB : RED) : "#2d3748";
                       const avgDeltaColor = p.avgDelta != null ? dColor(Math.round(p.avgDelta)) : "#2d3748";
                       const mob = isMobile ? "none" : undefined;
@@ -1782,8 +1585,10 @@ export default function App() {
                           <td style={{ ...css.td, display: mob }}>{fS(p.p4, PAR4, p.str4)}</td>
                           <td style={css.td}>{fV(p.s4, p.str4)}</td>
                           <td style={css.td}>{fD(d4, p.str4)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fV(p.p5, p.str5)}</td>
+                          <td style={{ ...css.td, display: mob }}>{fS(p.p5, PAR5, p.str5)}</td>
                           <td style={css.td}>{f5}</td>
-                          <td style={css.td}>{fD5}</td>
+                          <td style={css.td}>{fD(d5, p.str5)}</td>
                           <td style={{ ...css.td, background: "#161d2c", color: avgScoreColor, fontWeight: 700 }}>
                             {p.avgScore != null ? p.avgScore.toFixed(1) : <span style={{ color: "#2d3748" }}>—</span>}
                           </td>
@@ -1801,7 +1606,7 @@ export default function App() {
                   </div>
                 )}
               </div>
-              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · Ø nur Ligaspiele (ST1-ST4) · ST5 live aus Live-Eingabe (ohne PHCP, Δ ggü. Par {PAR5}) · ST5-Neuzugänge = in ST5-Startliste, aber ohne Einsatz in ST1-4 · {isMobile ? "PHCP/Soll ausgeblendet" : "Ausgegraut = Streicher"} · {allPlayersWithAvg.length} von {allPlayers.length} Spielern</div>
+              <div style={css.note}>Grün = unter/auf Erwartung · Gelb ≤ +5 · Rot &gt; +5 · Ø über alle gespielten Spieltage (ST1-ST5) · ST5 = Spieltag 5, 15.08. GC Bostalsee (Endergebnis) · NR = kein Rückgabe-/Wertungsergebnis (Disq. oder No Return) · ST5-Neuzugänge = in ST5-Startliste, aber ohne Einsatz in ST1-4 · {isMobile ? "PHCP/Soll ausgeblendet" : "Ausgegraut = Streicher"} · {allPlayersWithAvg.length} von {allPlayers.length} Spielern</div>
             </div>
           )}
         </div>
