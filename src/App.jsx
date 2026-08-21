@@ -1,7 +1,15 @@
 import { useState, useEffect, Fragment } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const C1 = "#60a5fa", C2 = "#34d399", C3 = "#a78bfa", C4 = "#fb923c", RED = "#f87171", AMB = "#fbbf24";
+
+const TEAM_COLORS = {
+  "GC Bostalsee": C1,
+  "GC Kurpfalz": C2,
+  "GC Katharinenhof": C3,
+  "GC Barbarossa": C4,
+  "EGC Westpfalz": AMB,
+};
 
 const AUTH_PASS = import.meta.env.VITE_AUTH_PASS || null;
 const STORAGE_KEY = "ak30_auth";
@@ -948,8 +956,6 @@ export default function App() {
     };
   }).sort(compareByOfficialRule);
 
-  const champion = standings[0];
-
   // Punkte-/Schlagstand nach 4 Spieltagen (für den Live-Tab am 5. Spieltag)
   const pointsAfter4 = Object.fromEntries(
     allTeams.map(name => [name, (p1[name] || 0) + (p2[name] || 0) + (p3[name] || 0) + (p4[name] || 0)])
@@ -964,6 +970,34 @@ export default function App() {
       return [name, values.reduce((a, v) => a + v, 0)];
     })
   );
+
+  // Saisonverlauf je Mannschaft: Tabellenposition und kumulierte Schläge über Par pro Spieltag
+  const seasonProgressData = (() => {
+    const pointsByRound = [p1, p2, p3, p4, p5];
+    const cumPoints = Object.fromEntries(allTeams.map(name => [name, 0]));
+    const cumOverPar = Object.fromEntries(allTeams.map(name => [name, 0]));
+
+    return roundData.map((round, idx) => {
+      allTeams.forEach(name => {
+        cumPoints[name] += pointsByRound[idx][name] || 0;
+        const entry = round.results.find(x => x.name === name);
+        cumOverPar[name] += entry ? Math.round(entry.ts - getRoundStandard(round.cr)) : 0;
+      });
+
+      const ranked = [...allTeams].sort((a, b) => {
+        if (cumPoints[b] !== cumPoints[a]) return cumPoints[b] - cumPoints[a];
+        if (cumOverPar[a] !== cumOverPar[b]) return cumOverPar[a] - cumOverPar[b];
+        return a.localeCompare(b, "de");
+      });
+
+      const row = { st: `ST${idx + 1}` };
+      allTeams.forEach(name => {
+        row[`${name}__pos`] = ranked.indexOf(name) + 1;
+        row[`${name}__over`] = cumOverPar[name];
+      });
+      return row;
+    });
+  })();
 
   // Compute per-player averages
   const playersWithAvg = players.map(p => {
@@ -1266,38 +1300,70 @@ export default function App() {
             <div style={css.note}>Legende: + = über Course Rating (CR), − = unter CR – wie auf den offiziellen Wertungszetteln (Brutto-Mannschaftswertung). Offizielle Tie-Break-Regel bei Punktgleichheit: zuerst Gesamtschlagzahl über/unter CR aller Spieltage, dann beste 4, beste 3, beste 2, beste 1. Bei weiterhin vollständiger Gleichheit entscheidet das Los. Falls nicht gleich viele Spieltagsergebnisse vorliegen, wird die Mannschaft mit weniger Ergebnissen schlechter platziert. CR-Sollwerte (6×): {standardSummary}. ST3: GC Barbarossa und GC Katharinenhof schlaggleich (508), je 3,5 Punkte | ST4: GC Kurpfalz gewinnt mit 475 | Platz 5 = Absteiger</div>
           </div>
 
-          <div style={{ ...css.card, borderRadius: 8 }}>
-            <div style={css.sec}>Saisonfinale 2026 · Endergebnis</div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: isMobile ? "16px 10px" : "20px", background: "linear-gradient(135deg, #0f1e36 0%, #1a0e2e 100%)", borderBottom: "1px solid #2a3b59", textAlign: "center" }}>
-              <div>
-                <div style={{ fontSize: 11, color: "#94a3b8", textTransform: "uppercase", letterSpacing: 2, marginBottom: 6 }}>Meister AK30 2026</div>
-                <div style={{ fontSize: isMobile ? 22 : 30, fontWeight: 900, color: "#fde68a" }}>🏆 {champion.name}</div>
-                <div style={{ fontSize: 12, color: "#7dd3a8", marginTop: 6 }}>
-                  {champion.total % 1 === 0 ? champion.total.toFixed(0) : champion.total.toFixed(1)} Punkte nach 5 Spieltagen
-                </div>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
+            <div style={css.card}>
+              <div style={css.sec}>Saisonverlauf · Tabellenposition je Spieltag</div>
+              <div style={{ padding: "14px 14px 4px" }}>
+                <ResponsiveContainer width="100%" height={260}>
+                  <LineChart data={seasonProgressData} margin={{ top: 4, right: 12, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e2a3a" vertical={false} />
+                    <XAxis dataKey="st" tick={{ fill: "#64748b", fontSize: 10, fontWeight: 600 }} axisLine={false} tickLine={false} />
+                    <YAxis
+                      domain={[1, allTeams.length]}
+                      ticks={allTeams.map((_, i) => i + 1)}
+                      reversed
+                      allowDecimals={false}
+                      tick={{ fill: "#374151", fontSize: 10 }}
+                      axisLine={false}
+                      tickLine={false}
+                      width={22}
+                    />
+                    <Tooltip contentStyle={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 6, color: "#e2e8f0", fontSize: 11 }} />
+                    <Legend wrapperStyle={{ fontSize: 10, color: "#64748b", paddingTop: 6 }} />
+                    {allTeams.map(name => (
+                      <Line
+                        key={name}
+                        type="monotone"
+                        dataKey={`${name}__pos`}
+                        name={name}
+                        stroke={TEAM_COLORS[name]}
+                        strokeWidth={name === "GC Bostalsee" ? 3 : 2}
+                        dot={{ r: 3 }}
+                        activeDot={{ r: 5 }}
+                      />
+                    ))}
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
+              <div style={css.note}>Position 1 = Tabellenführung. Stand jeweils nach dem angegebenen Spieltag (kumulierte Punkte, Tie-Break über Schläge ggü. CR).</div>
             </div>
-            <div style={{ padding: isMobile ? 10 : 14 }}>
-              <div style={{ display: "grid", gap: 6 }}>
-                {standings.map((t, idx) => {
-                  const isBos = t.name === "GC Bostalsee";
-                  const isTop = idx === 0;
-                  const isRelegation = idx === standings.length - 1;
-                  return (
-                    <div key={t.name} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 10px", borderRadius: 6, background: isBos ? "#12192a" : "#10141f", border: isTop ? "1px solid #3f3418" : "1px solid #1e2a3a" }}>
-                      <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: 4, background: isTop ? "#3f3418" : "#1e2a3a", color: isTop ? "#fde68a" : isRelegation ? RED : "#94a3b8", fontWeight: 700, fontSize: 12, flexShrink: 0 }}>{idx + 1}</span>
-                      <span style={{ flex: 1, fontWeight: 700, fontSize: 13, color: isBos ? C1 : "#e2e8f0" }}>{t.name}{isBos ? " ★" : ""}</span>
-                      <span style={{ fontSize: 12, color: "#64748b" }}>+{t.overPar} ggü. CR</span>
-                      <span style={{ fontWeight: 700, fontSize: 14, color: isTop ? "#fde68a" : "#cbd5e1", minWidth: 34, textAlign: "right" }}>
-                        {t.total % 1 === 0 ? t.total.toFixed(0) : t.total.toFixed(1)}
-                      </span>
-                    </div>
-                  );
-                })}
+
+            <div style={css.card}>
+              <div style={css.sec}>Saisonverlauf · Schläge über Par (kumuliert, ggü. CR)</div>
+              <div style={{ padding: "14px 14px 4px" }}>
+                <ResponsiveContainer width="100%" height={260}>
+                  <LineChart data={seasonProgressData} margin={{ top: 4, right: 12, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e2a3a" vertical={false} />
+                    <XAxis dataKey="st" tick={{ fill: "#64748b", fontSize: 10, fontWeight: 600 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: "#374151", fontSize: 10 }} axisLine={false} tickLine={false} width={36} />
+                    <Tooltip contentStyle={{ background: "#1a1f2e", border: "1px solid #252d3d", borderRadius: 6, color: "#e2e8f0", fontSize: 11 }} />
+                    <Legend wrapperStyle={{ fontSize: 10, color: "#64748b", paddingTop: 6 }} />
+                    {allTeams.map(name => (
+                      <Line
+                        key={name}
+                        type="monotone"
+                        dataKey={`${name}__over`}
+                        name={name}
+                        stroke={TEAM_COLORS[name]}
+                        strokeWidth={name === "GC Bostalsee" ? 3 : 2}
+                        dot={{ r: 3 }}
+                        activeDot={{ r: 5 }}
+                      />
+                    ))}
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
-              <div style={{ ...css.note, borderTop: "none", paddingLeft: 0, paddingRight: 0 }}>
-                Tie-Break Platz 3/4: gleiche Punktzahl, entscheidend war die Gesamtschlagzahl gegenüber Course Rating aller 5 Spieltage. Platz 5 (EGC Westpfalz) steigt ab.
-              </div>
+              <div style={css.note}>Summe der Schläge über Course Rating (6× CR je Spieltag), aufsummiert über die bisherigen Spieltage.</div>
             </div>
           </div>
         </>
